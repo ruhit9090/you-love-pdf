@@ -318,3 +318,20 @@ main p {
         margin: 0 7px;
     }
 }
+.ad-container {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ad-container iframe {
+    display: inline-block !important;
+    max-width: 100% !important;
+}
+
+@media (max-width: 768px) {
+    .ad-container iframe {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
