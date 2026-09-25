@@ -325,13 +325,15 @@ main p {
 }
 
 .ad-container iframe {
-    display: inline-block !important;
-    max-width: 100% !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
 
+/* Mobile */
 @media (max-width: 768px) {
     .ad-container iframe {
         width: 100% !important;
+        max-width: 100% !important;
         height: auto !important;
     }
 }
