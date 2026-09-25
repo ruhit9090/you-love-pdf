@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Compress PDF - You Love PDF</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+    }
+
+    .header {
+    width: 100%;
+    min-height: 70px;
+    background: #e53935;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid #c62828;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: #ffd6d6;
+}
+
+    .container {
+        max-width: 800px;
+        margin: 70px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
+
+    .upload-box {
+        background: white;
+        border: 2px dashed #d1d5db;
+        border-radius: 16px;
+        padding: 50px 20px;
+    }
+
+    .upload-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .upload-box h2 {
+        margin-bottom: 10px;
+    }
+
+    .upload-box p {
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .upload-button {
+        display: inline-block;
+        background: #e53935;
+        color: white;
+        padding: 13px 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .upload-button:hover {
+        background: #c62828;
+    }
+
+    #pdfFile {
+        display: none;
+    }
+
+    #fileName {
+        margin-top: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    #fileSize {
+        margin-top: 8px;
+        color: #666;
+    }
+
+    #compressButton {
+        display: none;
+        margin-top: 20px;
+        padding: 13px 28px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #compressButton:hover {
+        background: #c62828;
+    }
+
+    #compressButton:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    #status {
+        margin-top: 20px;
+        color: #555;
+        font-weight: bold;
+    }
+
+    #result {
+        margin-top: 15px;
+        color: #333;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: #555;
+    }
+
+    @media (max-width: 768px) {
+.header {
+    min-height: auto;
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.navbar {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+        .container {
+            margin: 40px auto;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .upload-box {
+            padding: 40px 15px;
+        }
+    }
+</style>
+
+<!-- PDF.js -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+    type="module">
+</script>
+
+<!-- PDF-LIB -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js">
+</script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        You Love PDF
+    </div>
+
+    <nav class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <h1>Compress PDF</h1>
+
+    <p class="description">
+        Reduce the size of your PDF file quickly and easily.
+    </p>
+
+    <div class="upload-box">
+
+        <div class="upload-icon">📦</div>
+
+        <h2>Select a PDF file</h2>
+
+        <p>
+            Choose a PDF from your computer to compress.
+        </p>
+
+        <label for="pdfFile" class="upload-button">
+            Select PDF
+        </label>
+
+        <input
+            type="file"
+            id="pdfFile"
+            accept=".pdf">
+
+        <div id="fileName"></div>
+
+        <div id="fileSize"></div>
+
+        <button id="compressButton">
+            Compress PDF
+        </button>
+
+        <div id="status"></div>
+
+        <div id="result"></div>
+
+    </div>
+
+    <a href="../index.html" class="back-button">
+        ← Back to PDF Tools
+    </a>
+
+</main>
+
+
+<script type="module">
+
+    import * as pdfjsLib from
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
+
+    const pdfFile =
+        document.getElementById("pdfFile");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const fileSize =
+        document.getElementById("fileSize");
+
+    const compressButton =
+        document.getElementById("compressButton");
+
+    const status =
+        document.getElementById("status");
+
+    const result =
+        document.getElementById("result");
+
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+
+
+    function formatSize(bytes) {
+
+        if (bytes < 1024) {
+            return bytes.toFixed(0) + " B";
+        }
+
+        if (bytes < 1024 * 1024) {
+            return (bytes / 1024).toFixed(2) + " KB";
+        }
+
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+
+    pdfFile.addEventListener("change", function () {
+
+        if (pdfFile.files.length === 0) {
+            return;
+        }
+
+        const file =
+            pdfFile.files[0];
+
+
+        fileName.textContent =
+            "Selected: " + file.name;
+
+
+        fileSize.textContent =
+            "Original size: " +
+            formatSize(file.size);
+
+
+        compressButton.style.display =
+            "inline-block";
+
+
+        status.textContent = "";
+
+        result.textContent = "";
+
+    });
+
+
+    compressButton.addEventListener(
+        "click",
+        async function () {
+
+            if (pdfFile.files.length === 0) {
+
+                alert(
+                    "Please select a PDF file first."
+                );
+
+                return;
+            }
+
+
+            const file =
+                pdfFile.files[0];
+
+
+            compressButton.disabled =
+                true;
+
+            compressButton.textContent =
+                "Compressing...";
+
+
+            status.textContent =
+                "Reading PDF...";
+
+
+            result.textContent = "";
+
+
+            try {
+
+                const arrayBuffer =
+                    await file.arrayBuffer();
+
+
+                const loadingTask =
+                    pdfjsLib.getDocument({
+                        data: arrayBuffer
+                    });
+
+
+                const pdf =
+                    await loadingTask.promise;
+
+
+                const newPdf =
+                    await PDFLib.PDFDocument.create();
+
+
+                for (
+                    let pageNumber = 1;
+                    pageNumber <= pdf.numPages;
+                    pageNumber++
+                ) {
+
+                    status.textContent =
+                        "Compressing page " +
+                        pageNumber +
+                        " of " +
+                        pdf.numPages +
+                        "...";
+
+
+                    const page =
+                        await pdf.getPage(
+                            pageNumber
+                        );
+
+
+                    const viewport =
+                        page.getViewport({
+                            scale: 1.2
+                        });
+
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    const context =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    canvas.width =
+                        Math.floor(
+                            viewport.width
+                        );
+
+
+                    canvas.height =
+                        Math.floor(
+                            viewport.height
+                        );
+
+
+                    await page.render({
+                        canvasContext:
+                            context,
+                        viewport:
+                            viewport
+                    }).promise;
+
+
+                    const imageData =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.55
+                        );
+
+
+                    const base64 =
+                        imageData.split(",")[1];
+
+
+                    const binary =
+                        atob(base64);
+
+
+                    const imageBytes =
+                        new Uint8Array(
+                            binary.length
+                        );
+
+
+                    for (
+                        let i = 0;
+                        i < binary.length;
+                        i++
+                    ) {
+
+                        imageBytes[i] =
+                            binary.charCodeAt(i);
+
+                    }
+
+
+                    const jpgImage =
+                        await newPdf.embedJpg(
+                            imageBytes
+                        );
+
+
+                    const newPage =
+                        newPdf.addPage([
+                            viewport.width,
+                            viewport.height
+                        ]);
+
+
+                    newPage.drawImage(
+                        jpgImage,
+                        {
+                            x: 0,
+                            y: 0,
+                            width:
+                                viewport.width,
+                            height:
+                                viewport.height
+                        }
+                    );
+
+                }
+
+
+                status.textContent =
+                    "Creating compressed PDF...";
+
+
+                const compressedPdf =
+                    await newPdf.save();
+
+
+                const compressedSize =
+                    compressedPdf.length;
+
+if (compressedSize >= file.size) {
+
+    status.textContent =
+        "This PDF is already optimized.";
+
+    result.textContent =
+        "The compressed version was not smaller, so the original PDF was kept.";
+
+    const originalUrl =
+        URL.createObjectURL(file);
+
+    const originalDownload =
+        document.createElement("a");
+
+    originalDownload.href =
+        originalUrl;
+
+    originalDownload.download =
+        "compressed-" + file.name;
+
+    document.body.appendChild(
+        originalDownload
+    );
+
+    originalDownload.click();
+
+    document.body.removeChild(
+        originalDownload
+    );
+
+    URL.revokeObjectURL(
+        originalUrl
+    );
+
+	compressButton.disabled = false;
+
+compressButton.textContent = "Compress PDF";
+
+    return;
+}
+
+
+                const blob =
+                    new Blob(
+                        [compressedPdf],
+                        {
+                            type:
+                                "application/pdf"
+                        }
+                    );
+
+
+                const downloadUrl =
+                    URL.createObjectURL(
+                        blob
+                    );
+
+
+                const downloadLink =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                downloadLink.href =
+                    downloadUrl;
+
+
+                downloadLink.download =
+                    "compressed-" +
+                    file.name;
+
+
+                document.body.appendChild(
+                    downloadLink
+                );
+
+
+                downloadLink.click();
+
+
+                document.body.removeChild(
+                    downloadLink
+                );
+
+
+                URL.revokeObjectURL(
+                    downloadUrl
+                );
+
+
+                status.textContent =
+                    "Compression complete!";
+
+
+                result.textContent =
+                    "Original: " +
+                    formatSize(file.size) +
+                    " → Compressed: " +
+                    formatSize(compressedSize);
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                status.textContent = "";
+
+
+                alert(
+                    "Sorry, this PDF could not be compressed."
+                );
+
+            }
+
+
+            compressButton.disabled =
+                false;
+
+
+            compressButton.textContent =
+                "Compress PDF";
+
+        }
+    );
+
+</script>
+```
+
+</body>
+</html>

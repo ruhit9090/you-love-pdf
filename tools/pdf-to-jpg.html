@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PDF to JPG - You Love PDF</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+    }
+
+    .header {
+    width: 100%;
+    min-height: 70px;
+    background: #e53935;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid #c62828;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: #ffd6d6;
+}
+
+    .container {
+        max-width: 1100px;
+        margin: 60px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        text-align: center;
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .tool-area {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+    }
+
+    /* LEFT SIDE */
+
+    .preview-section {
+        width: 58%;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        min-height: 420px;
+    }
+
+    .preview-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .preview-help {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+
+    #pageList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .empty-preview {
+        color: #888;
+        text-align: center;
+        padding: 80px 20px;
+        line-height: 1.6;
+        grid-column: 1 / -1;
+    }
+
+    .page-card {
+        background: #f8f9fc;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+        position: relative;
+    }
+
+    .page-card:hover {
+        border-color: #bbb;
+    }
+
+    .page-card.selected {
+        border-color: #e53935;
+    }
+
+    .page-card canvas {
+        width: 100%;
+        height: 220px;
+        object-fit: contain;
+        display: block;
+        background: white;
+        border-radius: 6px;
+    }
+
+    .page-number {
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .selected-label {
+        text-align: center;
+        color: #e53935;
+        font-size: 12px;
+        font-weight: bold;
+        margin-top: 4px;
+    }
+
+    /* RIGHT SIDE */
+
+    .upload-section {
+        width: 42%;
+        background: white;
+        border-radius: 16px;
+        padding: 45px 30px;
+        text-align: center;
+        border: 2px dashed #d1d5db;
+    }
+
+    .upload-icon {
+        font-size: 55px;
+        margin-bottom: 15px;
+    }
+
+    .upload-section h2 {
+        margin-bottom: 10px;
+    }
+
+    .upload-section p {
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .add-button {
+        display: inline-block;
+        background: #e53935;
+        color: white;
+        padding: 13px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .add-button:hover {
+        background: #c62828;
+    }
+
+    #pdfFile {
+        display: none;
+    }
+
+    .file-name {
+        margin-top: 15px;
+        color: #555;
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .selection-info {
+        margin-top: 15px;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .control-button {
+        margin-top: 15px;
+        padding: 11px 20px;
+        background: white;
+        color: #444;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .control-button:hover {
+        background: #f5f5f5;
+    }
+
+    #convertButton {
+        margin-top: 20px;
+        padding: 13px 30px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #convertButton:hover {
+        background: #c62828;
+    }
+
+    #convertButton:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    #status {
+        margin-top: 20px;
+        color: #555;
+        font-weight: bold;
+        line-height: 1.5;
+    }
+
+    .back-button {
+        display: block;
+        width: fit-content;
+        margin: 35px auto 0;
+        text-decoration: none;
+        color: #555;
+    }
+
+    @media (max-width: 800px) {
+.header {
+    min-height: auto;
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.navbar {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+        .container {
+            margin: 40px auto;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .tool-area {
+            flex-direction: column;
+        }
+
+        .preview-section,
+        .upload-section {
+            width: 100%;
+        }
+
+        .preview-section {
+            order: 1;
+        }
+
+        .upload-section {
+            order: 2;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        #pageList {
+            grid-template-columns: 1fr;
+        }
+
+        .page-card canvas {
+            height: 300px;
+        }
+    }
+</style>
+</head>
+
+<body>
+<header class="header">
+
+    <div class="logo">
+        You Love PDF
+    </div>
+
+    <nav class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <h1>PDF to JPG</h1>
+
+    <p class="description">
+        Convert PDF pages into high-quality JPG images quickly and easily.
+    </p>
+
+    <div class="tool-area">
+
+        <!-- LEFT SIDE -->
+
+        <div class="preview-section">
+
+            <div class="preview-title">
+                PDF Pages
+            </div>
+
+            <div class="preview-help">
+                Click pages to select or deselect them.
+            </div>
+
+            <div id="pageList">
+
+                <div class="empty-preview">
+                    No PDF added yet.<br>
+                    Click "Add PDF" to begin.
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="upload-section">
+
+            <div class="upload-icon">
+                📄
+            </div>
+
+            <h2>Add PDF file</h2>
+
+            <p>
+                Upload a PDF and convert its pages into JPG images.
+            </p>
+
+            <label
+                for="pdfFile"
+                class="add-button">
+                + Add PDF
+            </label>
+
+            <input
+                type="file"
+                id="pdfFile"
+                accept=".pdf,application/pdf">
+
+            <div
+                class="file-name"
+                id="fileName">
+            </div>
+
+            <div
+                class="selection-info"
+                id="selectionInfo">
+                0 pages selected
+            </div>
+
+            <button
+                class="control-button"
+                id="selectAllButton">
+                Select All
+            </button>
+
+            <button
+                class="control-button"
+                id="clearAllButton">
+                Clear All
+            </button>
+
+            <br>
+
+            <button
+                id="convertButton">
+                Download JPG
+            </button>
+
+            <div id="status"></div>
+
+        </div>
+
+    </div>
+
+    <a
+        href="../index.html"
+        class="back-button">
+        ← Back to PDF Tools
+    </a>
+
+</main>
+
+<script type="module">
+
+import * as pdfjsLib from
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+
+
+const pdfFile =
+document.getElementById("pdfFile");
+
+const pageList =
+document.getElementById("pageList");
+
+const fileName =
+document.getElementById("fileName");
+
+const selectionInfo =
+document.getElementById("selectionInfo");
+
+const selectAllButton =
+document.getElementById("selectAllButton");
+
+const clearAllButton =
+document.getElementById("clearAllButton");
+
+const convertButton =
+document.getElementById("convertButton");
+
+const status =
+document.getElementById("status");
+
+
+let pdfDocument = null;
+
+let selectedPages = new Set();
+
+
+/* =========================
+   UPDATE SELECTION
+========================= */
+
+function updateSelectionInfo() {
+
+    selectionInfo.textContent =
+        selectedPages.size +
+        (
+            selectedPages.size === 1
+            ? " page selected"
+            : " pages selected"
+        );
+
+}
+
+
+/* =========================
+   LOAD PDF
+========================= */
+
+pdfFile.addEventListener(
+    "change",
+    async function() {
+
+        if (pdfFile.files.length === 0) {
+            return;
+        }
+
+        const file =
+            pdfFile.files[0];
+
+        fileName.textContent =
+            file.name;
+
+        status.textContent =
+            "Loading PDF...";
+
+        pageList.innerHTML = "";
+
+        selectedPages.clear();
+
+        updateSelectionInfo();
+
+        try {
+
+            const arrayBuffer =
+                await file.arrayBuffer();
+
+            pdfDocument =
+                await pdfjsLib
+                .getDocument({
+                    data: arrayBuffer
+                })
+                .promise;
+
+            status.textContent =
+                "Rendering PDF pages...";
+
+            await renderPages();
+
+            status.textContent =
+                "PDF loaded successfully.";
+
+        } catch (error) {
+
+            console.error(error);
+
+            pdfDocument = null;
+
+            pageList.innerHTML = `
+                <div class="empty-preview">
+                    Sorry, this PDF could not be opened.
+                </div>
+            `;
+
+            status.textContent = "";
+
+            alert(
+                "Sorry, this PDF could not be opened."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   RENDER ALL PAGES
+========================= */
+
+async function renderPages() {
+
+    pageList.innerHTML = "";
+
+    for (
+        let pageNumber = 1;
+        pageNumber <= pdfDocument.numPages;
+        pageNumber++
+    ) {
+
+        const page =
+            await pdfDocument.getPage(
+                pageNumber
+            );
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "page-card";
+
+        card.dataset.page =
+            pageNumber;
+
+        const canvas =
+            document.createElement("canvas");
+
+        const viewport =
+            page.getViewport({
+                scale: 1
+            });
+
+        canvas.width =
+            viewport.width;
+
+        canvas.height =
+            viewport.height;
+
+        const context =
+            canvas.getContext("2d");
+
+        await page.render({
+            canvasContext: context,
+            viewport: viewport
+        }).promise;
+
+        const pageNumberText =
+            document.createElement("div");
+
+        pageNumberText.className =
+            "page-number";
+
+        pageNumberText.textContent =
+            "Page " + pageNumber;
+
+        const selectedLabel =
+            document.createElement("div");
+
+        selectedLabel.className =
+            "selected-label";
+
+        selectedLabel.textContent =
+            "";
+
+        card.appendChild(canvas);
+        card.appendChild(pageNumberText);
+        card.appendChild(selectedLabel);
+
+        card.addEventListener(
+            "click",
+            function() {
+
+                togglePage(
+                    pageNumber,
+                    card,
+                    selectedLabel
+                );
+
+            }
+        );
+
+        pageList.appendChild(card);
+
+    }
+
+}
+
+
+/* =========================
+   SELECT / DESELECT PAGE
+========================= */
+
+function togglePage(
+    pageNumber,
+    card,
+    selectedLabel
+) {
+
+    if (
+        selectedPages.has(pageNumber)
+    ) {
+
+        selectedPages.delete(
+            pageNumber
+        );
+
+        card.classList.remove(
+            "selected"
+        );
+
+        selectedLabel.textContent =
+            "";
+
+    } else {
+
+        selectedPages.add(
+            pageNumber
+        );
+
+        card.classList.add(
+            "selected"
+        );
+
+        selectedLabel.textContent =
+            "✓ Selected";
+
+    }
+
+    updateSelectionInfo();
+
+}
+
+
+/* =========================
+   SELECT ALL
+========================= */
+
+selectAllButton.addEventListener(
+    "click",
+    function() {
+
+        if (!pdfDocument) {
+
+            alert(
+                "Please add a PDF first."
+            );
+
+            return;
+        }
+
+        selectedPages.clear();
+
+        for (
+            let i = 1;
+            i <= pdfDocument.numPages;
+            i++
+        ) {
+
+            selectedPages.add(i);
+
+        }
+
+        updatePageStyles();
+
+        updateSelectionInfo();
+
+    }
+);
+
+
+/* =========================
+   CLEAR ALL
+========================= */
+
+clearAllButton.addEventListener(
+    "click",
+    function() {
+
+        selectedPages.clear();
+
+        updatePageStyles();
+
+        updateSelectionInfo();
+
+    }
+);
+
+
+/* =========================
+   UPDATE PAGE STYLES
+========================= */
+
+function updatePageStyles() {
+
+    const cards =
+        document.querySelectorAll(
+            ".page-card"
+        );
+
+    cards.forEach(
+        function(card) {
+
+            const pageNumber =
+                Number(
+                    card.dataset.page
+                );
+
+            const label =
+                card.querySelector(
+                    ".selected-label"
+                );
+
+            if (
+                selectedPages.has(
+                    pageNumber
+                )
+            ) {
+
+                card.classList.add(
+                    "selected"
+                );
+
+                label.textContent =
+                    "✓ Selected";
+
+            } else {
+
+                card.classList.remove(
+                    "selected"
+                );
+
+                label.textContent =
+                    "";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   DOWNLOAD JPG
+========================= */
+
+convertButton.addEventListener(
+    "click",
+    async function() {
+
+        if (!pdfDocument) {
+
+            alert(
+                "Please add a PDF first."
+            );
+
+            return;
+        }
+
+        if (
+            selectedPages.size === 0
+        ) {
+
+            alert(
+                "Please select at least 1 page."
+            );
+
+            return;
+        }
+
+        convertButton.disabled = true;
+
+        convertButton.textContent =
+            "Creating JPG...";
+
+        status.textContent =
+            "Preparing selected pages...";
+
+        try {
+
+            const pages =
+                Array.from(
+                    selectedPages
+                ).sort(
+                    (a, b) => a - b
+                );
+
+            for (
+                let i = 0;
+                i < pages.length;
+                i++
+            ) {
+
+                const pageNumber =
+                    pages[i];
+
+                status.textContent =
+                    "Converting page " +
+                    (i + 1) +
+                    " of " +
+                    pages.length +
+                    "...";
+
+                const page =
+                    await pdfDocument.getPage(
+                        pageNumber
+                    );
+
+                const scale = 2;
+
+                const viewport =
+                    page.getViewport({
+                        scale: scale
+                    });
+
+                const canvas =
+                    document.createElement(
+                        "canvas"
+                    );
+
+                canvas.width =
+                    viewport.width;
+
+                canvas.height =
+                    viewport.height;
+
+                const context =
+                    canvas.getContext(
+                        "2d"
+                    );
+
+                await page.render({
+                    canvasContext:
+                        context,
+                    viewport:
+                        viewport
+                }).promise;
+
+                const imageData =
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.92
+                    );
+
+                const downloadLink =
+                    document.createElement(
+                        "a"
+                    );
+
+                downloadLink.href =
+                    imageData;
+
+                downloadLink.download =
+                    "page-" +
+                    pageNumber +
+                    ".jpg";
+
+                document.body.appendChild(
+                    downloadLink
+                );
+
+                downloadLink.click();
+
+                document.body.removeChild(
+                    downloadLink
+                );
+
+                await new Promise(
+                    function(resolve) {
+                        setTimeout(
+                            resolve,
+                            150
+                        );
+                    }
+                );
+
+            }
+
+            status.style.color =
+                "#2e7d32";
+
+            status.textContent =
+                "JPG images downloaded successfully!";
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.style.color =
+                "#e53935";
+
+            status.textContent =
+                "Sorry, JPG images could not be created.";
+
+        }
+
+        convertButton.disabled = false;
+
+        convertButton.textContent =
+            "Download JPG";
+
+    }
+);
+
+</script>
+
+</body>
+</html>
