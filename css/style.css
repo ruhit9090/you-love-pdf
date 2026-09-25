@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    min-height: 70px;
+    background: #e53935;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid #e5e7eb;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+color: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: #e53935;
+}
+
+/* =========================
+   MAIN / HERO
+========================= */
+
+main {
+    text-align: center;
+    padding: 90px 20px 40px;
+}
+
+main h1 {
+    font-size: 48px;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.15;
+}
+
+main p {
+    margin-top: 20px;
+    font-size: 19px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* =========================
+   TOOLS TITLE
+========================= */
+
+.tools-title {
+    text-align: center;
+    font-size: 30px;
+    margin: 55px 0 30px;
+}
+
+/* =========================
+   TOOL CARDS
+========================= */
+
+.tools-section {
+    max-width: 1100px;
+    margin: 20px auto 80px;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.tool-card {
+    background: #ffffff;
+    padding: 30px 25px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    text-align: center;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tool-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.tool-card h2 {
+    font-size: 21px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+.tool-card p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   TOOL BUTTON
+========================= */
+
+.tool-card button {
+    border: none;
+    background: #e53935;
+    color: #ffffff;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.tool-card button:hover {
+    background: #c62828;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================
+   ABOUT / CONTACT
+========================= */
+
+.info-section {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    padding: 45px 35px;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.info-section h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.info-section p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    margin-top: 80px;
+    padding: 40px 20px 25px;
+
+    background: #111827;
+    color: #ffffff;
+
+    text-align: center;
+}
+
+.footer h2 {
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+
+.footer p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.footer-links {
+    margin: 20px 0;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 12px;
+    font-size: 15px;
+
+    transition: opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+.footer .copyright {
+    margin-top: 25px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .header {
+        min-height: auto;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .navbar {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navbar a {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 60px 20px 40px;
+    }
+
+    main h1 {
+        font-size: 34px;
+    }
+
+    main p {
+        font-size: 17px;
+    }
+
+    .tools-title {
+        font-size: 27px;
+        margin-top: 45px;
+    }
+
+    .tools-section {
+        grid-template-columns: 1fr;
+        margin-top: 10px;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .tool-card {
+        padding: 28px 22px;
+    }
+
+    .info-section {
+        margin: 60px 20px 30px;
+        padding: 35px 22px;
+    }
+
+    .info-section h2 {
+        font-size: 27px;
+    }
+
+    .info-section p {
+        font-size: 16px;
+    }
+
+    .footer {
+        margin-top: 60px;
+        padding: 35px 20px 25px;
+    }
+
+    .footer-links a {
+        margin: 0 7px;
+    }
+}
