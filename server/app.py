@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
+import pymupdf
+import io
 import os
-import fitz
-import tempfile
 
 app = Flask(__name__)
 CORS(app)
@@ -29,81 +29,88 @@ def compress_pdf():
     if "file" not in request.files:
         return jsonify({
             "status": "error",
-            "message": "No PDF file provided"
+            "message": "No PDF file received."
         }), 400
 
-    uploaded_file = request.files["file"]
+    file = request.files["file"]
 
-    if uploaded_file.filename == "":
+    if file.filename == "":
         return jsonify({
             "status": "error",
-            "message": "No file selected"
+            "message": "No PDF file selected."
         }), 400
-
-    if not uploaded_file.filename.lower().endswith(".pdf"):
-        return jsonify({
-            "status": "error",
-            "message": "Only PDF files are allowed"
-        }), 400
-
-    input_path = None
-    output_path = None
 
     try:
-        with tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=".pdf"
-        ) as temp_input:
 
-            uploaded_file.save(temp_input.name)
-            input_path = temp_input.name
+        original_data = file.read()
 
-        input_size = os.path.getsize(input_path)
+        if not original_data:
+            return jsonify({
+                "status": "error",
+                "message": "The uploaded PDF is empty."
+            }), 400
 
-        doc = fitz.open(input_path)
+        original_size = len(original_data)
 
-        output_file = tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=".pdf"
+        pdf = pymupdf.open(
+            stream=original_data,
+            filetype="pdf"
         )
-        output_path = output_file.name
-        output_file.close()
 
-        doc.save(
-            output_path,
+        output = io.BytesIO()
+
+        pdf.save(
+            output,
             garbage=4,
+            clean=True,
             deflate=True,
-            clean=True
+            deflate_images=True,
+            deflate_fonts=True
         )
 
-        doc.close()
+        pdf.close()
 
-        output_size = os.path.getsize(output_path)
+        compressed_data = output.getvalue()
+        compressed_size = len(compressed_data)
 
-        if output_size >= input_size:
-            os.replace(input_path, output_path)
-            input_path = None
+        # If compression does not make the file smaller,
+        # keep the original PDF.
+        if compressed_size >= original_size:
+
+            return send_file(
+                io.BytesIO(original_data),
+                mimetype="application/pdf",
+                as_attachment=True,
+                download_name="compressed-" + file.filename
+            )
 
         return send_file(
-            output_path,
+            io.BytesIO(compressed_data),
+            mimetype="application/pdf",
             as_attachment=True,
-            download_name="compressed.pdf",
-            mimetype="application/pdf"
+            download_name="compressed-" + file.filename
         )
 
-    except Exception as e:
+    except Exception as error:
+
+        print("Compression error:", error)
 
         return jsonify({
             "status": "error",
-            "message": str(e)
+            "message": "PDF compression failed."
         }), 500
-
-    finally:
-
-        if input_path and os.path.exists(input_path):
-            os.remove(input_path)
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+
+    port = int(
+        os.environ.get(
+            "PORT",
+            5000
+        )
+    )
+
+    app.run(
+        host="0.0.0.0",
+        port=port
+    )
