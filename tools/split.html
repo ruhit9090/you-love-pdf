@@ -1,280 +1,346 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
 <title>Split PDF - You Love PDF</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-        type="module"></script>
-
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f7f8fa;
-    color:#222;
-}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:30px 20px 50px;
-}
-
-.header{
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.header h1{
-    font-size:34px;
-    margin-bottom:10px;
-}
-
-.header p{
-    color:#666;
-    font-size:16px;
-}
-
-.upload-box{
-    background:white;
-    border:2px dashed #ccc;
-    border-radius:12px;
-    padding:35px 20px;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.upload-box input{
-    display:none;
-}
-
-.upload-btn{
-    display:inline-block;
-    background:#ff3131;
-    color:white;
-    padding:13px 25px;
-    border-radius:7px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.file-name{
-    margin-top:15px;
-    color:#555;
-    font-size:14px;
-}
-
-.tool-area{
-    display:none;
-    background:white;
-    border-radius:12px;
-    padding:25px;
-    margin-top:20px;
-}
-
-.section-title{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.pages{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-    gap:18px;
-    margin-top:20px;
-}
-
-.page-card{
-    border:2px solid #ddd;
-    border-radius:8px;
-    padding:8px;
-    cursor:pointer;
-    background:#fff;
-    transition:0.2s;
-}
-
-.page-card:hover{
-    border-color:#ff3131;
-}
-
-.page-card.selected{
-    border-color:#ff3131;
-    box-shadow:0 0 0 2px rgba(255,49,49,0.15);
-}
-
-.page-card canvas{
-    width:100%;
-    height:auto;
-    display:block;
-    border-radius:4px;
-}
-
-.page-number{
-    text-align:center;
-    margin-top:8px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.range-box{
-    margin-top:25px;
-}
-
-.range-box label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.range-box input{
-    width:100%;
-    padding:13px;
-    border:1px solid #ccc;
-    border-radius:7px;
-    font-size:15px;
-    outline:none;
-}
-
-.range-box input:focus{
-    border-color:#ff3131;
-}
-
-.help-text{
-    margin-top:7px;
-    color:#777;
-    font-size:13px;
-}
-
-.action-area{
-    text-align:center;
-    margin-top:25px;
-}
-
-.split-btn{
-    border:none;
-    background:#ff3131;
-    color:white;
-    padding:14px 35px;
-    border-radius:7px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.split-btn:disabled{
-    opacity:0.6;
-    cursor:not-allowed;
-}
-
-.status{
-    margin-top:15px;
-    font-size:14px;
-    color:#555;
-}
-
-.back-btn{
-    display:block;
-    width:max-content;
-    margin:35px auto 0;
-    text-decoration:none;
-    background:#222;
-    color:white;
-    padding:12px 24px;
-    border-radius:7px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.back-btn:hover{
-    background:#444;
-}
-
-@media(max-width:600px){
-
-    .container{
-        padding:20px 12px 40px;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    .header h1{
-        font-size:27px;
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
     }
 
-    .tool-area{
-        padding:18px;
+    .header {
+        width: 100%;
+        min-height: 70px;
+        background: #e53935;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        border-bottom: 1px solid #c62828;
+
+        position: sticky;
+        top: 0;
+        z-index: 1000;
     }
 
-    .pages{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
     }
 
-    .split-btn{
-        width:100%;
+    .navbar {
+        display: flex;
+        gap: 30px;
     }
-}
+
+    .navbar a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 15px;
+        transition: color 0.2s ease;
+    }
+
+    .navbar a:hover {
+        color: #ffd6d6;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 70px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
+
+    .upload-box {
+        background: white;
+        border: 2px dashed #d1d5db;
+        border-radius: 16px;
+        padding: 50px 20px;
+    }
+
+    .upload-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .upload-box h2 {
+        margin-bottom: 10px;
+    }
+
+    .upload-box p {
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .upload-button {
+        display: inline-block;
+        background: #e53935;
+        color: white;
+        padding: 13px 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .upload-button:hover {
+        background: #c62828;
+    }
+
+    #pdfFile {
+        display: none;
+    }
+
+    #fileName {
+        margin-top: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    #fileSize {
+        margin-top: 8px;
+        color: #666;
+    }
+
+    .range-section {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .range-section label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #pageRange {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    #pageRange:focus {
+        border-color: #e53935;
+    }
+
+    .range-help {
+        margin-top: 8px;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .pages-title {
+        margin-top: 30px;
+        text-align: left;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .pages-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+        text-align: left;
+    }
+
+    .page-card {
+        background: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 8px;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .page-card:hover {
+        border-color: #e53935;
+    }
+
+    .page-card.selected {
+        border-color: #e53935;
+        box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15);
+    }
+
+    .page-card canvas {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 5px;
+    }
+
+    .page-number {
+        text-align: center;
+        margin-top: 8px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    #splitButton {
+        display: none;
+        margin-top: 30px;
+        padding: 13px 28px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #splitButton:hover {
+        background: #c62828;
+    }
+
+    #splitButton:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    #status {
+        margin-top: 20px;
+        color: #555;
+        font-weight: bold;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: #555;
+    }
+
+    .back-button:hover {
+        color: #e53935;
+    }
+
+    @media (max-width: 768px) {
+
+        .header {
+            min-height: auto;
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .navbar {
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .container {
+            margin: 40px auto;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .upload-box {
+            padding: 40px 15px;
+        }
+
+        .pages-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        #splitButton {
+            width: 100%;
+        }
+    }
 </style>
+```
+
 </head>
 
 <body>
 
-<div class="container">
+```
+<header class="header">
 
-    <div class="header">
-        <h1>Split PDF</h1>
-        <p>Extract selected pages from your PDF and create a new PDF.</p>
+    <div class="logo">
+        You Love PDF
     </div>
 
+    <nav class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
 
-    <!-- Upload -->
+</header>
+
+
+<main class="container">
+
+    <h1>Split PDF</h1>
+
+    <p class="description">
+        Extract selected pages from your PDF and create a new PDF.
+    </p>
+
+
     <div class="upload-box">
 
-        <label for="pdfInput" class="upload-btn">
+        <div class="upload-icon">📄</div>
+
+        <h2>Select a PDF file</h2>
+
+        <p>
+            Choose a PDF from your computer to split.
+        </p>
+
+
+        <label for="pdfFile" class="upload-button">
             Select PDF
         </label>
 
         <input
             type="file"
-            id="pdfInput"
-            accept="application/pdf,.pdf"
+            id="pdfFile"
+            accept=".pdf,application/pdf"
         >
 
-        <div class="file-name" id="fileName">
-            No PDF selected
-        </div>
 
-    </div>
+        <div id="fileName"></div>
 
-
-    <!-- Tool Area -->
-    <div class="tool-area" id="toolArea">
-
-        <div class="section-title">
-            Select Pages
-        </div>
-
-        <p style="color:#666;font-size:14px;">
-            Click on the pages you want to include in the new PDF.
-        </p>
+        <div id="fileSize"></div>
 
 
-        <!-- Page Preview -->
-        <div class="pages" id="pagesContainer"></div>
-
-
-        <!-- Manual Range -->
-        <div class="range-box">
+        <div class="range-section">
 
             <label for="pageRange">
-                Page Range
+                Select Pages
             </label>
 
             <input
@@ -283,519 +349,701 @@ body{
                 placeholder="Example: 1-3, 5, 7-9"
             >
 
-            <div class="help-text">
+            <div class="range-help">
                 Examples: 1-3 &nbsp; | &nbsp; 1,3,5 &nbsp; | &nbsp; 2-6
             </div>
 
         </div>
 
 
-        <!-- Split Button -->
-        <div class="action-area">
-
-            <button
-                class="split-btn"
-                id="splitBtn"
-            >
-                Split PDF
-            </button>
-
-            <div
-                class="status"
-                id="status"
-            ></div>
-
+        <div class="pages-title">
+            PDF Pages
         </div>
+
+
+        <div
+            class="pages-container"
+            id="pagesContainer"
+        ></div>
+
+
+        <button id="splitButton">
+            Split PDF
+        </button>
+
+
+        <div id="status"></div>
 
     </div>
 
 
-    <!-- Back to PDF Tools -->
-    <a
-        href="https://ruhit9090.github.io/"
-        class="back-btn"
-    >
+    <!-- Same working path as Compress PDF -->
+    <a href="../index.html" class="back-button">
         ← Back to PDF Tools
     </a>
 
-</div>
+</main>
 
 
 <script type="module">
 
-import * as pdfjsLib
-from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+    import * as pdfjsLib
+        from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
 
 
-const pdfInput = document.getElementById("pdfInput");
-const fileName = document.getElementById("fileName");
-const toolArea = document.getElementById("toolArea");
-const pagesContainer = document.getElementById("pagesContainer");
-const pageRange = document.getElementById("pageRange");
-const splitBtn = document.getElementById("splitBtn");
-const status = document.getElementById("status");
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
 
-const BACKEND_URL =
-    "https://you-love-pdf-backend.onrender.com";
+    // Your Render backend
+    const BACKEND_URL =
+        "https://you-love-pdf-backend.onrender.com";
 
 
-let selectedFile = null;
-let totalPages = 0;
-let selectedPages = new Set();
+    const pdfFile =
+        document.getElementById("pdfFile");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const fileSize =
+        document.getElementById("fileSize");
+
+    const pageRange =
+        document.getElementById("pageRange");
+
+    const pagesContainer =
+        document.getElementById("pagesContainer");
+
+    const splitButton =
+        document.getElementById("splitButton");
+
+    const status =
+        document.getElementById("status");
 
 
-/* ---------------------------------
-   PDF SELECT
---------------------------------- */
+    let selectedFile = null;
 
-pdfInput.addEventListener("change", async function(){
+    let totalPages = 0;
 
-    const file = this.files[0];
+    let selectedPages = new Set();
 
-    if(!file){
-        return;
+
+    function formatSize(bytes) {
+
+        if (bytes < 1024) {
+            return bytes.toFixed(0) + " B";
+        }
+
+        if (bytes < 1024 * 1024) {
+            return (bytes / 1024).toFixed(2) + " KB";
+        }
+
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
     }
 
-    selectedFile = file;
 
-    fileName.textContent = file.name;
+    /* -------------------------------
+       PDF SELECT
+    -------------------------------- */
 
-    toolArea.style.display = "block";
+    pdfFile.addEventListener(
+        "change",
+        async function () {
 
-    pagesContainer.innerHTML = "";
-
-    pageRange.value = "";
-
-    selectedPages.clear();
-
-    status.textContent = "Loading PDF...";
-
-    try{
-
-        const arrayBuffer = await file.arrayBuffer();
-
-        const pdf = await pdfjsLib.getDocument({
-            data: arrayBuffer
-        }).promise;
-
-        totalPages = pdf.numPages;
+            if (pdfFile.files.length === 0) {
+                return;
+            }
 
 
-        for(let pageNumber = 1; pageNumber <= totalPages; pageNumber++){
-
-            const page = await pdf.getPage(pageNumber);
-
-            const viewport = page.getViewport({
-                scale:0.7
-            });
+            selectedFile =
+                pdfFile.files[0];
 
 
-            const canvas =
-                document.createElement("canvas");
+            if (
+                selectedFile.type !== "application/pdf" &&
+                !selectedFile.name
+                    .toLowerCase()
+                    .endsWith(".pdf")
+            ) {
 
-            const context =
-                canvas.getContext("2d");
+                alert(
+                    "Please select a PDF file."
+                );
 
+                pdfFile.value = "";
 
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-
-
-            await page.render({
-                canvasContext:context,
-                viewport:viewport
-            }).promise;
-
-
-            const card =
-                document.createElement("div");
-
-            card.className = "page-card";
+                return;
+            }
 
 
-            card.innerHTML = `
-                <div class="page-number">
-                    Page ${pageNumber}
-                </div>
-            `;
+            fileName.textContent =
+                "Selected: " +
+                selectedFile.name;
 
 
-            card.insertBefore(
-                canvas,
-                card.firstChild
-            );
+            fileSize.textContent =
+                "File size: " +
+                formatSize(selectedFile.size);
 
 
-            card.addEventListener("click",function(){
+            pagesContainer.innerHTML = "";
 
-                if(selectedPages.has(pageNumber)){
+            pageRange.value = "";
 
-                    selectedPages.delete(pageNumber);
+            selectedPages.clear();
 
-                    card.classList.remove("selected");
+            splitButton.style.display =
+                "inline-block";
 
-                }else{
 
-                    selectedPages.add(pageNumber);
+            status.textContent =
+                "Loading PDF pages...";
 
-                    card.classList.add("selected");
+
+            try {
+
+                const arrayBuffer =
+                    await selectedFile.arrayBuffer();
+
+
+                const pdf =
+                    await pdfjsLib
+                        .getDocument({
+                            data: arrayBuffer
+                        })
+                        .promise;
+
+
+                totalPages =
+                    pdf.numPages;
+
+
+                for (
+                    let pageNumber = 1;
+                    pageNumber <= totalPages;
+                    pageNumber++
+                ) {
+
+                    const page =
+                        await pdf.getPage(
+                            pageNumber
+                        );
+
+
+                    const viewport =
+                        page.getViewport({
+                            scale: 0.7
+                        });
+
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    const context =
+                        canvas.getContext("2d");
+
+
+                    canvas.width =
+                        viewport.width;
+
+                    canvas.height =
+                        viewport.height;
+
+
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "page-card";
+
+
+                    card.innerHTML = `
+                        <div class="page-number">
+                            Page ${pageNumber}
+                        </div>
+                    `;
+
+
+                    card.insertBefore(
+                        canvas,
+                        card.firstChild
+                    );
+
+
+                    card.addEventListener(
+                        "click",
+                        function () {
+
+                            if (
+                                selectedPages
+                                    .has(pageNumber)
+                            ) {
+
+                                selectedPages
+                                    .delete(pageNumber);
+
+                                card.classList
+                                    .remove("selected");
+
+                            } else {
+
+                                selectedPages
+                                    .add(pageNumber);
+
+                                card.classList
+                                    .add("selected");
+                            }
+
+
+                            updateRangeFromSelection();
+
+                        }
+                    );
+
+
+                    pagesContainer.appendChild(
+                        card
+                    );
 
                 }
 
-                updateRangeFromSelection();
 
-            });
+                status.textContent =
+                    totalPages +
+                    " page(s) loaded. Select the pages you want to split.";
 
 
-            pagesContainer.appendChild(card);
+            } catch (error) {
 
-        }
-
-
-        status.textContent =
-            totalPages + " page(s) loaded.";
-
-
-    }catch(error){
-
-        console.error(error);
-
-        status.textContent =
-            "Failed to load PDF.";
-
-    }
-
-});
-
-
-/* ---------------------------------
-   PARSE PAGE RANGE
---------------------------------- */
-
-function parsePageRange(value){
-
-    const pages = new Set();
-
-    if(!value.trim()){
-        return [];
-    }
-
-
-    const parts =
-        value.split(",");
-
-
-    for(const part of parts){
-
-        const item =
-            part.trim();
-
-
-        if(!item){
-            continue;
-        }
-
-
-        if(item.includes("-")){
-
-            const range =
-                item.split("-");
-
-
-            if(range.length !== 2){
-                continue;
-            }
-
-
-            const start =
-                parseInt(range[0].trim());
-
-
-            const end =
-                parseInt(range[1].trim());
-
-
-            if(
-                Number.isNaN(start) ||
-                Number.isNaN(end)
-            ){
-                continue;
-            }
-
-
-            const min =
-                Math.min(start,end);
-
-            const max =
-                Math.max(start,end);
-
-
-            for(
-                let i = min;
-                i <= max;
-                i++
-            ){
-
-                if(
-                    i >= 1 &&
-                    i <= totalPages
-                ){
-                    pages.add(i);
-                }
-
-            }
-
-        }else{
-
-            const page =
-                parseInt(item);
-
-
-            if(
-                !Number.isNaN(page) &&
-                page >= 1 &&
-                page <= totalPages
-            ){
-                pages.add(page);
-            }
-
-        }
-
-    }
-
-
-    return Array.from(pages).sort(
-        (a,b) => a-b
-    );
-
-}
-
-
-/* ---------------------------------
-   UPDATE VISUAL SELECTION
---------------------------------- */
-
-function updateVisualSelection(){
-
-    const cards =
-        pagesContainer.querySelectorAll(
-            ".page-card"
-        );
-
-
-    cards.forEach((card,index)=>{
-
-        const pageNumber =
-            index + 1;
-
-
-        if(selectedPages.has(pageNumber)){
-
-            card.classList.add("selected");
-
-        }else{
-
-            card.classList.remove("selected");
-
-        }
-
-    });
-
-}
-
-
-/* ---------------------------------
-   UPDATE RANGE FROM CLICK SELECTION
---------------------------------- */
-
-function updateRangeFromSelection(){
-
-    const pages =
-        Array.from(selectedPages).sort(
-            (a,b)=>a-b
-        );
-
-
-    if(pages.length === 0){
-
-        pageRange.value = "";
-
-        return;
-
-    }
-
-
-    pageRange.value =
-        pages.join(",");
-
-}
-
-
-/* ---------------------------------
-   MANUAL RANGE INPUT
---------------------------------- */
-
-pageRange.addEventListener(
-    "input",
-    function(){
-
-        const pages =
-            parsePageRange(this.value);
-
-
-        selectedPages =
-            new Set(pages);
-
-
-        updateVisualSelection();
-
-    }
-);
-
-
-/* ---------------------------------
-   SPLIT PDF
---------------------------------- */
-
-splitBtn.addEventListener(
-    "click",
-    async function(){
-
-        if(!selectedFile){
-
-            alert("Please select a PDF first.");
-
-            return;
-
-        }
-
-
-        const pages =
-            parsePageRange(pageRange.value);
-
-
-        if(pages.length === 0){
-
-            alert(
-                "Please select at least one page."
-            );
-
-            return;
-
-        }
-
-
-        splitBtn.disabled = true;
-
-        status.textContent =
-            "Splitting PDF... Please wait.";
-
-
-        try{
-
-            const formData =
-                new FormData();
-
-
-            formData.append(
-                "file",
-                selectedFile
-            );
-
-
-            formData.append(
-                "pages",
-                JSON.stringify(pages)
-            );
-
-
-            const response =
-                await fetch(
-                    BACKEND_URL + "/split",
-                    {
-                        method:"POST",
-                        body:formData
-                    }
+                console.error(
+                    "PDF loading error:",
+                    error
                 );
 
 
-            if(!response.ok){
+                status.textContent = "";
 
-                let message =
-                    "PDF splitting failed.";
-
-                try{
-
-                    const errorData =
-                        await response.json();
-
-                    if(errorData.message){
-                        message =
-                            errorData.message;
-                    }
-
-                }catch(e){}
-
-                throw new Error(message);
+                alert(
+                    "Could not load this PDF."
+                );
 
             }
 
-
-            const blob =
-                await response.blob();
-
-
-            const url =
-                URL.createObjectURL(blob);
+        }
+    );
 
 
-            const a =
-                document.createElement("a");
+    /* -------------------------------
+       PARSE PAGE RANGE
+    -------------------------------- */
 
-            a.href = url;
+    function parsePageRange(value) {
 
-            a.download =
-                "split.pdf";
-
-            document.body.appendChild(a);
-
-            a.click();
-
-            a.remove();
-
-            URL.revokeObjectURL(url);
+        const pages =
+            new Set();
 
 
-            status.textContent =
-                "PDF split successfully!";
+        if (!value.trim()) {
+            return [];
+        }
 
 
-        }catch(error){
+        const parts =
+            value.split(",");
 
-            console.error(error);
 
-            status.textContent =
-                error.message ||
-                "PDF splitting failed.";
+        for (const part of parts) {
 
-            alert(
-                error.message ||
-                "PDF splitting failed. Please try again."
-            );
+            const item =
+                part.trim();
+
+
+            if (!item) {
+                continue;
+            }
+
+
+            if (item.includes("-")) {
+
+                const range =
+                    item.split("-");
+
+
+                if (range.length !== 2) {
+                    continue;
+                }
+
+
+                const start =
+                    parseInt(
+                        range[0].trim()
+                    );
+
+
+                const end =
+                    parseInt(
+                        range[1].trim()
+                    );
+
+
+                if (
+                    Number.isNaN(start) ||
+                    Number.isNaN(end)
+                ) {
+                    continue;
+                }
+
+
+                const min =
+                    Math.min(
+                        start,
+                        end
+                    );
+
+
+                const max =
+                    Math.max(
+                        start,
+                        end
+                    );
+
+
+                for (
+                    let i = min;
+                    i <= max;
+                    i++
+                ) {
+
+                    if (
+                        i >= 1 &&
+                        i <= totalPages
+                    ) {
+
+                        pages.add(i);
+
+                    }
+
+                }
+
+            } else {
+
+                const page =
+                    parseInt(item);
+
+
+                if (
+                    !Number.isNaN(page) &&
+                    page >= 1 &&
+                    page <= totalPages
+                ) {
+
+                    pages.add(page);
+
+                }
+
+            }
 
         }
 
 
-        splitBtn.disabled = false;
+        return Array
+            .from(pages)
+            .sort(
+                (a, b) => a - b
+            );
 
     }
-);
+
+
+    /* -------------------------------
+       UPDATE PAGE SELECTION
+    -------------------------------- */
+
+    function updateVisualSelection() {
+
+        const cards =
+            pagesContainer
+                .querySelectorAll(
+                    ".page-card"
+                );
+
+
+        cards.forEach(
+            (card, index) => {
+
+                const pageNumber =
+                    index + 1;
+
+
+                if (
+                    selectedPages
+                        .has(pageNumber)
+                ) {
+
+                    card.classList
+                        .add("selected");
+
+                } else {
+
+                    card.classList
+                        .remove("selected");
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* -------------------------------
+       UPDATE RANGE
+    -------------------------------- */
+
+    function updateRangeFromSelection() {
+
+        const pages =
+            Array
+                .from(selectedPages)
+                .sort(
+                    (a, b) => a - b
+                );
+
+
+        pageRange.value =
+            pages.join(",");
+
+    }
+
+
+    /* -------------------------------
+       MANUAL PAGE RANGE
+    -------------------------------- */
+
+    pageRange.addEventListener(
+        "input",
+        function () {
+
+            const pages =
+                parsePageRange(
+                    pageRange.value
+                );
+
+
+            selectedPages =
+                new Set(pages);
+
+
+            updateVisualSelection();
+
+        }
+    );
+
+
+    /* -------------------------------
+       SPLIT PDF
+    -------------------------------- */
+
+    splitButton.addEventListener(
+        "click",
+        async function () {
+
+            if (!selectedFile) {
+
+                alert(
+                    "Please select a PDF file first."
+                );
+
+                return;
+            }
+
+
+            const pages =
+                parsePageRange(
+                    pageRange.value
+                );
+
+
+            if (pages.length === 0) {
+
+                alert(
+                    "Please select at least one page."
+                );
+
+                return;
+            }
+
+
+            splitButton.disabled =
+                true;
+
+
+            splitButton.textContent =
+                "Splitting...";
+
+
+            status.textContent =
+                "Uploading and splitting PDF...";
+
+
+            try {
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    selectedFile
+                );
+
+
+                formData.append(
+                    "pages",
+                    JSON.stringify(pages)
+                );
+
+
+                const response =
+                    await fetch(
+                        BACKEND_URL + "/split",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    let errorMessage =
+                        "PDF splitting failed.";
+
+
+                    try {
+
+                        const errorData =
+                            await response.json();
+
+
+                        if (
+                            errorData.message
+                        ) {
+
+                            errorMessage =
+                                errorData.message;
+
+                        }
+
+                    } catch (e) {
+
+                        // Ignore JSON parsing error
+
+                    }
+
+
+                    throw new Error(
+                        errorMessage
+                    );
+
+                }
+
+
+                status.textContent =
+                    "Preparing download...";
+
+
+                const splitBlob =
+                    await response.blob();
+
+
+                const downloadUrl =
+                    URL.createObjectURL(
+                        splitBlob
+                    );
+
+
+                const downloadLink =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                downloadLink.href =
+                    downloadUrl;
+
+
+                downloadLink.download =
+                    "split.pdf";
+
+
+                document.body.appendChild(
+                    downloadLink
+                );
+
+
+                downloadLink.click();
+
+
+                document.body.removeChild(
+                    downloadLink
+                );
+
+
+                URL.revokeObjectURL(
+                    downloadUrl
+                );
+
+
+                status.textContent =
+                    "PDF split successfully!";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Split error:",
+                    error
+                );
+
+
+                status.textContent = "";
+
+
+                alert(
+                    error.message ||
+                    "Sorry, this PDF could not be split."
+                );
+
+            }
+
+
+            splitButton.disabled =
+                false;
+
+
+            splitButton.textContent =
+                "Split PDF";
+
+        }
+    );
 
 </script>
+```
 
 </body>
+
 </html>
