@@ -235,6 +235,142 @@ def compress_pdf():
             "message": "PDF compression failed. Please try again."
         }), 500
 
+@app.route("/merge", methods=["POST"])
+def merge_pdf():
+
+    files = request.files.getlist("files")
+
+    if len(files) < 2:
+        return jsonify({
+            "status": "error",
+            "message": "Please upload at least 2 PDF files."
+        }), 400
+
+        try:
+
+        token = create_token()
+
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json"
+        }
+
+        # iLoveAPI merge task start
+        start_response = requests.get(
+            f"{API_BASE}/start/merge/in",
+            headers=headers,
+            timeout=60
+        )
+
+        if not start_response.ok:
+            raise Exception(
+                f"iLoveAPI merge start failed: {start_response.text}"
+            )
+
+        start_data = start_response.json()
+
+        server = start_data["server"]
+        task_id = start_data["task"]
+        
+                # Upload all PDF files
+        uploaded_files = []
+
+        upload_url = f"https://{server}/v1/upload"
+
+        for file in files:
+
+            file_data = file.read()
+
+            if not file_data:
+                raise Exception(
+                    f"Empty PDF file: {file.filename}"
+                )
+
+            upload_response = requests.post(
+                upload_url,
+                headers=headers,
+                data={
+                    "task": task_id
+                },
+                files={
+                    "file": (
+                        file.filename,
+                        file_data,
+                        "application/pdf"
+                    )
+                },
+                timeout=300
+            )
+
+            if not upload_response.ok:
+                raise Exception(
+                    f"iLoveAPI upload failed: {upload_response.text}"
+                )
+
+            upload_data = upload_response.json()
+
+            uploaded_files.append({
+                "server_filename":
+                    upload_data["server_filename"],
+                "filename":
+                    file.filename
+            })
+
+        # Process merge
+        process_url = f"https://{server}/v1/process"
+
+        process_payload = {
+            "task": task_id,
+            "tool": "merge",
+            "files": uploaded_files
+        }
+
+        process_response = requests.post(
+            process_url,
+            headers={
+                **headers,
+                "Content-Type": "application/json"
+            },
+            json=process_payload,
+            timeout=600
+        )
+
+        if not process_response.ok:
+            raise Exception(
+                f"iLoveAPI merge process failed: {process_response.text}"
+            )
+
+        # Download merged PDF
+        download_url = f"https://{server}/v1/download/{task_id}"
+
+        download_response = requests.get(
+            download_url,
+            headers=headers,
+            timeout=600
+        )
+
+        if not download_response.ok:
+            raise Exception(
+                f"iLoveAPI merge download failed: {download_response.text}"
+            )
+
+        merged_data = download_response.content
+
+        return send_file(
+            io.BytesIO(merged_data),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name="merged.pdf"
+        )
+
+    except Exception as error:
+        print("iLoveAPI merge error:", error)
+
+        return jsonify({
+            "status": "error",
+            "message": "PDF merging failed. Please try again."
+        }), 500
+
 
 if __name__ == "__main__":
 
