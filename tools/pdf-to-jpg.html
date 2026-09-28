@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PDF to JPG - You Love PDF</title>
 
 <style>
+
     * {
         margin: 0;
         padding: 0;
@@ -20,41 +22,40 @@
     }
 
     .header {
-    width: 100%;
-    min-height: 70px;
-    background: #e53935;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 7%;
-    border-bottom: 1px solid #c62828;
+        width: 100%;
+        min-height: 70px;
+        background: #e53935;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        border-bottom: 1px solid #c62828;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-}
+    .navbar {
+        display: flex;
+        gap: 30px;
+    }
 
-.navbar {
-    display: flex;
-    gap: 30px;
-}
+    .navbar a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 15px;
+        transition: color 0.2s ease;
+    }
 
-.navbar a {
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 15px;
-    transition: color 0.2s ease;
-}
-
-.navbar a:hover {
-    color: #ffd6d6;
-}
+    .navbar a:hover {
+        color: #ffd6d6;
+    }
 
     .container {
         max-width: 1100px;
@@ -266,19 +267,24 @@
         color: #555;
     }
 
-    @media (max-width: 800px) {
-.header {
-    min-height: auto;
-    padding: 20px;
-    flex-direction: column;
-    gap: 15px;
-}
+    .back-button:hover {
+        color: #e53935;
+    }
 
-.navbar {
-    gap: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+    @media (max-width: 800px) {
+
+        .header {
+            min-height: auto;
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .navbar {
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
         .container {
             margin: 40px auto;
@@ -316,10 +322,14 @@
             height: 300px;
         }
     }
+
 </style>
+
 </head>
 
 <body>
+
+
 <header class="header">
 
     <div class="logo">
@@ -327,22 +337,37 @@
     </div>
 
     <nav class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#contact">Contact</a>
+
+        <a href="https://ruhit9090.github.io/you-love-pdf/">
+            Home
+        </a>
+
+        <a href="https://ruhit9090.github.io/you-love-pdf/#about">
+            About
+        </a>
+
+        <a href="https://ruhit9090.github.io/you-love-pdf/#contact">
+            Contact
+        </a>
+
     </nav>
 
 </header>
 
+
 <main class="container">
 
-    <h1>PDF to JPG</h1>
+    <h1>
+        PDF to JPG
+    </h1>
 
     <p class="description">
         Convert PDF pages into high-quality JPG images quickly and easily.
     </p>
 
+
     <div class="tool-area">
+
 
         <!-- LEFT SIDE -->
 
@@ -359,13 +384,17 @@
             <div id="pageList">
 
                 <div class="empty-preview">
+
                     No PDF added yet.<br>
+
                     Click "Add PDF" to begin.
+
                 </div>
 
             </div>
 
         </div>
+
 
         <!-- RIGHT SIDE -->
 
@@ -375,52 +404,73 @@
                 📄
             </div>
 
-            <h2>Add PDF file</h2>
+            <h2>
+                Add PDF file
+            </h2>
 
             <p>
                 Upload a PDF and convert its pages into JPG images.
             </p>
 
+
             <label
                 for="pdfFile"
                 class="add-button">
+
                 + Add PDF
+
             </label>
+
 
             <input
                 type="file"
                 id="pdfFile"
                 accept=".pdf,application/pdf">
 
+
             <div
                 class="file-name"
                 id="fileName">
             </div>
 
+
             <div
                 class="selection-info"
                 id="selectionInfo">
+
                 0 pages selected
+
             </div>
+
 
             <button
                 class="control-button"
                 id="selectAllButton">
+
                 Select All
+
             </button>
+
 
             <button
                 class="control-button"
                 id="clearAllButton">
+
                 Clear All
+
             </button>
+
 
             <br>
 
+
             <button
                 id="convertButton">
+
                 Download JPG
+
             </button>
+
 
             <div id="status"></div>
 
@@ -428,51 +478,84 @@
 
     </div>
 
+
     <a
-        href="../index.html"
+        href="https://ruhit9090.github.io/you-love-pdf/"
         class="back-button">
+
         ← Back to PDF Tools
+
     </a>
+
 
 </main>
 
+
 <script type="module">
+
+
+/* =========================
+   PDF.JS
+========================= */
 
 import * as pdfjsLib from
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
 
+/* =========================
+   BACKEND
+========================= */
+
+const BACKEND_URL =
+"https://you-love-pdf-backend.onrender.com";
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
 const pdfFile =
 document.getElementById("pdfFile");
+
 
 const pageList =
 document.getElementById("pageList");
 
+
 const fileName =
 document.getElementById("fileName");
+
 
 const selectionInfo =
 document.getElementById("selectionInfo");
 
+
 const selectAllButton =
 document.getElementById("selectAllButton");
+
 
 const clearAllButton =
 document.getElementById("clearAllButton");
 
+
 const convertButton =
 document.getElementById("convertButton");
+
 
 const status =
 document.getElementById("status");
 
 
-let pdfDocument = null;
+let pdfDocument =
+null;
 
-let selectedPages = new Set();
+
+let selectedPages =
+new Set();
 
 
 /* =========================
@@ -500,29 +583,64 @@ pdfFile.addEventListener(
     "change",
     async function() {
 
-        if (pdfFile.files.length === 0) {
+        if (
+            pdfFile.files.length === 0
+        ) {
+
             return;
+
         }
+
 
         const file =
             pdfFile.files[0];
 
+
+        if (
+            file.type !== "application/pdf" &&
+            !file.name
+                .toLowerCase()
+                .endsWith(".pdf")
+        ) {
+
+            alert(
+                "Please select a PDF file."
+            );
+
+            pdfFile.value = "";
+
+            return;
+
+        }
+
+
         fileName.textContent =
             file.name;
+
+
+        status.style.color =
+            "#555";
+
 
         status.textContent =
             "Loading PDF...";
 
-        pageList.innerHTML = "";
+
+        pageList.innerHTML =
+            "";
+
 
         selectedPages.clear();
 
+
         updateSelectionInfo();
+
 
         try {
 
             const arrayBuffer =
                 await file.arrayBuffer();
+
 
             pdfDocument =
                 await pdfjsLib
@@ -531,27 +649,49 @@ pdfFile.addEventListener(
                 })
                 .promise;
 
+
             status.textContent =
                 "Rendering PDF pages...";
 
+
             await renderPages();
+
+
+            status.style.color =
+                "#2e7d32";
+
 
             status.textContent =
                 "PDF loaded successfully.";
+
 
         } catch (error) {
 
             console.error(error);
 
-            pdfDocument = null;
+
+            pdfDocument =
+                null;
+
 
             pageList.innerHTML = `
+
                 <div class="empty-preview">
+
                     Sorry, this PDF could not be opened.
+
                 </div>
+
             `;
 
-            status.textContent = "";
+
+            status.style.color =
+                "#e53935";
+
+
+            status.textContent =
+                "";
+
 
             alert(
                 "Sorry, this PDF could not be opened."
@@ -569,7 +709,9 @@ pdfFile.addEventListener(
 
 async function renderPages() {
 
-    pageList.innerHTML = "";
+    pageList.innerHTML =
+        "";
+
 
     for (
         let pageNumber = 1;
@@ -582,58 +724,101 @@ async function renderPages() {
                 pageNumber
             );
 
+
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         card.className =
             "page-card";
 
+
         card.dataset.page =
             pageNumber;
 
+
         const canvas =
-            document.createElement("canvas");
+            document.createElement(
+                "canvas"
+            );
+
 
         const viewport =
             page.getViewport({
                 scale: 1
             });
 
+
         canvas.width =
             viewport.width;
+
 
         canvas.height =
             viewport.height;
 
+
         const context =
-            canvas.getContext("2d");
+            canvas.getContext(
+                "2d"
+            );
+
 
         await page.render({
-            canvasContext: context,
-            viewport: viewport
+
+            canvasContext:
+                context,
+
+            viewport:
+                viewport
+
         }).promise;
 
+
         const pageNumberText =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         pageNumberText.className =
             "page-number";
 
+
         pageNumberText.textContent =
-            "Page " + pageNumber;
+            "Page " +
+            pageNumber;
+
 
         const selectedLabel =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         selectedLabel.className =
             "selected-label";
 
+
         selectedLabel.textContent =
             "";
 
-        card.appendChild(canvas);
-        card.appendChild(pageNumberText);
-        card.appendChild(selectedLabel);
+
+        card.appendChild(
+            canvas
+        );
+
+
+        card.appendChild(
+            pageNumberText
+        );
+
+
+        card.appendChild(
+            selectedLabel
+        );
+
 
         card.addEventListener(
             "click",
@@ -648,7 +833,10 @@ async function renderPages() {
             }
         );
 
-        pageList.appendChild(card);
+
+        pageList.appendChild(
+            card
+        );
 
     }
 
@@ -666,16 +854,20 @@ function togglePage(
 ) {
 
     if (
-        selectedPages.has(pageNumber)
+        selectedPages.has(
+            pageNumber
+        )
     ) {
 
         selectedPages.delete(
             pageNumber
         );
 
+
         card.classList.remove(
             "selected"
         );
+
 
         selectedLabel.textContent =
             "";
@@ -686,14 +878,17 @@ function togglePage(
             pageNumber
         );
 
+
         card.classList.add(
             "selected"
         );
+
 
         selectedLabel.textContent =
             "✓ Selected";
 
     }
+
 
     updateSelectionInfo();
 
@@ -715,9 +910,12 @@ selectAllButton.addEventListener(
             );
 
             return;
+
         }
 
+
         selectedPages.clear();
+
 
         for (
             let i = 1;
@@ -729,7 +927,9 @@ selectAllButton.addEventListener(
 
         }
 
+
         updatePageStyles();
+
 
         updateSelectionInfo();
 
@@ -747,7 +947,9 @@ clearAllButton.addEventListener(
 
         selectedPages.clear();
 
+
         updatePageStyles();
+
 
         updateSelectionInfo();
 
@@ -766,6 +968,7 @@ function updatePageStyles() {
             ".page-card"
         );
 
+
     cards.forEach(
         function(card) {
 
@@ -774,10 +977,12 @@ function updatePageStyles() {
                     card.dataset.page
                 );
 
+
             const label =
                 card.querySelector(
                     ".selected-label"
                 );
+
 
             if (
                 selectedPages.has(
@@ -789,6 +994,7 @@ function updatePageStyles() {
                     "selected"
                 );
 
+
                 label.textContent =
                     "✓ Selected";
 
@@ -797,6 +1003,7 @@ function updatePageStyles() {
                 card.classList.remove(
                     "selected"
                 );
+
 
                 label.textContent =
                     "";
@@ -824,7 +1031,9 @@ convertButton.addEventListener(
             );
 
             return;
+
         }
+
 
         if (
             selectedPages.size === 0
@@ -835,141 +1044,243 @@ convertButton.addEventListener(
             );
 
             return;
+
         }
 
-        convertButton.disabled = true;
+
+        const file =
+            pdfFile.files[0];
+
+
+        if (!file) {
+
+            alert(
+                "Please add a PDF first."
+            );
+
+            return;
+
+        }
+
+
+        convertButton.disabled =
+            true;
+
 
         convertButton.textContent =
             "Creating JPG...";
 
+
+        status.style.color =
+            "#555";
+
+
         status.textContent =
             "Preparing selected pages...";
 
+
         try {
+
+
+            /* =========================
+               SORT SELECTED PAGES
+            ========================= */
 
             const pages =
                 Array.from(
                     selectedPages
                 ).sort(
-                    (a, b) => a - b
-                );
-
-            for (
-                let i = 0;
-                i < pages.length;
-                i++
-            ) {
-
-                const pageNumber =
-                    pages[i];
-
-                status.textContent =
-                    "Converting page " +
-                    (i + 1) +
-                    " of " +
-                    pages.length +
-                    "...";
-
-                const page =
-                    await pdfDocument.getPage(
-                        pageNumber
-                    );
-
-                const scale = 2;
-
-                const viewport =
-                    page.getViewport({
-                        scale: scale
-                    });
-
-                const canvas =
-                    document.createElement(
-                        "canvas"
-                    );
-
-                canvas.width =
-                    viewport.width;
-
-                canvas.height =
-                    viewport.height;
-
-                const context =
-                    canvas.getContext(
-                        "2d"
-                    );
-
-                await page.render({
-                    canvasContext:
-                        context,
-                    viewport:
-                        viewport
-                }).promise;
-
-                const imageData =
-                    canvas.toDataURL(
-                        "image/jpeg",
-                        0.92
-                    );
-
-                const downloadLink =
-                    document.createElement(
-                        "a"
-                    );
-
-                downloadLink.href =
-                    imageData;
-
-                downloadLink.download =
-                    "page-" +
-                    pageNumber +
-                    ".jpg";
-
-                document.body.appendChild(
-                    downloadLink
-                );
-
-                downloadLink.click();
-
-                document.body.removeChild(
-                    downloadLink
-                );
-
-                await new Promise(
-                    function(resolve) {
-                        setTimeout(
-                            resolve,
-                            150
-                        );
+                    function(a, b) {
+                        return a - b;
                     }
+                );
+
+
+            /* =========================
+               CREATE FORM DATA
+            ========================= */
+
+            const formData =
+                new FormData();
+
+
+            formData.append(
+                "file",
+                file
+            );
+
+
+            formData.append(
+                "pages",
+                JSON.stringify(pages)
+            );
+
+
+            /* =========================
+               SEND TO BACKEND
+            ========================= */
+
+            status.textContent =
+                "Converting PDF pages to JPG...";
+
+
+            const response =
+                await fetch(
+                    BACKEND_URL +
+                    "/pdf-to-jpg",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            /* =========================
+               CHECK RESPONSE
+            ========================= */
+
+            if (!response.ok) {
+
+                let errorMessage =
+                    "JPG conversion failed.";
+
+
+                try {
+
+                    const errorData =
+                        await response.json();
+
+
+                    if (
+                        errorData.message
+                    ) {
+
+                        errorMessage =
+                            errorData.message;
+
+                    }
+
+                } catch (e) {
+
+                    // Ignore JSON parsing error
+
+                }
+
+
+                throw new Error(
+                    errorMessage
                 );
 
             }
 
+
+            /* =========================
+               GET ZIP FILE
+            ========================= */
+
+            status.textContent =
+                "Preparing ZIP download...";
+
+
+            const zipBlob =
+                await response.blob();
+
+
+            /* =========================
+               DOWNLOAD ZIP
+            ========================= */
+
+            const downloadUrl =
+                URL.createObjectURL(
+                    zipBlob
+                );
+
+
+            const downloadLink =
+                document.createElement(
+                    "a"
+                );
+
+
+            downloadLink.href =
+                downloadUrl;
+
+
+            downloadLink.download =
+                "pdf-to-jpg.zip";
+
+
+            document.body.appendChild(
+                downloadLink
+            );
+
+
+            downloadLink.click();
+
+
+            document.body.removeChild(
+                downloadLink
+            );
+
+
+            URL.revokeObjectURL(
+                downloadUrl
+            );
+
+
+            /* =========================
+               SUCCESS
+            ========================= */
+
             status.style.color =
                 "#2e7d32";
 
+
             status.textContent =
-                "JPG images downloaded successfully!";
+                "JPG images created successfully! ZIP downloaded.";
+
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "PDF to JPG error:",
+                error
+            );
+
 
             status.style.color =
                 "#e53935";
 
+
             status.textContent =
-                "Sorry, JPG images could not be created.";
+                "";
+
+
+            alert(
+                error.message ||
+                "Sorry, JPG images could not be created."
+            );
 
         }
 
-        convertButton.disabled = false;
+
+        convertButton.disabled =
+            false;
+
 
         convertButton.textContent =
             "Download JPG";
 
     }
 );
+
+
+/* =========================
+   INITIAL STATE
+========================= */
+
+updateSelectionInfo();
+
 
 </script>
 
