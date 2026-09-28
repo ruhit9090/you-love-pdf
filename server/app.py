@@ -3,13 +3,20 @@ from flask_cors import CORS
 import io
 import os
 import time
+import json
+import zipfile
 import requests
 import jwt
+import fitz
 
 
 app = Flask(__name__)
 CORS(app)
 
+
+# =========================================================
+# iLoveAPI SETTINGS
+# =========================================================
 
 ILOVEAPI_PUBLIC_KEY = os.environ.get("ILOVEPDF_PUBLIC_KEY")
 ILOVEAPI_SECRET_KEY = os.environ.get("ILOVEPDF_SECRET_KEY")
@@ -18,10 +25,15 @@ API_BASE = "https://api.ilovepdf.com/v1"
 
 
 # iLoveAPI token lifetime is 1 hour.
-# This delay also helps with server clock differences.
 TOKEN_EXPIRE_SECONDS = 3600
+
+# Helps with server clock differences.
 TIME_DELAY_SECONDS = 5400
 
+
+# =========================================================
+# HOME
+# =========================================================
 
 @app.route("/")
 def home():
@@ -32,6 +44,10 @@ def home():
     })
 
 
+# =========================================================
+# HEALTH
+# =========================================================
+
 @app.route("/health")
 def health():
 
@@ -40,21 +56,44 @@ def health():
     })
 
 
+# =========================================================
+# CREATE ILOVEAPI TOKEN
+# =========================================================
+
 def create_token():
 
     if not ILOVEAPI_PUBLIC_KEY or not ILOVEAPI_SECRET_KEY:
-        raise Exception("iLoveAPI credentials are not configured.")
+
+        raise Exception(
+            "iLoveAPI credentials are not configured."
+        )
+
 
     now = int(time.time())
 
+
     payload = {
+
         "iss": "",
+
         "aud": "",
-        "iat": now - TIME_DELAY_SECONDS,
-        "nbf": now - TIME_DELAY_SECONDS,
-        "exp": now + TOKEN_EXPIRE_SECONDS + TIME_DELAY_SECONDS,
-        "jti": ILOVEAPI_PUBLIC_KEY
+
+        "iat":
+            now - TIME_DELAY_SECONDS,
+
+        "nbf":
+            now - TIME_DELAY_SECONDS,
+
+        "exp":
+            now +
+            TOKEN_EXPIRE_SECONDS +
+            TIME_DELAY_SECONDS,
+
+        "jti":
+            ILOVEAPI_PUBLIC_KEY
+
     }
+
 
     token = jwt.encode(
         payload,
@@ -62,8 +101,13 @@ def create_token():
         algorithm="HS256"
     )
 
+
     return token
 
+
+# =========================================================
+# 1. COMPRESS PDF
+# =========================================================
 
 @app.route("/compress", methods=["POST"])
 def compress_pdf():
@@ -108,166 +152,253 @@ def compress_pdf():
             }), 400
 
 
-        original_size = len(original_data)
+        original_size = len(
+            original_data
+        )
 
 
-        # ---------------------------------
-        # 1. Create authentication token
-        # ---------------------------------
+        # -----------------------------------------
+        # CREATE TOKEN
+        # -----------------------------------------
 
         token = create_token()
 
 
         headers = {
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/json"
+
+            "Authorization":
+                f"Bearer {token}",
+
+            "Accept":
+                "application/json"
+
         }
 
 
-        # ---------------------------------
-        # 2. Start compression task
-        # ---------------------------------
+        # -----------------------------------------
+        # START TASK
+        # -----------------------------------------
 
         start_response = requests.get(
+
             f"{API_BASE}/start/compress/in",
+
             headers=headers,
+
             timeout=60
+
         )
 
 
         if not start_response.ok:
 
             raise Exception(
-                f"iLoveAPI start failed: {start_response.text}"
+                f"iLoveAPI start failed: "
+                f"{start_response.text}"
             )
 
 
-        start_data = start_response.json()
+        start_data =
+            start_response.json()
 
 
-        server = start_data["server"]
-        task_id = start_data["task"]
+        server =
+            start_data["server"]
 
 
-        # ---------------------------------
-        # 3. Upload PDF
-        # ---------------------------------
+        task_id =
+            start_data["task"]
 
-        upload_url = f"https://{server}/v1/upload"
+
+        # -----------------------------------------
+        # UPLOAD PDF
+        # -----------------------------------------
+
+        upload_url =
+            f"https://{server}/v1/upload"
 
 
         upload_response = requests.post(
+
             upload_url,
+
             headers=headers,
+
             data={
                 "task": task_id
             },
+
             files={
+
                 "file": (
+
                     file.filename,
+
                     original_data,
+
                     "application/pdf"
+
                 )
+
             },
+
             timeout=300
+
         )
 
 
         if not upload_response.ok:
 
             raise Exception(
-                f"iLoveAPI upload failed: {upload_response.text}"
+                f"iLoveAPI upload failed: "
+                f"{upload_response.text}"
             )
 
 
-        upload_data = upload_response.json()
+        upload_data =
+            upload_response.json()
 
 
-        server_filename = upload_data["server_filename"]
+        server_filename =
+            upload_data["server_filename"]
 
 
-        # ---------------------------------
-        # 4. Process compression
-        # ---------------------------------
+        # -----------------------------------------
+        # PROCESS
+        # -----------------------------------------
 
-        process_url = f"https://{server}/v1/process"
+        process_url =
+            f"https://{server}/v1/process"
 
 
         process_payload = {
-            "task": task_id,
-            "tool": "compress",
+
+            "task":
+                task_id,
+
+            "tool":
+                "compress",
+
             "files": [
+
                 {
-                    "server_filename": server_filename,
-                    "filename": file.filename
+
+                    "server_filename":
+                        server_filename,
+
+                    "filename":
+                        file.filename
+
                 }
+
             ],
-            "compression_level": "recommended"
+
+            "compression_level":
+                "recommended"
+
         }
 
 
         process_response = requests.post(
+
             process_url,
+
             headers={
+
                 **headers,
-                "Content-Type": "application/json"
+
+                "Content-Type":
+                    "application/json"
+
             },
+
             json=process_payload,
+
             timeout=600
+
         )
 
 
         if not process_response.ok:
 
             raise Exception(
-                f"iLoveAPI process failed: {process_response.text}"
+                f"iLoveAPI process failed: "
+                f"{process_response.text}"
             )
 
 
-        # ---------------------------------
-        # 5. Download compressed PDF
-        # ---------------------------------
+        # -----------------------------------------
+        # DOWNLOAD
+        # -----------------------------------------
 
-        download_url = f"https://{server}/v1/download/{task_id}"
+        download_url =
+            f"https://{server}/v1/download/{task_id}"
 
 
         download_response = requests.get(
+
             download_url,
+
             headers=headers,
+
             timeout=600
+
         )
 
 
         if not download_response.ok:
 
             raise Exception(
-                f"iLoveAPI download failed: {download_response.text}"
+                f"iLoveAPI download failed: "
+                f"{download_response.text}"
             )
 
 
-        compressed_data = download_response.content
-        compressed_size = len(compressed_data)
+        compressed_data =
+            download_response.content
 
 
-        # ---------------------------------
-        # 6. Never return a larger PDF
-        # ---------------------------------
+        compressed_size =
+            len(compressed_data)
+
+
+        # -----------------------------------------
+        # DON'T RETURN LARGER FILE
+        # -----------------------------------------
 
         if compressed_size >= original_size:
 
             return send_file(
-                io.BytesIO(original_data),
+
+                io.BytesIO(
+                    original_data
+                ),
+
                 mimetype="application/pdf",
+
                 as_attachment=True,
-                download_name="compressed-" + file.filename
+
+                download_name=
+                    "compressed-" +
+                    file.filename
+
             )
 
 
         return send_file(
-            io.BytesIO(compressed_data),
+
+            io.BytesIO(
+                compressed_data
+            ),
+
             mimetype="application/pdf",
+
             as_attachment=True,
-            download_name="compressed-" + file.filename
+
+            download_name=
+                "compressed-" +
+                file.filename
+
         )
 
 
@@ -280,194 +411,278 @@ def compress_pdf():
 
 
         return jsonify({
-            "status": "error",
-            "message": "PDF compression failed. Please try again."
+
+            "status":
+                "error",
+
+            "message":
+                "PDF compression failed. "
+                "Please try again."
+
         }), 500
 
+
+# =========================================================
+# 2. MERGE PDF
+# =========================================================
 
 @app.route("/merge", methods=["POST"])
 def merge_pdf():
 
-    files = request.files.getlist("files")
+    files =
+        request.files.getlist("files")
 
 
     if len(files) < 2:
 
         return jsonify({
-            "status": "error",
-            "message": "Please upload at least 2 PDF files."
+
+            "status":
+                "error",
+
+            "message":
+                "Please upload at least "
+                "2 PDF files."
+
         }), 400
 
 
     try:
 
-        # ---------------------------------
-        # 1. Create authentication token
-        # ---------------------------------
+        # -----------------------------------------
+        # CREATE TOKEN
+        # -----------------------------------------
 
-        token = create_token()
+        token =
+            create_token()
 
 
         headers = {
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/json"
+
+            "Authorization":
+                f"Bearer {token}",
+
+            "Accept":
+                "application/json"
+
         }
 
 
-        # ---------------------------------
-        # 2. Start merge task
-        # ---------------------------------
+        # -----------------------------------------
+        # START MERGE TASK
+        # -----------------------------------------
 
         start_response = requests.get(
+
             f"{API_BASE}/start/merge/in",
+
             headers=headers,
+
             timeout=60
+
         )
 
 
         if not start_response.ok:
 
             raise Exception(
-                f"iLoveAPI merge start failed: {start_response.text}"
+                f"iLoveAPI merge start failed: "
+                f"{start_response.text}"
             )
 
 
-        start_data = start_response.json()
+        start_data =
+            start_response.json()
 
 
-        server = start_data["server"]
-        task_id = start_data["task"]
+        server =
+            start_data["server"]
 
 
-        # ---------------------------------
-        # 3. Upload all PDF files
-        # ---------------------------------
+        task_id =
+            start_data["task"]
+
+
+        # -----------------------------------------
+        # UPLOAD FILES
+        # -----------------------------------------
 
         uploaded_files = []
 
 
-        upload_url = f"https://{server}/v1/upload"
+        upload_url =
+            f"https://{server}/v1/upload"
 
 
         for file in files:
 
-            file_data = file.read()
+            file_data =
+                file.read()
 
 
             if not file_data:
 
                 raise Exception(
-                    f"Empty PDF file: {file.filename}"
+                    f"Empty PDF file: "
+                    f"{file.filename}"
                 )
 
 
             if not file.filename.lower().endswith(".pdf"):
 
                 raise Exception(
-                    f"Invalid file type: {file.filename}"
+                    f"Invalid file type: "
+                    f"{file.filename}"
                 )
 
 
             upload_response = requests.post(
+
                 upload_url,
+
                 headers=headers,
+
                 data={
                     "task": task_id
                 },
+
                 files={
+
                     "file": (
+
                         file.filename,
+
                         file_data,
+
                         "application/pdf"
+
                     )
+
                 },
+
                 timeout=300
+
             )
 
 
             if not upload_response.ok:
 
                 raise Exception(
-                    f"iLoveAPI upload failed: {upload_response.text}"
+                    f"iLoveAPI upload failed: "
+                    f"{upload_response.text}"
                 )
 
 
-            upload_data = upload_response.json()
+            upload_data =
+                upload_response.json()
 
 
             uploaded_files.append({
+
                 "server_filename":
-                    upload_data["server_filename"],
+                    upload_data[
+                        "server_filename"
+                    ],
+
                 "filename":
                     file.filename
+
             })
 
 
-        # ---------------------------------
-        # 4. Process merge
-        # ---------------------------------
+        # -----------------------------------------
+        # PROCESS MERGE
+        # -----------------------------------------
 
-        process_url = f"https://{server}/v1/process"
+        process_url =
+            f"https://{server}/v1/process"
 
 
         process_payload = {
-            "task": task_id,
-            "tool": "merge",
-            "files": uploaded_files
+
+            "task":
+                task_id,
+
+            "tool":
+                "merge",
+
+            "files":
+                uploaded_files
+
         }
 
 
         process_response = requests.post(
+
             process_url,
+
             headers={
+
                 **headers,
-                "Content-Type": "application/json"
+
+                "Content-Type":
+                    "application/json"
+
             },
+
             json=process_payload,
+
             timeout=600
+
         )
 
 
         if not process_response.ok:
 
             raise Exception(
-                f"iLoveAPI merge process failed: {process_response.text}"
+                f"iLoveAPI merge process failed: "
+                f"{process_response.text}"
             )
 
 
-        # ---------------------------------
-        # 5. Download merged PDF
-        # ---------------------------------
+        # -----------------------------------------
+        # DOWNLOAD MERGED PDF
+        # -----------------------------------------
 
-        download_url = f"https://{server}/v1/download/{task_id}"
+        download_url =
+            f"https://{server}/v1/download/{task_id}"
 
 
         download_response = requests.get(
+
             download_url,
+
             headers=headers,
+
             timeout=600
+
         )
 
 
         if not download_response.ok:
 
             raise Exception(
-                f"iLoveAPI merge download failed: {download_response.text}"
+                f"iLoveAPI merge download failed: "
+                f"{download_response.text}"
             )
 
 
-        merged_data = download_response.content
+        merged_data =
+            download_response.content
 
-
-        # ---------------------------------
-        # 6. Return merged PDF
-        # ---------------------------------
 
         return send_file(
-            io.BytesIO(merged_data),
+
+            io.BytesIO(
+                merged_data
+            ),
+
             mimetype="application/pdf",
+
             as_attachment=True,
+
             download_name="merged.pdf"
+
         )
 
 
@@ -480,22 +695,912 @@ def merge_pdf():
 
 
         return jsonify({
-            "status": "error",
-            "message": "PDF merging failed. Please try again."
+
+            "status":
+                "error",
+
+            "message":
+                "PDF merging failed. "
+                "Please try again."
+
         }), 500
 
+
+# =========================================================
+# 3. SPLIT PDF
+# =========================================================
+
+@app.route("/split", methods=["POST"])
+def split_pdf():
+
+    if "file" not in request.files:
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "No PDF file received."
+
+        }), 400
+
+
+    file =
+        request.files["file"]
+
+
+    if not file.filename:
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "No PDF file selected."
+
+        }), 400
+
+
+    if not file.filename.lower().endswith(".pdf"):
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "Please upload a PDF file."
+
+        }), 400
+
+
+    try:
+
+        pdf_data =
+            file.read()
+
+
+        if not pdf_data:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "The uploaded PDF is empty."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # GET PAGE SELECTION
+        # -----------------------------------------
+
+        pages_text =
+            request.form.get("pages")
+
+
+        if not pages_text:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "No pages selected."
+
+            }), 400
+
+
+        try:
+
+            pages =
+                json.loads(pages_text)
+
+        except Exception:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "Invalid page selection."
+
+            }), 400
+
+
+        if not isinstance(
+            pages,
+            list
+        ):
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "Invalid page selection."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # OPEN PDF
+        # -----------------------------------------
+
+        source_pdf =
+            fitz.open(
+                stream=pdf_data,
+                filetype="pdf"
+            )
+
+
+        page_count =
+            len(source_pdf)
+
+
+        if page_count == 0:
+
+            source_pdf.close()
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "The PDF contains no pages."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # VALIDATE PAGES
+        # -----------------------------------------
+
+        valid_pages = []
+
+
+        for page in pages:
+
+            try:
+
+                page_number =
+                    int(page)
+
+            except Exception:
+
+                continue
+
+
+            if (
+                page_number >= 1
+                and
+                page_number <= page_count
+            ):
+
+                if page_number not in valid_pages:
+
+                    valid_pages.append(
+                        page_number
+                    )
+
+
+        if not valid_pages:
+
+            source_pdf.close()
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "No valid pages selected."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # CREATE NEW PDF
+        # -----------------------------------------
+
+        output_pdf =
+            fitz.open()
+
+
+        for page_number in valid_pages:
+
+            output_pdf.insert_pdf(
+
+                source_pdf,
+
+                from_page=
+                    page_number - 1,
+
+                to_page=
+                    page_number - 1
+
+            )
+
+
+        output_data =
+            output_pdf.tobytes()
+
+
+        output_pdf.close()
+        source_pdf.close()
+
+
+        return send_file(
+
+            io.BytesIO(
+                output_data
+            ),
+
+            mimetype="application/pdf",
+
+            as_attachment=True,
+
+            download_name="split.pdf"
+
+        )
+
+
+    except Exception as error:
+
+        print(
+            "Split PDF error:",
+            error
+        )
+
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "PDF splitting failed. "
+                "Please try again."
+
+        }), 500
+
+
+# =========================================================
+# 4. JPG / IMAGE TO PDF
+# =========================================================
+
+@app.route("/jpg-to-pdf", methods=["POST"])
+def jpg_to_pdf():
+
+    files =
+        request.files.getlist("files")
+
+
+    if not files:
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "Please upload at least "
+                "one JPG image."
+
+        }), 400
+
+
+    try:
+
+        # -----------------------------------------
+        # CREATE OUTPUT PDF
+        # -----------------------------------------
+
+        output_pdf =
+            fitz.open()
+
+
+        # A4 size in points
+        A4_WIDTH = 595.28
+        A4_HEIGHT = 841.89
+
+        MARGIN = 28.35
+
+        usable_width =
+            A4_WIDTH - (
+                MARGIN * 2
+            )
+
+        usable_height =
+            A4_HEIGHT - (
+                MARGIN * 2
+            )
+
+
+        # -----------------------------------------
+        # PROCESS EACH IMAGE IN ORDER
+        # -----------------------------------------
+
+        for file in files:
+
+            if not file.filename:
+
+                continue
+
+
+            filename =
+                file.filename.lower()
+
+
+            if not (
+                filename.endswith(".jpg")
+                or
+                filename.endswith(".jpeg")
+            ):
+
+                output_pdf.close()
+
+                return jsonify({
+
+                    "status":
+                        "error",
+
+                    "message":
+                        "Only JPG/JPEG images "
+                        "are supported."
+
+                }), 400
+
+
+            image_data =
+                file.read()
+
+
+            if not image_data:
+
+                output_pdf.close()
+
+                return jsonify({
+
+                    "status":
+                        "error",
+
+                    "message":
+                        "One of the selected "
+                        "images is empty."
+
+                }), 400
+
+
+            # -----------------------------------------
+            # READ IMAGE
+            # -----------------------------------------
+
+            image_document =
+                fitz.open(
+                    stream=image_data,
+                    filetype="jpg"
+                )
+
+
+            image_page =
+                image_document[0]
+
+
+            image_rect =
+                image_page.rect
+
+
+            image_width =
+                image_rect.width
+
+
+            image_height =
+                image_rect.height
+
+
+            image_document.close()
+
+
+            if (
+                image_width <= 0
+                or
+                image_height <= 0
+            ):
+
+                output_pdf.close()
+
+                return jsonify({
+
+                    "status":
+                        "error",
+
+                    "message":
+                        "Invalid JPG image."
+
+                }), 400
+
+
+            # -----------------------------------------
+            # CALCULATE FIT
+            # -----------------------------------------
+
+            scale_x =
+                usable_width / image_width
+
+
+            scale_y =
+                usable_height / image_height
+
+
+            scale =
+                min(
+                    scale_x,
+                    scale_y
+                )
+
+
+            display_width =
+                image_width * scale
+
+
+            display_height =
+                image_height * scale
+
+
+            x =
+                (
+                    A4_WIDTH -
+                    display_width
+                ) / 2
+
+
+            y =
+                (
+                    A4_HEIGHT -
+                    display_height
+                ) / 2
+
+
+            image_rect_on_pdf =
+                fitz.Rect(
+                    x,
+                    y,
+                    x + display_width,
+                    y + display_height
+                )
+
+
+            # -----------------------------------------
+            # CREATE PDF PAGE
+            # -----------------------------------------
+
+            page =
+                output_pdf.new_page(
+                    width=A4_WIDTH,
+                    height=A4_HEIGHT
+                )
+
+
+            # -----------------------------------------
+            # INSERT IMAGE
+            # -----------------------------------------
+
+            page.insert_image(
+
+                image_rect_on_pdf,
+
+                stream=image_data,
+
+                keep_proportion=True
+
+            )
+
+
+        # -----------------------------------------
+        # CHECK OUTPUT
+        # -----------------------------------------
+
+        if len(output_pdf) == 0:
+
+            output_pdf.close()
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "No valid JPG images found."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # CREATE PDF DATA
+        # -----------------------------------------
+
+        pdf_data =
+            output_pdf.tobytes()
+
+
+        output_pdf.close()
+
+
+        return send_file(
+
+            io.BytesIO(
+                pdf_data
+            ),
+
+            mimetype="application/pdf",
+
+            as_attachment=True,
+
+            download_name="jpg-to-pdf.pdf"
+
+        )
+
+
+    except Exception as error:
+
+        print(
+            "JPG to PDF error:",
+            error
+        )
+
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "JPG to PDF conversion failed. "
+                "Please try again."
+
+        }), 500
+
+
+# =========================================================
+# 5. PDF TO JPG
+# =========================================================
+
+@app.route("/pdf-to-jpg", methods=["POST"])
+def pdf_to_jpg():
+
+    if "file" not in request.files:
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "No PDF file received."
+
+        }), 400
+
+
+    file =
+        request.files["file"]
+
+
+    if not file.filename:
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "No PDF file selected."
+
+        }), 400
+
+
+    if not file.filename.lower().endswith(".pdf"):
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "Please upload a PDF file."
+
+        }), 400
+
+
+    try:
+
+        pdf_data =
+            file.read()
+
+
+        if not pdf_data:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "The uploaded PDF is empty."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # GET SELECTED PAGES
+        # -----------------------------------------
+
+        pages_text =
+            request.form.get("pages")
+
+
+        if not pages_text:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "No pages selected."
+
+            }), 400
+
+
+        try:
+
+            pages =
+                json.loads(pages_text)
+
+        except Exception:
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "Invalid page selection."
+
+            }), 400
+
+
+        if not isinstance(
+            pages,
+            list
+        ):
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "Invalid page selection."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # OPEN PDF
+        # -----------------------------------------
+
+        pdf_document =
+            fitz.open(
+                stream=pdf_data,
+                filetype="pdf"
+            )
+
+
+        total_pages =
+            len(pdf_document)
+
+
+        if total_pages == 0:
+
+            pdf_document.close()
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "The PDF contains no pages."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # VALIDATE SELECTED PAGES
+        # -----------------------------------------
+
+        valid_pages = []
+
+
+        for page in pages:
+
+            try:
+
+                page_number =
+                    int(page)
+
+            except Exception:
+
+                continue
+
+
+            if (
+                page_number >= 1
+                and
+                page_number <= total_pages
+            ):
+
+                if page_number not in valid_pages:
+
+                    valid_pages.append(
+                        page_number
+                    )
+
+
+        if not valid_pages:
+
+            pdf_document.close()
+
+            return jsonify({
+
+                "status":
+                    "error",
+
+                "message":
+                    "No valid pages selected."
+
+            }), 400
+
+
+        # -----------------------------------------
+        # CREATE ZIP
+        # -----------------------------------------
+
+        zip_buffer =
+            io.BytesIO()
+
+
+        with zipfile.ZipFile(
+
+            zip_buffer,
+
+            mode="w",
+
+            compression=
+                zipfile.ZIP_DEFLATED
+
+        ) as zip_file:
+
+
+            # -----------------------------------------
+            # CONVERT EACH PAGE
+            # -----------------------------------------
+
+            for page_number in valid_pages:
+
+                page =
+                    pdf_document[
+                        page_number - 1
+                    ]
+
+
+                # 2x resolution
+                matrix =
+                    fitz.Matrix(
+                        2,
+                        2
+                    )
+
+
+                pixmap =
+                    page.get_pixmap(
+
+                        matrix=matrix,
+
+                        alpha=False
+
+                    )
+
+
+                jpg_data =
+                    pixmap.tobytes(
+                        "jpeg"
+                    )
+
+
+                zip_file.writestr(
+
+                    f"page-{page_number}.jpg",
+
+                    jpg_data
+
+                )
+
+
+        pdf_document.close()
+
+
+        # -----------------------------------------
+        # PREPARE ZIP
+        # -----------------------------------------
+
+        zip_buffer.seek(0)
+
+
+        return send_file(
+
+            zip_buffer,
+
+            mimetype=
+                "application/zip",
+
+            as_attachment=True,
+
+            download_name=
+                "pdf-to-jpg.zip"
+
+        )
+
+
+    except Exception as error:
+
+        print(
+            "PDF to JPG error:",
+            error
+        )
+
+
+        return jsonify({
+
+            "status":
+                "error",
+
+            "message":
+                "PDF to JPG conversion failed. "
+                "Please try again."
+
+        }), 500
+
+
+# =========================================================
+# RUN SERVER
+# =========================================================
 
 if __name__ == "__main__":
 
     port = int(
+
         os.environ.get(
             "PORT",
             5000
         )
+
     )
 
 
     app.run(
+
         host="0.0.0.0",
+
         port=port
+
     )
