@@ -6,13 +6,16 @@ import time
 import requests
 import jwt
 
+
 app = Flask(__name__)
 CORS(app)
+
 
 ILOVEAPI_PUBLIC_KEY = os.environ.get("ILOVEPDF_PUBLIC_KEY")
 ILOVEAPI_SECRET_KEY = os.environ.get("ILOVEPDF_SECRET_KEY")
 
 API_BASE = "https://api.ilovepdf.com/v1"
+
 
 # iLoveAPI token lifetime is 1 hour.
 # This delay also helps with server clock differences.
@@ -22,6 +25,7 @@ TIME_DELAY_SECONDS = 5400
 
 @app.route("/")
 def home():
+
     return jsonify({
         "status": "success",
         "message": "You Love PDF backend is running!"
@@ -30,12 +34,14 @@ def home():
 
 @app.route("/health")
 def health():
+
     return jsonify({
         "status": "ok"
     })
 
 
 def create_token():
+
     if not ILOVEAPI_PUBLIC_KEY or not ILOVEAPI_SECRET_KEY:
         raise Exception("iLoveAPI credentials are not configured.")
 
@@ -63,35 +69,47 @@ def create_token():
 def compress_pdf():
 
     if "file" not in request.files:
+
         return jsonify({
             "status": "error",
             "message": "No PDF file received."
         }), 400
 
+
     file = request.files["file"]
 
+
     if not file.filename:
+
         return jsonify({
             "status": "error",
             "message": "No PDF file selected."
         }), 400
 
+
     if not file.filename.lower().endswith(".pdf"):
+
         return jsonify({
             "status": "error",
             "message": "Please upload a PDF file."
         }), 400
 
+
     try:
+
         original_data = file.read()
 
+
         if not original_data:
+
             return jsonify({
                 "status": "error",
                 "message": "The uploaded PDF is empty."
             }), 400
 
+
         original_size = len(original_data)
+
 
         # ---------------------------------
         # 1. Create authentication token
@@ -99,10 +117,12 @@ def compress_pdf():
 
         token = create_token()
 
+
         headers = {
             "Authorization": f"Bearer {token}",
             "Accept": "application/json"
         }
+
 
         # ---------------------------------
         # 2. Start compression task
@@ -114,21 +134,27 @@ def compress_pdf():
             timeout=60
         )
 
+
         if not start_response.ok:
+
             raise Exception(
                 f"iLoveAPI start failed: {start_response.text}"
             )
 
+
         start_data = start_response.json()
+
 
         server = start_data["server"]
         task_id = start_data["task"]
+
 
         # ---------------------------------
         # 3. Upload PDF
         # ---------------------------------
 
         upload_url = f"https://{server}/v1/upload"
+
 
         upload_response = requests.post(
             upload_url,
@@ -146,20 +172,26 @@ def compress_pdf():
             timeout=300
         )
 
+
         if not upload_response.ok:
+
             raise Exception(
                 f"iLoveAPI upload failed: {upload_response.text}"
             )
 
+
         upload_data = upload_response.json()
 
+
         server_filename = upload_data["server_filename"]
+
 
         # ---------------------------------
         # 4. Process compression
         # ---------------------------------
 
         process_url = f"https://{server}/v1/process"
+
 
         process_payload = {
             "task": task_id,
@@ -173,6 +205,7 @@ def compress_pdf():
             "compression_level": "recommended"
         }
 
+
         process_response = requests.post(
             process_url,
             headers={
@@ -183,10 +216,13 @@ def compress_pdf():
             timeout=600
         )
 
+
         if not process_response.ok:
+
             raise Exception(
                 f"iLoveAPI process failed: {process_response.text}"
             )
+
 
         # ---------------------------------
         # 5. Download compressed PDF
@@ -194,31 +230,38 @@ def compress_pdf():
 
         download_url = f"https://{server}/v1/download/{task_id}"
 
+
         download_response = requests.get(
             download_url,
             headers=headers,
             timeout=600
         )
 
+
         if not download_response.ok:
+
             raise Exception(
                 f"iLoveAPI download failed: {download_response.text}"
             )
 
+
         compressed_data = download_response.content
         compressed_size = len(compressed_data)
+
 
         # ---------------------------------
         # 6. Never return a larger PDF
         # ---------------------------------
 
         if compressed_size >= original_size:
+
             return send_file(
                 io.BytesIO(original_data),
                 mimetype="application/pdf",
                 as_attachment=True,
                 download_name="compressed-" + file.filename
             )
+
 
         return send_file(
             io.BytesIO(compressed_data),
@@ -227,64 +270,103 @@ def compress_pdf():
             download_name="compressed-" + file.filename
         )
 
+
     except Exception as error:
-        print("iLoveAPI compression error:", error)
+
+        print(
+            "iLoveAPI compression error:",
+            error
+        )
+
 
         return jsonify({
             "status": "error",
             "message": "PDF compression failed. Please try again."
         }), 500
 
+
 @app.route("/merge", methods=["POST"])
 def merge_pdf():
 
     files = request.files.getlist("files")
 
+
     if len(files) < 2:
+
         return jsonify({
             "status": "error",
             "message": "Please upload at least 2 PDF files."
         }), 400
 
-        try:
+
+    try:
+
+        # ---------------------------------
+        # 1. Create authentication token
+        # ---------------------------------
 
         token = create_token()
+
 
         headers = {
             "Authorization": f"Bearer {token}",
             "Accept": "application/json"
         }
 
-        # iLoveAPI merge task start
+
+        # ---------------------------------
+        # 2. Start merge task
+        # ---------------------------------
+
         start_response = requests.get(
             f"{API_BASE}/start/merge/in",
             headers=headers,
             timeout=60
         )
 
+
         if not start_response.ok:
+
             raise Exception(
                 f"iLoveAPI merge start failed: {start_response.text}"
             )
 
+
         start_data = start_response.json()
+
 
         server = start_data["server"]
         task_id = start_data["task"]
-        
-                # Upload all PDF files
+
+
+        # ---------------------------------
+        # 3. Upload all PDF files
+        # ---------------------------------
+
         uploaded_files = []
 
+
         upload_url = f"https://{server}/v1/upload"
+
 
         for file in files:
 
             file_data = file.read()
 
+
             if not file_data:
+
                 raise Exception(
                     f"Empty PDF file: {file.filename}"
                 )
+
+
+            if not file.filename.lower().endswith(".pdf"):
+
+                raise Exception(
+                    f"Invalid file type: {file.filename}"
+                )
+
 
             upload_response = requests.post(
                 upload_url,
@@ -302,12 +384,16 @@ def merge_pdf():
                 timeout=300
             )
 
+
             if not upload_response.ok:
+
                 raise Exception(
                     f"iLoveAPI upload failed: {upload_response.text}"
                 )
 
+
             upload_data = upload_response.json()
+
 
             uploaded_files.append({
                 "server_filename":
@@ -316,14 +402,20 @@ def merge_pdf():
                     file.filename
             })
 
-        # Process merge
+
+        # ---------------------------------
+        # 4. Process merge
+        # ---------------------------------
+
         process_url = f"https://{server}/v1/process"
+
 
         process_payload = {
             "task": task_id,
             "tool": "merge",
             "files": uploaded_files
         }
+
 
         process_response = requests.post(
             process_url,
@@ -335,13 +427,20 @@ def merge_pdf():
             timeout=600
         )
 
+
         if not process_response.ok:
+
             raise Exception(
                 f"iLoveAPI merge process failed: {process_response.text}"
             )
 
-        # Download merged PDF
+
+        # ---------------------------------
+        # 5. Download merged PDF
+        # ---------------------------------
+
         download_url = f"https://{server}/v1/download/{task_id}"
+
 
         download_response = requests.get(
             download_url,
@@ -349,12 +448,20 @@ def merge_pdf():
             timeout=600
         )
 
+
         if not download_response.ok:
+
             raise Exception(
                 f"iLoveAPI merge download failed: {download_response.text}"
             )
 
+
         merged_data = download_response.content
+
+
+        # ---------------------------------
+        # 6. Return merged PDF
+        # ---------------------------------
 
         return send_file(
             io.BytesIO(merged_data),
@@ -363,8 +470,14 @@ def merge_pdf():
             download_name="merged.pdf"
         )
 
+
     except Exception as error:
-        print("iLoveAPI merge error:", error)
+
+        print(
+            "iLoveAPI merge error:",
+            error
+        )
+
 
         return jsonify({
             "status": "error",
@@ -380,6 +493,7 @@ if __name__ == "__main__":
             5000
         )
     )
+
 
     app.run(
         host="0.0.0.0",
