@@ -2,3 +2,5 @@ Flask
 Flask-Cors
 gunicorn
 PyMuPDF
+requests
+PyJWT
