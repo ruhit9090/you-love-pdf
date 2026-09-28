@@ -1,25 +1,29 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>JPG to PDF - You Love PDF</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fb;
-        color: #222;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    .header {
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
+
+.header {
     width: 100%;
     min-height: 70px;
     background: #e53935;
@@ -56,367 +60,428 @@
     color: #ffd6d6;
 }
 
-    .container {
-        max-width: 1100px;
-        margin: 60px auto;
-        padding: 20px;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 42px;
-        margin-bottom: 15px;
-    }
-
-    .description {
-        text-align: center;
-        color: #666;
-        font-size: 18px;
-        margin-bottom: 40px;
-    }
-
-    .tool-area {
-        display: flex;
-        gap: 30px;
-        align-items: flex-start;
-    }
-
-    .preview-section {
-        width: 42%;
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
-        min-height: 420px;
-    }
-
-    .preview-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    .preview-help {
-        color: #888;
-        font-size: 13px;
-        margin-bottom: 18px;
-    }
-
-    #imageList {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .empty-preview {
-        color: #888;
-        text-align: center;
-        padding: 80px 20px;
-        line-height: 1.6;
-    }
-
-    .image-item {
-        background: #f8f9fc;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 12px;
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        cursor: grab;
-        transition: 0.2s;
-    }
-
-    .image-item:hover {
-        border-color: #bbb;
-    }
-
-    .image-item.dragging {
-        opacity: 0.45;
-    }
-
-    .image-thumbnail {
-        width: 75px;
-        height: 95px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .image-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .image-info {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .image-number {
-        font-size: 13px;
-        color: #777;
-        margin-bottom: 5px;
-    }
-
-    .image-name {
-        font-weight: bold;
-        font-size: 14px;
-        word-break: break-word;
-        margin-bottom: 6px;
-    }
-
-    .image-size {
-        color: #777;
-        font-size: 12px;
-    }
-
-    .remove-button {
-        background: #fff;
-        border: 1px solid #ddd;
-        color: #e53935;
-        border-radius: 6px;
-        padding: 7px 9px;
-        cursor: pointer;
-        font-size: 12px;
-    }
-
-    .remove-button:hover {
-        background: #e53935;
-        color: white;
-    }
-
-    .upload-section {
-        width: 58%;
-        background: white;
-        border-radius: 16px;
-        padding: 45px 30px;
-        text-align: center;
-        border: 2px dashed #d1d5db;
-    }
-
-    .upload-icon {
-        font-size: 55px;
-        margin-bottom: 15px;
-    }
-
-    .upload-section h2 {
-        margin-bottom: 10px;
-    }
-
-    .upload-section p {
-        color: #777;
-        margin-bottom: 25px;
-    }
-
-    .add-button {
-        display: inline-block;
-        background: #e53935;
-        color: white;
-        padding: 13px 30px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .add-button:hover {
-        background: #c62828;
-    }
-
-    #imageFile {
-        display: none;
-    }
-
-    #convertButton {
-        margin-top: 20px;
-        padding: 13px 30px;
-        background: #e53935;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    #convertButton:hover {
-        background: #c62828;
-    }
-
-    #convertButton:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-    }
-
-    #status {
-        margin-top: 20px;
-        color: #555;
-        font-weight: bold;
-        line-height: 1.5;
-    }
-
-    .file-count {
-        margin-top: 15px;
-        color: #666;
-        font-size: 14px;
-    }
-
-    .back-button {
-        display: block;
-        width: fit-content;
-        margin: 35px auto 0;
-        text-decoration: none;
-        color: #555;
-    }
-
-    @media (max-width: 800px) {
-.header {
-    min-height: auto;
+.container {
+    max-width: 1100px;
+    margin: 60px auto;
     padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.description {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.tool-area {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.preview-section {
+    width: 42%;
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 420px;
+}
+
+.preview-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.preview-help {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+#imageList {
+    display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.navbar {
-    gap: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
+.empty-preview {
+    color: #888;
+    text-align: center;
+    padding: 80px 20px;
+    line-height: 1.6;
 }
 
-        .container {
-            margin: 40px auto;
-        }
+.image-item {
+    background: #f8f9fc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: grab;
+    transition: 0.2s;
+}
 
-        h1 {
-            font-size: 32px;
-        }
+.image-item:hover {
+    border-color: #bbb;
+}
 
-        .tool-area {
-            flex-direction: column;
-        }
+.image-item.dragging {
+    opacity: 0.45;
+}
 
-        .preview-section,
-        .upload-section {
-            width: 100%;
-        }
+.image-thumbnail {
+    width: 75px;
+    height: 95px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-        .preview-section {
-            order: 1;
-        }
+.image-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
-        .upload-section {
-            order: 2;
-        }
+.image-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.image-number {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.image-name {
+    font-weight: bold;
+    font-size: 14px;
+    word-break: break-word;
+    margin-bottom: 6px;
+}
+
+.image-size {
+    color: #777;
+    font-size: 12px;
+}
+
+.remove-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #e53935;
+    border-radius: 6px;
+    padding: 7px 9px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.remove-button:hover {
+    background: #e53935;
+    color: white;
+}
+
+.upload-section {
+    width: 58%;
+    background: white;
+    border-radius: 16px;
+    padding: 45px 30px;
+    text-align: center;
+    border: 2px dashed #d1d5db;
+}
+
+.upload-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.upload-section h2 {
+    margin-bottom: 10px;
+}
+
+.upload-section p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.add-button {
+    display: inline-block;
+    background: #e53935;
+    color: white;
+    padding: 13px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-button:hover {
+    background: #c62828;
+}
+
+#imageFile {
+    display: none;
+}
+
+#convertButton {
+    margin-top: 20px;
+    padding: 13px 30px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#convertButton:hover {
+    background: #c62828;
+}
+
+#convertButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#status {
+    margin-top: 20px;
+    color: #555;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.file-count {
+    margin-top: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.back-button {
+    display: block;
+    width: fit-content;
+    margin: 35px auto 0;
+    text-decoration: none;
+    color: #555;
+}
+
+.back-button:hover {
+    color: #e53935;
+}
+
+@media (max-width: 800px) {
+
+    .header {
+        min-height: auto;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
     }
+
+    .navbar {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container {
+        margin: 40px auto;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .tool-area {
+        flex-direction: column;
+    }
+
+    .preview-section,
+    .upload-section {
+        width: 100%;
+    }
+
+    .preview-section {
+        order: 1;
+    }
+
+    .upload-section {
+        order: 2;
+    }
+}
+
 </style>
+
 </head>
 
 <body>
 
 <header class="header">
 
-    <div class="logo">
-        You Love PDF
-    </div>
+```
+<div class="logo">
+    You Love PDF
+</div>
 
-    <nav class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#contact">Contact</a>
-    </nav>
+<nav class="navbar">
+
+    <a href="https://ruhit9090.github.io/you-love-pdf/">
+        Home
+    </a>
+
+    <a href="https://ruhit9090.github.io/you-love-pdf/#about">
+        About
+    </a>
+
+    <a href="https://ruhit9090.github.io/you-love-pdf/#contact">
+        Contact
+    </a>
+
+</nav>
+```
 
 </header>
 
 <main class="container">
 
-    <h1>JPG to PDF</h1>
+```
+<h1>
+    JPG to PDF
+</h1>
 
-    <p class="description">
-        Convert multiple JPG images into one PDF quickly and easily.
-    </p>
 
-    <div class="tool-area">
+<p class="description">
+    Convert multiple JPG images into one PDF quickly and easily.
+</p>
 
-        <!-- LEFT SIDE -->
 
-        <div class="preview-section">
+<div class="tool-area">
 
-            <div class="preview-title">
-                Added JPGs
-            </div>
 
-            <div class="preview-help">
-                Drag JPGs to change their PDF order.
-            </div>
+    <!-- LEFT SIDE -->
 
-            <div id="imageList">
+    <div class="preview-section">
 
-                <div class="empty-preview">
-                    No JPG added yet.<br>
-                    Click "Add JPG" to begin.
-                </div>
-
-            </div>
-
+        <div class="preview-title">
+            Added JPGs
         </div>
 
-        <!-- RIGHT SIDE -->
+        <div class="preview-help">
+            Drag JPGs to change their PDF order.
+        </div>
 
-        <div class="upload-section">
 
-            <div class="upload-icon">
-                🖼️
+        <div id="imageList">
+
+            <div class="empty-preview">
+
+                No JPG added yet.<br>
+
+                Click "Add JPG" to begin.
+
             </div>
-
-            <h2>Add JPG files</h2>
-
-            <p>
-                Add JPG images one by one to create a PDF.
-            </p>
-
-            <label
-                for="imageFile"
-                class="add-button">
-                + Add JPG
-            </label>
-
-            <input
-                type="file"
-                id="imageFile"
-                accept=".jpg,.jpeg,image/jpeg">
-
-            <div
-                class="file-count"
-                id="fileCount">
-                0 JPG files added
-            </div>
-
-            <button
-                id="convertButton">
-                Convert to PDF
-            </button>
-
-            <div id="status"></div>
 
         </div>
 
     </div>
 
-    <a
-        href="../index.html"
-        class="back-button">
-        ← Back to PDF Tools
-    </a>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="upload-section">
+
+        <div class="upload-icon">
+            🖼️
+        </div>
+
+
+        <h2>
+            Add JPG files
+        </h2>
+
+
+        <p>
+            Add JPG images one by one to create a PDF.
+        </p>
+
+
+        <label
+            for="imageFile"
+            class="add-button">
+
+            + Add JPG
+
+        </label>
+
+
+        <input
+            type="file"
+            id="imageFile"
+            accept=".jpg,.jpeg,image/jpeg"
+        >
+
+
+        <div
+            class="file-count"
+            id="fileCount">
+
+            0 JPG files added
+
+        </div>
+
+
+        <button
+            id="convertButton">
+
+            Convert to PDF
+
+        </button>
+
+
+        <div id="status"></div>
+
+    </div>
+
+</div>
+
+
+<a
+    href="https://ruhit9090.github.io/you-love-pdf/"
+    class="back-button">
+
+    ← Back to PDF Tools
+
+</a>
+```
 
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
+
+
+/* =========================
+   BACKEND
+========================= */
+
+const BACKEND_URL =
+    "https://you-love-pdf-backend.onrender.com";
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const imageFile =
     document.getElementById("imageFile");
@@ -433,6 +498,7 @@ const status =
 const fileCount =
     document.getElementById("fileCount");
 
+
 let selectedImages = [];
 
 let draggedIndex = null;
@@ -445,8 +511,11 @@ let draggedIndex = null;
 function formatSize(bytes) {
 
     if (bytes < 1024) {
+
         return bytes.toFixed(0) + " B";
+
     }
+
 
     if (bytes < 1024 * 1024) {
 
@@ -456,9 +525,11 @@ function formatSize(bytes) {
 
     }
 
+
     return (
         bytes / (1024 * 1024)
     ).toFixed(2) + " MB";
+
 }
 
 
@@ -475,6 +546,7 @@ function updateFileCount() {
             ? " JPG file added"
             : " JPG files added"
         );
+
 }
 
 
@@ -486,30 +558,44 @@ function renderImages() {
 
     imageList.innerHTML = "";
 
+
     if (selectedImages.length === 0) {
 
         imageList.innerHTML = `
+
             <div class="empty-preview">
+
                 No JPG added yet.<br>
+
                 Click "Add JPG" to begin.
+
             </div>
+
         `;
 
         updateFileCount();
 
         return;
+
     }
+
 
     selectedImages.forEach(
         function(file, index) {
 
+
             const item =
                 document.createElement("div");
+
 
             item.className =
                 "image-item";
 
+
             item.draggable = true;
+
+
+            /* DRAG START */
 
             item.addEventListener(
                 "dragstart",
@@ -517,21 +603,31 @@ function renderImages() {
 
                     draggedIndex = index;
 
-                    item.classList.add("dragging");
+                    item.classList.add(
+                        "dragging"
+                    );
 
                 }
             );
+
+
+            /* DRAG END */
 
             item.addEventListener(
                 "dragend",
                 function() {
 
-                    item.classList.remove("dragging");
+                    item.classList.remove(
+                        "dragging"
+                    );
 
                     draggedIndex = null;
 
                 }
             );
+
+
+            /* DRAG OVER */
 
             item.addEventListener(
                 "dragover",
@@ -542,28 +638,41 @@ function renderImages() {
                 }
             );
 
+
+            /* DROP */
+
             item.addEventListener(
                 "drop",
                 function(event) {
 
                     event.preventDefault();
 
-                    const targetIndex = index;
+
+                    const targetIndex =
+                        index;
+
 
                     if (
                         draggedIndex === null ||
                         draggedIndex === targetIndex
                     ) {
+
                         return;
+
                     }
 
+
                     const movedFile =
-                        selectedImages[draggedIndex];
+                        selectedImages[
+                            draggedIndex
+                        ];
+
 
                     selectedImages.splice(
                         draggedIndex,
                         1
                     );
+
 
                     selectedImages.splice(
                         targetIndex,
@@ -571,70 +680,115 @@ function renderImages() {
                         movedFile
                     );
 
+
                     renderImages();
 
                 }
             );
 
+
+            /* THUMBNAIL */
+
             const thumbnail =
                 document.createElement("div");
+
 
             thumbnail.className =
                 "image-thumbnail";
 
+
             const img =
                 document.createElement("img");
 
-            img.src =
+
+            const previewUrl =
                 URL.createObjectURL(file);
 
+
+            img.src =
+                previewUrl;
+
+
+            img.onload =
+                function() {
+
+                    URL.revokeObjectURL(
+                        previewUrl
+                    );
+
+                };
+
+
             thumbnail.appendChild(img);
+
+
+            /* INFO */
 
             const info =
                 document.createElement("div");
 
+
             info.className =
                 "image-info";
+
 
             const number =
                 document.createElement("div");
 
+
             number.className =
                 "image-number";
 
+
             number.textContent =
-                "JPG " + (index + 1);
+                "JPG " +
+                (index + 1);
+
 
             const name =
                 document.createElement("div");
 
+
             name.className =
                 "image-name";
+
 
             name.textContent =
                 file.name;
 
+
             const size =
                 document.createElement("div");
+
 
             size.className =
                 "image-size";
 
+
             size.textContent =
                 formatSize(file.size);
 
+
             info.appendChild(number);
+
             info.appendChild(name);
+
             info.appendChild(size);
+
+
+            /* REMOVE BUTTON */
 
             const removeButton =
                 document.createElement("button");
 
+
             removeButton.className =
                 "remove-button";
 
+
             removeButton.textContent =
                 "Remove";
+
 
             removeButton.addEventListener(
                 "click",
@@ -642,10 +796,12 @@ function renderImages() {
 
                     event.stopPropagation();
 
+
                     selectedImages.splice(
                         index,
                         1
                     );
+
 
                     status.textContent = "";
 
@@ -654,16 +810,30 @@ function renderImages() {
                 }
             );
 
-            item.appendChild(thumbnail);
-            item.appendChild(info);
-            item.appendChild(removeButton);
 
-            imageList.appendChild(item);
+            item.appendChild(
+                thumbnail
+            );
+
+            item.appendChild(
+                info
+            );
+
+            item.appendChild(
+                removeButton
+            );
+
+
+            imageList.appendChild(
+                item
+            );
 
         }
     );
 
+
     updateFileCount();
+
 }
 
 
@@ -675,33 +845,55 @@ imageFile.addEventListener(
     "change",
     function() {
 
-        if (imageFile.files.length === 0) {
+
+        if (
+            imageFile.files.length === 0
+        ) {
+
             return;
+
         }
+
 
         const file =
             imageFile.files[0];
 
+
         if (
             file.type !== "image/jpeg" &&
-            !file.name.toLowerCase().endsWith(".jpg") &&
-            !file.name.toLowerCase().endsWith(".jpeg")
+            !file.name
+                .toLowerCase()
+                .endsWith(".jpg") &&
+            !file.name
+                .toLowerCase()
+                .endsWith(".jpeg")
         ) {
 
-            alert("Please select a JPG or JPEG image.");
+            alert(
+                "Please select a JPG or JPEG image."
+            );
+
 
             imageFile.value = "";
 
             return;
+
         }
 
-        selectedImages.push(file);
+
+        selectedImages.push(
+            file
+        );
+
 
         status.textContent = "";
 
-        status.style.color = "#555";
+        status.style.color =
+            "#555";
+
 
         renderImages();
+
 
         imageFile.value = "";
 
@@ -717,159 +909,196 @@ convertButton.addEventListener(
     "click",
     async function() {
 
-        if (selectedImages.length === 0) {
+
+        if (
+            selectedImages.length === 0
+        ) {
 
             alert(
                 "Please add at least 1 JPG image."
             );
 
             return;
+
         }
 
-        convertButton.disabled = true;
+
+        convertButton.disabled =
+            true;
+
 
         convertButton.textContent =
             "Creating PDF...";
 
-        status.style.color = "#555";
+
+        status.style.color =
+            "#555";
+
 
         status.textContent =
-            "Preparing images...";
+            "Uploading images...";
+
 
         try {
 
-            const {
-                jsPDF
-            } = window.jspdf;
 
-            let pdf = null;
+            const formData =
+                new FormData();
 
-            for (
-                let i = 0;
-                i < selectedImages.length;
-                i++
-            ) {
 
-                const file =
-                    selectedImages[i];
+            /*
+             * IMPORTANT:
+             * selectedImages ka order
+             * drag/drop ke baad jo hai,
+             * wahi backend ko milega.
+             */
 
-                status.textContent =
-                    "Adding image " +
-                    (i + 1) +
-                    " of " +
-                    selectedImages.length +
-                    "...";
+            selectedImages.forEach(
+                function(file) {
 
-                const dataUrl =
-                    await readImage(file);
-
-                const image =
-                    await loadImage(dataUrl);
-
-                const imageWidth =
-                    image.width;
-
-                const imageHeight =
-                    image.height;
-
-                const orientation =
-                    imageWidth > imageHeight
-                    ? "landscape"
-                    : "portrait";
-
-                const pageWidth =
-                    orientation === "landscape"
-                    ? 297
-                    : 210;
-
-                const pageHeight =
-                    orientation === "landscape"
-                    ? 210
-                    : 297;
-
-                if (i === 0) {
-
-                    pdf = new jsPDF({
-                        orientation: orientation,
-                        unit: "mm",
-                        format: "a4"
-                    });
-
-                } else {
-
-                    pdf.addPage(
-                        "a4",
-                        orientation
+                    formData.append(
+                        "files",
+                        file
                     );
 
                 }
+            );
 
-                const margin = 10;
-
-                const maxWidth =
-                    pageWidth -
-                    margin * 2;
-
-                const maxHeight =
-                    pageHeight -
-                    margin * 2;
-
-                const ratio =
-                    Math.min(
-                        maxWidth / imageWidth,
-                        maxHeight / imageHeight
-                    );
-
-                const finalWidth =
-                    imageWidth * ratio;
-
-                const finalHeight =
-                    imageHeight * ratio;
-
-                const x =
-                    (pageWidth - finalWidth) / 2;
-
-                const y =
-                    (pageHeight - finalHeight) / 2;
-
-                pdf.addImage(
-                    dataUrl,
-                    "JPEG",
-                    x,
-                    y,
-                    finalWidth,
-                    finalHeight,
-                    undefined,
-                    "FAST"
-                );
-            }
 
             status.textContent =
                 "Creating PDF...";
 
-            pdf.save(
-                "jpg-to-pdf.pdf"
+
+            const response =
+                await fetch(
+                    BACKEND_URL +
+                    "/jpg-to-pdf",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            if (!response.ok) {
+
+
+                let errorMessage =
+                    "PDF creation failed.";
+
+
+                try {
+
+
+                    const errorData =
+                        await response.json();
+
+
+                    if (
+                        errorData.message
+                    ) {
+
+                        errorMessage =
+                            errorData.message;
+
+                    }
+
+
+                } catch (e) {
+
+                    // Ignore JSON parsing error
+
+                }
+
+
+                throw new Error(
+                    errorMessage
+                );
+
+            }
+
+
+            status.textContent =
+                "Preparing download...";
+
+
+            const pdfBlob =
+                await response.blob();
+
+
+            const downloadUrl =
+                URL.createObjectURL(
+                    pdfBlob
+                );
+
+
+            const downloadLink =
+                document.createElement(
+                    "a"
+                );
+
+
+            downloadLink.href =
+                downloadUrl;
+
+
+            downloadLink.download =
+                "jpg-to-pdf.pdf";
+
+
+            document.body.appendChild(
+                downloadLink
             );
+
+
+            downloadLink.click();
+
+
+            document.body.removeChild(
+                downloadLink
+            );
+
+
+            URL.revokeObjectURL(
+                downloadUrl
+            );
+
 
             status.style.color =
                 "#2e7d32";
 
+
             status.textContent =
                 "PDF created successfully!";
 
+
         } catch (error) {
 
-            console.error(error);
+
+            console.error(
+                "JPG to PDF error:",
+                error
+            );
+
 
             status.style.color =
                 "#e53935";
 
-            status.textContent =
-                "Sorry, the PDF could not be created.";
+
+            status.textContent = "";
+
+
+            alert(
+                error.message ||
+                "Sorry, the PDF could not be created."
+            );
 
         }
 
-        convertButton.disabled = false;
+
+        convertButton.disabled =
+            false;
+
 
         convertButton.textContent =
             "Convert to PDF";
@@ -879,68 +1108,14 @@ convertButton.addEventListener(
 
 
 /* =========================
-   READ IMAGE
+   INITIAL COUNT
 ========================= */
-
-function readImage(file) {
-
-    return new Promise(
-        function(resolve, reject) {
-
-            const reader =
-                new FileReader();
-
-            reader.onload =
-                function(event) {
-
-                    resolve(
-                        event.target.result
-                    );
-
-                };
-
-            reader.onerror =
-                reject;
-
-            reader.readAsDataURL(file);
-
-        }
-    );
-}
-
-
-/* =========================
-   LOAD IMAGE
-========================= */
-
-function loadImage(dataUrl) {
-
-    return new Promise(
-        function(resolve, reject) {
-
-            const img =
-                new Image();
-
-            img.onload =
-                function() {
-
-                    resolve(img);
-
-                };
-
-            img.onerror =
-                reject;
-
-            img.src = dataUrl;
-
-        }
-    );
-}
-
 
 updateFileCount();
+
 
 </script>
 
 </body>
+
 </html>
