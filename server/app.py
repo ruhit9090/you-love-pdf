@@ -14,6 +14,11 @@ ILOVEAPI_SECRET_KEY = os.environ.get("ILOVEPDF_SECRET_KEY")
 
 API_BASE = "https://api.ilovepdf.com/v1"
 
+# iLoveAPI token lifetime is 1 hour.
+# This delay also helps with server clock differences.
+TOKEN_EXPIRE_SECONDS = 3600
+TIME_DELAY_SECONDS = 5400
+
 
 @app.route("/")
 def home():
@@ -37,10 +42,12 @@ def create_token():
     now = int(time.time())
 
     payload = {
-        "iss": ILOVEAPI_PUBLIC_KEY,
-        "iat": now,
-        "nbf": now,
-        "exp": now + 3600
+        "iss": "",
+        "aud": "",
+        "iat": now - TIME_DELAY_SECONDS,
+        "nbf": now - TIME_DELAY_SECONDS,
+        "exp": now + TOKEN_EXPIRE_SECONDS + TIME_DELAY_SECONDS,
+        "jti": ILOVEAPI_PUBLIC_KEY
     }
 
     token = jwt.encode(
@@ -93,7 +100,8 @@ def compress_pdf():
         token = create_token()
 
         headers = {
-            "Authorization": f"Bearer {token}"
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json"
         }
 
         # ---------------------------------
@@ -201,12 +209,10 @@ def compress_pdf():
         compressed_size = len(compressed_data)
 
         # ---------------------------------
-        # Safety check:
-        # Never return a larger PDF
+        # 6. Never return a larger PDF
         # ---------------------------------
 
         if compressed_size >= original_size:
-
             return send_file(
                 io.BytesIO(original_data),
                 mimetype="application/pdf",
@@ -222,7 +228,6 @@ def compress_pdf():
         )
 
     except Exception as error:
-
         print("iLoveAPI compression error:", error)
 
         return jsonify({
