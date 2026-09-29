@@ -1,485 +1,605 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Compress PDF - You Love PDF</title>
 
-    <title>Compress PDF - You Love PDF</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-        }
+    .header {
+        width: 100%;
+        min-height: 70px;
+        background: #e53935;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        border-bottom: 1px solid #c62828;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .navbar {
+        display: flex;
+        gap: 30px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 15px;
+        transition: color 0.2s ease;
+    }
+
+    .navbar a:hover {
+        color: #ffd6d6;
+    }
+
+    .top-ad {
+        width: min(970px, 92%);
+        min-height: 90px;
+        margin: 18px auto 0;
+        background: #ffffff;
+        border: 1px solid #e2e5ea;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 13px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .top-ad-label {
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        font-size: 10px;
+        color: #aaa;
+        text-transform: uppercase;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 45px auto 70px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
+
+    .upload-box {
+        background: white;
+        border: 2px dashed #d1d5db;
+        border-radius: 16px;
+        padding: 50px 20px;
+    }
+
+    .upload-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .upload-box h2 {
+        margin-bottom: 10px;
+    }
+
+    .upload-box p {
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .upload-button {
+        display: inline-block;
+        background: #e53935;
+        color: white;
+        padding: 13px 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .upload-button:hover {
+        background: #c62828;
+    }
+
+    #pdfFile {
+        display: none;
+    }
+
+    #fileName {
+        margin-top: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    #fileSize {
+        margin-top: 8px;
+        color: #666;
+    }
+
+    #compressButton {
+        display: none;
+        margin-top: 20px;
+        padding: 13px 28px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #compressButton:hover {
+        background: #c62828;
+    }
+
+    #compressButton:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    #processingArea {
+        display: none;
+        margin: 28px auto 0;
+        max-width: 520px;
+    }
+
+    #progressPercentage {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .progress-track {
+        width: 100%;
+        height: 12px;
+        background: #e5e7eb;
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    #progressBar {
+        width: 0%;
+        height: 100%;
+        background: #e53935;
+        border-radius: 999px;
+        transition: width 0.25s ease;
+    }
+
+    #progressText {
+        margin-top: 10px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    #status {
+        margin-top: 20px;
+        color: #555;
+        font-weight: bold;
+    }
+
+    #result {
+        margin-top: 15px;
+        color: #333;
+    }
+
+    #downloadButton {
+        display: none;
+        margin: 24px auto 0;
+        padding: 13px 28px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #downloadButton:hover {
+        background: #c62828;
+    }
+
+    /* Modal overlay */
+    #adWatchPanel {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 5000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .ad-modal {
+        width: min(500px, 100%);
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .ad-modal h3 {
+        margin-bottom: 10px;
+        font-size: 22px;
+    }
+
+    .ad-modal p {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 18px;
+    }
+
+    .ad-watch-box {
+        min-height: 180px;
+        background: #f8f8f8;
+        border: 1px dashed #cfd3d8;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        margin-bottom: 18px;
+    }
+
+    #watchAdButton,
+    #finalDownloadButton {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background: #e53935;
+        color: #fff;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    #watchAdButton:hover,
+    #finalDownloadButton:hover {
+        background: #c62828;
+    }
+
+    #watchAdButton:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    #finalDownloadButton {
+        display: none;
+    }
+
+    .ad-complete-message {
+        display: none;
+        color: #16803c;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: #555;
+    }
+
+    @media (max-width: 768px) {
 
         .header {
-            width: 100%;
-            min-height: 70px;
-            background: #e53935;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 7%;
-            border-bottom: 1px solid #c62828;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
+            min-height: auto;
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .navbar {
-            display: flex;
-            gap: 30px;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 15px;
-            transition: color 0.2s ease;
-        }
-
-        .navbar a:hover {
-            color: #ffd6d6;
-        }
-
-        /* Top banner ad */
-        .top-ad {
-            width: min(970px, 92%);
-            min-height: 90px;
-            margin: 18px auto 0;
-            background: #ffffff;
-            border: 1px solid #e2e5ea;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
             justify-content: center;
-            color: #999;
-            font-size: 13px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .top-ad-label {
-            position: absolute;
-            top: 6px;
-            left: 8px;
-            font-size: 10px;
-            color: #aaa;
-            text-transform: uppercase;
+        .top-ad {
+            min-height: 70px;
         }
 
         .container {
-            max-width: 800px;
-            margin: 45px auto 70px;
-            padding: 20px;
-            text-align: center;
+            margin: 40px auto;
         }
 
         h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-
-        .description {
-            color: #666;
-            font-size: 18px;
-            margin-bottom: 35px;
+            font-size: 32px;
         }
 
         .upload-box {
-            background: white;
-            border: 2px dashed #d1d5db;
-            border-radius: 16px;
-            padding: 50px 20px;
+            padding: 40px 15px;
         }
+    }
+</style>
 
-        .upload-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
+</head><body><header class="header">
 
-        .upload-box h2 {
-            margin-bottom: 10px;
-        }
-
-        .upload-box p {
-            color: #777;
-            margin-bottom: 25px;
-        }
-
-        .upload-button {
-            display: inline-block;
-            background: #e53935;
-            color: white;
-            padding: 13px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .upload-button:hover {
-            background: #c62828;
-        }
-
-        #pdfFile {
-            display: none;
-        }
-
-        #fileName {
-            margin-top: 20px;
-            color: #333;
-            font-weight: bold;
-        }
-
-        #fileSize {
-            margin-top: 8px;
-            color: #666;
-        }
-
-        #compressButton {
-            display: none;
-            margin-top: 20px;
-            padding: 13px 28px;
-            background: #e53935;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #compressButton:hover {
-            background: #c62828;
-        }
-
-        #compressButton:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        /* Processing area - replaces the result/status area while compressing */
-        #processingArea {
-            display: none;
-            margin: 28px auto 0;
-            max-width: 520px;
-        }
-
-        #progressPercentage {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        #progressBar {
-            width: 0%;
-            height: 100%;
-            background: #e53935;
-            border-radius: 999px;
-            transition: width 0.25s ease;
-        }
-
-        #progressText {
-            margin-top: 10px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        #status {
-            margin-top: 20px;
-            color: #555;
-            font-weight: bold;
-        }
-
-        #result {
-            margin-top: 15px;
-            color: #333;
-        }
-
-        /* Download button */
-        #downloadButton {
-            display: none;
-            margin: 24px auto 0;
-            padding: 13px 28px;
-            background: #e53935;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #downloadButton:hover {
-            background: #c62828;
-        }
-
-        /* Ad-watch panel */
-        #adWatchPanel {
-            display: none;
-            margin: 25px auto 0;
-            max-width: 520px;
-            background: #fafafa;
-            border: 1px solid #e1e4e8;
-            border-radius: 12px;
-            padding: 22px;
-        }
-
-        #adWatchPanel h3 {
-            margin-bottom: 8px;
-        }
-
-        #adWatchPanel p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .ad-watch-box {
-            min-height: 120px;
-            background: #fff;
-            border: 1px dashed #cfd3d8;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            margin-bottom: 15px;
-        }
-
-        #watchAdButton {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            background: #e53935;
-            color: #fff;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        #watchAdButton:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 30px;
-            text-decoration: none;
-            color: #555;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                min-height: auto;
-                padding: 20px;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .navbar {
-                gap: 18px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .top-ad {
-                min-height: 70px;
-            }
-
-            .container {
-                margin: 40px auto;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .upload-box {
-                padding: 40px 15px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <header class="header">
-
-        <div class="logo">
-            You Love PDF
-        </div>
-
-        <nav class="navbar">
-            <a href="../index.html">Home</a>
-            <a href="../index.html#about">About</a>
-            <a href="../index.html#contact">Contact</a>
-        </nav>
-
-    </header>
-
-    <div class="top-ad">
-        <span class="top-ad-label">Advertisement</span>
-        <span>Banner Ad</span>
+    <div class="logo">
+        You Love PDF
     </div>
 
+    <nav class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
 
-    <main class="container">
+</header>
 
-        <h1>Compress PDF</h1>
 
-        <p class="description">
-            Reduce the size of your PDF file quickly and easily.
+<!-- Top Advertisement -->
+<div class="top-ad">
+    <span class="top-ad-label">Advertisement</span>
+    <span>Banner Ad</span>
+</div>
+
+
+<main class="container">
+
+    <h1>Compress PDF</h1>
+
+    <p class="description">
+        Reduce the size of your PDF file quickly and easily.
+    </p>
+
+
+    <div class="upload-box">
+
+        <div class="upload-icon">📦</div>
+
+        <h2>Select a PDF file</h2>
+
+        <p>
+            Choose a PDF from your computer to compress.
         </p>
 
 
-        <div class="upload-box">
+        <label for="pdfFile" class="upload-button">
+            Select PDF
+        </label>
 
-            <div class="upload-icon">📦</div>
-
-            <h2>Select a PDF file</h2>
-
-            <p>
-                Choose a PDF from your computer to compress.
-            </p>
-
-
-            <label for="pdfFile" class="upload-button">
-                Select PDF
-            </label>
-
-            <input
-                type="file"
-                id="pdfFile"
-                accept=".pdf,application/pdf"
-            >
+        <input
+            type="file"
+            id="pdfFile"
+            accept=".pdf,application/pdf"
+        >
 
 
-            <div id="fileName"></div>
+        <div id="fileName"></div>
 
-            <div id="fileSize"></div>
+        <div id="fileSize"></div>
 
 
-            <button id="compressButton">
-                Compress PDF
+        <button id="compressButton">
+            Compress PDF
+        </button>
+
+
+        <div id="processingArea">
+
+            <div id="progressPercentage">
+                0%
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <div id="progressText">
+                Preparing...
+            </div>
+
+            <button id="downloadButton">
+                Download PDF
             </button>
-
-            <div id="processingArea">
-                <div id="progressPercentage">0%</div>
-                <div class="progress-track">
-                    <div id="progressBar"></div>
-                </div>
-                <div id="progressText">Preparing...</div>
-                <button id="downloadButton">Download PDF</button>
-            </div>
-
-            <div id="status"></div>
-            <div id="result"></div>
-
-            <div id="adWatchPanel">
-                <h3>Watch Ad to Download</h3>
-                <p>Your PDF is ready. Watch the advertisement below. After the ad is completed, your PDF will download automatically.</p>
-                <div class="ad-watch-box" id="adContainer">Advertisement</div>
-                <button id="watchAdButton">Watch Ad</button>
-            </div>
 
         </div>
 
-        <a href="../index.html" class="back-button">
-            ← Back to PDF Tools
-        </a>
 
-    </main>
+        <div id="status"></div>
 
+        <div id="result"></div>
 
-    <script>
-
-        // Your Render backend
-        const BACKEND_URL =
-            "https://you-love-pdf-backend.onrender.com";
+    </div>
 
 
-        const pdfFile =
-            document.getElementById("pdfFile");
+    <a href="../index.html" class="back-button">
+        ← Back to PDF Tools
+    </a>
 
-        const fileName =
-            document.getElementById("fileName");
-
-        const fileSize =
-            document.getElementById("fileSize");
-
-        const compressButton =
-            document.getElementById("compressButton");
-
-        const status =
-            document.getElementById("status");
-
-        const result =
-            document.getElementById("result");
-
-        const progressArea =
-            document.getElementById("processingArea");
-
-        const progressBar =
-            document.getElementById("progressBar");
-
-        const progressPercentage =
-            document.getElementById("progressPercentage");
-
-        const progressText =
-            document.getElementById("progressText");
-
-        const downloadButton =
-            document.getElementById("downloadButton");
-
-        const adWatchPanel =
-            document.getElementById("adWatchPanel");
-
-        const watchAdButton =
-            document.getElementById("watchAdButton");
-
-        let readyDownloadUrl = null;
-        let readyDownloadName = null;
+</main>
 
 
-        function formatSize(bytes) {
+<!-- Watch Ad Modal -->
+<div id="adWatchPanel">
 
-            if (bytes < 1024) {
-                return bytes.toFixed(0) + " B";
-            }
+    <div class="ad-modal">
 
-            if (bytes < 1024 * 1024) {
-                return (bytes / 1024).toFixed(2) + " KB";
-            }
+        <h3>
+            Watch Ad to Download
+        </h3>
 
-            return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+        <p>
+            Your PDF is ready. Watch the advertisement to unlock your download.
+        </p>
+
+        <div class="ad-watch-box" id="adContainer">
+            Advertisement
+        </div>
+
+        <div class="ad-complete-message" id="adCompleteMessage">
+            Ad completed. Your PDF is ready to download.
+        </div>
+
+        <button id="watchAdButton">
+            Watch Ad
+        </button>
+
+        <button id="finalDownloadButton">
+            Download PDF
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const BACKEND_URL =
+        "https://you-love-pdf-backend.onrender.com";
+
+
+    const pdfFile =
+        document.getElementById("pdfFile");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const fileSize =
+        document.getElementById("fileSize");
+
+    const compressButton =
+        document.getElementById("compressButton");
+
+    const status =
+        document.getElementById("status");
+
+    const result =
+        document.getElementById("result");
+
+    const progressArea =
+        document.getElementById("processingArea");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const progressPercentage =
+        document.getElementById("progressPercentage");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    const downloadButton =
+        document.getElementById("downloadButton");
+
+    const adWatchPanel =
+        document.getElementById("adWatchPanel");
+
+    const watchAdButton =
+        document.getElementById("watchAdButton");
+
+    const finalDownloadButton =
+        document.getElementById("finalDownloadButton");
+
+    const adCompleteMessage =
+        document.getElementById("adCompleteMessage");
+
+
+    let readyDownloadUrl = null;
+
+    let readyDownloadName = null;
+
+
+    function formatSize(bytes) {
+
+        if (bytes < 1024) {
+            return bytes.toFixed(0) + " B";
+        }
+
+        if (bytes < 1024 * 1024) {
+            return (bytes / 1024).toFixed(2) + " KB";
+        }
+
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+
+    pdfFile.addEventListener("change", function () {
+
+        if (pdfFile.files.length === 0) {
+            return;
         }
 
 
-        pdfFile.addEventListener("change", function () {
+        const file =
+            pdfFile.files[0];
+
+
+        if (
+            file.type !== "application/pdf" &&
+            !file.name.toLowerCase().endsWith(".pdf")
+        ) {
+
+            alert("Please select a PDF file.");
+
+            pdfFile.value = "";
+
+            return;
+        }
+
+
+        fileName.textContent =
+            "Selected: " + file.name;
+
+
+        fileSize.textContent =
+            "Original size: " +
+            formatSize(file.size);
+
+
+        compressButton.style.display =
+            "inline-block";
+
+
+        status.textContent = "";
+
+        result.textContent = "";
+
+    });
+
+
+    compressButton.addEventListener(
+        "click",
+        async function () {
 
             if (pdfFile.files.length === 0) {
+
+                alert(
+                    "Please select a PDF file first."
+                );
+
                 return;
             }
 
@@ -488,318 +608,560 @@
                 pdfFile.files[0];
 
 
-            // Check PDF
-            if (file.type !== "application/pdf" &&
-                !file.name.toLowerCase().endsWith(".pdf")) {
+            compressButton.disabled =
+                true;
 
-                alert("Please select a PDF file.");
+            downloadButton.style.display =
+                "none";
 
-                pdfFile.value = "";
 
-                return;
+            if (readyDownloadUrl) {
+
+                URL.revokeObjectURL(
+                    readyDownloadUrl
+                );
+
+                readyDownloadUrl = null;
             }
 
 
-            fileName.textContent =
-                "Selected: " + file.name;
-
-
-            fileSize.textContent =
-                "Original size: " +
-                formatSize(file.size);
-
-
-            compressButton.style.display =
-                "inline-block";
+            progressArea.style.display =
+                "block";
 
 
             status.textContent = "";
 
             result.textContent = "";
 
-        });
+            progressBar.style.width =
+                "0%";
+
+            progressPercentage.textContent =
+                "0%";
+
+            progressPercentage.style.display =
+                "";
+
+            document
+                .querySelector(
+                    "#processingArea .progress-track"
+                )
+                .style.display = "";
 
 
-        compressButton.addEventListener(
-            "click",
-            async function () {
+            progressText.textContent =
+                "Preparing compression...";
 
-                if (pdfFile.files.length === 0) {
-
-                    alert(
-                        "Please select a PDF file first."
-                    );
-
-                    return;
-                }
+            progressText.style.display =
+                "";
 
 
-                const file =
-                    pdfFile.files[0];
+            compressButton.textContent =
+                "Compressing...";
 
 
-                compressButton.disabled =
-                    true;
-
-                downloadButton.style.display = "none";
-                adWatchPanel.style.display = "none";
-
-                if (readyDownloadUrl) {
-                    URL.revokeObjectURL(readyDownloadUrl);
-                    readyDownloadUrl = null;
-                }
-
-                progressArea.style.display = "block";
-                status.textContent = "";
-                result.textContent = "";
-                progressBar.style.width = "0%";
-                progressPercentage.textContent = "0%";
-                progressText.textContent = "Preparing compression...";
-
-                compressButton.textContent =
-                    "Compressing...";
+            status.textContent =
+                "Uploading PDF...";
 
 
-                status.textContent =
-                    "Uploading PDF...";
+            let progress = 5;
 
-                result.textContent = "";
 
-                let progress = 5;
-                progressBar.style.width = progress + "%";
-                progressPercentage.textContent = progress + "%";
+            progressBar.style.width =
+                progress + "%";
 
-                const progressTimer = setInterval(() => {
+            progressPercentage.textContent =
+                progress + "%";
+
+
+            const progressTimer =
+                setInterval(function () {
+
                     if (progress < 90) {
-                        progress += Math.max(1, Math.round((90 - progress) / 12));
-                        if (progress > 90) progress = 90;
 
-                        progressBar.style.width = progress + "%";
-                        progressPercentage.textContent = progress + "%";
+                        progress += Math.max(
+                            1,
+                            Math.round(
+                                (90 - progress) / 12
+                            )
+                        );
+
+
+                        if (progress > 90) {
+                            progress = 90;
+                        }
+
+
+                        progressBar.style.width =
+                            progress + "%";
+
+
+                        progressPercentage.textContent =
+                            progress + "%";
+
+
                         progressText.textContent =
                             progress < 35
                                 ? "Uploading PDF..."
                                 : "Compressing PDF...";
                     }
+
                 }, 350);
 
 
-                try {
+            try {
 
-                    const formData =
-                        new FormData();
+                const formData =
+                    new FormData();
 
 
-                    formData.append(
-                        "file",
-                        file
+                formData.append(
+                    "file",
+                    file
+                );
+
+
+                status.textContent =
+                    "Compressing PDF...";
+
+
+                const response =
+                    await fetch(
+                        BACKEND_URL + "/compress",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
                     );
 
 
-                    status.textContent =
-                        "Compressing PDF...";
+                if (!response.ok) {
+
+                    let errorMessage =
+                        "PDF compression failed.";
 
 
-                    const response =
-                        await fetch(
-                            BACKEND_URL + "/compress",
-                            {
-                                method: "POST",
-                                body: formData
-                            }
-                        );
+                    try {
+
+                        const errorData =
+                            await response.json();
 
 
-                    if (!response.ok) {
+                        if (errorData.message) {
 
-                        let errorMessage =
-                            "PDF compression failed.";
-
-                        try {
-
-                            const errorData =
-                                await response.json();
-
-                            if (errorData.message) {
-                                errorMessage =
-                                    errorData.message;
-                            }
-
-                        } catch (e) {
-                            // Ignore JSON error
+                            errorMessage =
+                                errorData.message;
                         }
 
-                        throw new Error(
-                            errorMessage
-                        );
+                    } catch (e) {
+
                     }
 
 
-                    status.textContent =
-                        "Preparing download...";
-
-
-                    const compressedBlob =
-                        await response.blob();
-
-                    clearInterval(progressTimer);
-
-                    const compressedSize =
-                        compressedBlob.size;
-
-                    readyDownloadUrl =
-                        URL.createObjectURL(compressedBlob);
-
-                    readyDownloadName =
-                        "compressed-" + file.name;
-
-                    progressBar.style.width = "100%";
-                    progressPercentage.textContent = "100%";
-                    progressText.textContent = "PDF is ready to download.";
-
-                    setTimeout(() => {
-                        progressPercentage.style.display = "none";
-                        document.querySelector("#processingArea .progress-track").style.display = "none";
-                        progressText.style.display = "none";
-                        downloadButton.style.display = "inline-block";
-                    }, 250);
-
-
-                    if (compressedSize < file.size) {
-
-                        const reduction =
-                            (
-                                (
-                                    (file.size - compressedSize)
-                                    / file.size
-                                ) * 100
-                            ).toFixed(1);
-
-
-                        status.textContent =
-                            "Compression complete!";
-
-
-                        result.textContent =
-                            "Original: " +
-                            formatSize(file.size) +
-                            " → Compressed: " +
-                            formatSize(compressedSize) +
-                            " (" +
-                            reduction +
-                            "% smaller)";
-
-                    } else {
-
-                        status.textContent =
-                            "PDF processed successfully.";
-
-
-                        result.textContent =
-                            "The PDF could not be reduced further, so the original file was kept.";
-                    }
-
-
-                } catch (error) {
-
-                    clearInterval(progressTimer);
-
-                    progressArea.style.display = "none";
-                    progressPercentage.style.display = "";
-                    document.querySelector("#processingArea .progress-track").style.display = "";
-                    progressText.style.display = "";
-                    downloadButton.style.display = "none";
-
-                    console.error(
-                        "Compression error:",
-                        error
+                    throw new Error(
+                        errorMessage
                     );
-
-
-                    status.textContent = "";
-
-
-                    alert(
-                        error.message ||
-                        "Sorry, this PDF could not be compressed."
-                    );
-
                 }
 
 
-                compressButton.disabled =
+                status.textContent =
+                    "Preparing download...";
+
+
+                const compressedBlob =
+                    await response.blob();
+
+
+                clearInterval(
+                    progressTimer
+                );
+
+
+                const compressedSize =
+                    compressedBlob.size;
+
+
+                readyDownloadUrl =
+                    URL.createObjectURL(
+                        compressedBlob
+                    );
+
+
+                readyDownloadName =
+                    "compressed-" +
+                    file.name;
+
+
+                progressBar.style.width =
+                    "100%";
+
+
+                progressPercentage.textContent =
+                    "100%";
+
+
+                progressText.textContent =
+                    "PDF is ready to download.";
+
+
+                if (compressedSize < file.size) {
+
+                    const reduction =
+                        (
+                            (
+                                (file.size - compressedSize)
+                                / file.size
+                            ) * 100
+                        ).toFixed(1);
+
+
+                    status.textContent =
+                        "Compression complete!";
+
+
+                    result.textContent =
+                        "Original: " +
+                        formatSize(file.size) +
+                        " → Compressed: " +
+                        formatSize(compressedSize) +
+                        " (" +
+                        reduction +
+                        "% smaller)";
+
+                } else {
+
+                    status.textContent =
+                        "PDF processed successfully.";
+
+
+                    result.textContent =
+                        "The PDF could not be reduced further, so the original file was kept.";
+                }
+
+
+                setTimeout(function () {
+
+                    progressPercentage.style.display =
+                        "none";
+
+
+                    document
+                        .querySelector(
+                            "#processingArea .progress-track"
+                        )
+                        .style.display =
+                        "none";
+
+
+                    progressText.style.display =
+                        "none";
+
+
+                    downloadButton.style.display =
+                        "inline-block";
+
+                }, 250);
+
+
+            } catch (error) {
+
+                clearInterval(
+                    progressTimer
+                );
+
+
+                progressArea.style.display =
+                    "none";
+
+
+                progressPercentage.style.display =
+                    "";
+
+
+                document
+                    .querySelector(
+                        "#processingArea .progress-track"
+                    )
+                    .style.display =
+                    "";
+
+
+                progressText.style.display =
+                    "";
+
+
+                downloadButton.style.display =
+                    "none";
+
+
+                console.error(
+                    "Compression error:",
+                    error
+                );
+
+
+                status.textContent =
+                    "";
+
+
+                alert(
+                    error.message ||
+                    "Sorry, this PDF could not be compressed."
+                );
+
+            }
+
+
+            compressButton.disabled =
+                false;
+
+
+            compressButton.textContent =
+                "Compress PDF";
+
+        }
+    );
+
+
+    /*
+     * STEP 1:
+     * User clicks Download PDF.
+     * Open the Watch Ad popup.
+     */
+
+    downloadButton.addEventListener(
+        "click",
+        function () {
+
+            if (!readyDownloadUrl) {
+
+                alert(
+                    "Your PDF is not ready yet."
+                );
+
+                return;
+            }
+
+
+            adWatchPanel.style.display =
+                "flex";
+
+
+            watchAdButton.disabled =
+                false;
+
+
+            watchAdButton.textContent =
+                "Watch Ad";
+
+
+            finalDownloadButton.style.display =
+                "none";
+
+
+            adCompleteMessage.style.display =
+                "none";
+
+        }
+    );
+
+
+    /*
+     * STEP 2:
+     * Demo advertisement.
+     *
+     * IMPORTANT:
+     * This is only a temporary demo timer.
+     * Later the real ad provider callback
+     * can be connected here.
+     */
+
+    watchAdButton.addEventListener(
+        "click",
+        function () {
+
+            watchAdButton.disabled =
+                true;
+
+
+            let seconds = 5;
+
+
+            watchAdButton.textContent =
+                "Ad playing... " +
+                seconds +
+                "s";
+
+
+            const adTimer =
+                setInterval(
+                    function () {
+
+                        seconds--;
+
+
+                        if (seconds > 0) {
+
+                            watchAdButton.textContent =
+                                "Ad playing... " +
+                                seconds +
+                                "s";
+
+                        } else {
+
+                            clearInterval(
+                                adTimer
+                            );
+
+
+                            watchAdButton.style.display =
+                                "none";
+
+
+                            adCompleteMessage.style.display =
+                                "block";
+
+
+                            /*
+                             * Do NOT automatically
+                             * download here.
+                             *
+                             * The user must click the
+                             * final download button.
+                             */
+
+                            finalDownloadButton.style.display =
+                                "inline-block";
+
+                        }
+
+                    },
+                    1000
+                );
+
+        }
+    );
+
+
+    /*
+     * STEP 3:
+     * Actual PDF download.
+     *
+     * This happens from a real user click,
+     * so browser download blocking is avoided.
+     */
+
+    finalDownloadButton.addEventListener(
+        "click",
+        function () {
+
+            if (!readyDownloadUrl) {
+
+                alert(
+                    "Your PDF is not ready yet."
+                );
+
+                return;
+            }
+
+
+            const downloadLink =
+                document.createElement("a");
+
+
+            downloadLink.href =
+                readyDownloadUrl;
+
+
+            downloadLink.download =
+                readyDownloadName ||
+                "compressed.pdf";
+
+
+            document.body.appendChild(
+                downloadLink
+            );
+
+
+            downloadLink.click();
+
+
+            downloadLink.remove();
+
+
+            /*
+             * Close popup after download.
+             */
+
+            setTimeout(function () {
+
+                adWatchPanel.style.display =
+                    "none";
+
+
+                finalDownloadButton.style.display =
+                    "none";
+
+
+                adCompleteMessage.style.display =
+                    "none";
+
+
+                watchAdButton.style.display =
+                    "inline-block";
+
+
+                watchAdButton.disabled =
                     false;
 
 
-                compressButton.textContent =
-                    "Compress PDF";
+                watchAdButton.textContent =
+                    "Watch Ad";
 
-            }
-        );
 
-        // Download button -> open the ad-watch panel.
-        downloadButton.addEventListener("click", function () {
-            if (!readyDownloadUrl) {
-                alert("Your PDF is not ready yet.");
-                return;
-            }
+            }, 500);
 
-            downloadButton.style.display = "none";
-            adWatchPanel.style.display = "block";
 
-            adWatchPanel.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        });
-
-        // Called after the advertisement has actually finished.
-        function completeAdAndDownload() {
-            if (!readyDownloadUrl) {
-                alert("Your PDF is not ready yet.");
-                return;
-            }
-
-            const downloadLink = document.createElement("a");
-            downloadLink.href = readyDownloadUrl;
-            downloadLink.download = readyDownloadName || "compressed.pdf";
-
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+            /*
+             * Release the temporary
+             * browser memory after download.
+             */
 
             setTimeout(function () {
-                URL.revokeObjectURL(readyDownloadUrl);
-                readyDownloadUrl = null;
-            }, 1000);
-        }
 
-        // Temporary demo ad flow.
-        // Replace this timer with the real rewarded-ad provider callback later.
-        watchAdButton.addEventListener("click", function () {
-            watchAdButton.disabled = true;
+                if (readyDownloadUrl) {
 
-            let seconds = 5;
-            watchAdButton.textContent = "Ad playing... " + seconds + "s";
+                    URL.revokeObjectURL(
+                        readyDownloadUrl
+                    );
 
-            const adTimer = setInterval(function () {
-                seconds--;
-
-                if (seconds > 0) {
-                    watchAdButton.textContent =
-                        "Ad playing... " + seconds + "s";
-                } else {
-                    clearInterval(adTimer);
-
-                    watchAdButton.textContent = "Ad completed";
-
-                    completeAdAndDownload();
+                    readyDownloadUrl = null;
                 }
-            }, 1000);
-        });
 
-    </script>
+            }, 1500);
 
-</body>
+        }
+    );
 
-</html>
+
+    /*
+     * Close popup if user clicks
+     * outside the modal.
+     */
+
+    adWatchPanel.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === adWatchPanel) {
+
+                adWatchPanel.style.display =
+                    "none";
+            }
+
+        }
+    );
+
+</script>
+
+</body></html>
