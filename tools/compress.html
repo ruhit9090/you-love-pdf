@@ -171,8 +171,8 @@
             cursor: not-allowed;
         }
 
-        /* Progress area */
-        #progressArea {
+        /* Processing area - replaces the result/status area while compressing */
+        #processingArea {
             display: none;
             margin: 28px auto 0;
             max-width: 520px;
@@ -222,7 +222,7 @@
             display: none;
             margin: 24px auto 0;
             padding: 13px 28px;
-            background: #16a34a;
+            background: #e53935;
             color: white;
             border: none;
             border-radius: 8px;
@@ -231,7 +231,7 @@
         }
 
         #downloadButton:hover {
-            background: #15803d;
+            background: #c62828;
         }
 
         /* Ad-watch panel */
@@ -385,32 +385,25 @@
                 Compress PDF
             </button>
 
+            <div id="processingArea">
+                <div id="progressPercentage">0%</div>
+                <div class="progress-track">
+                    <div id="progressBar"></div>
+                </div>
+                <div id="progressText">Preparing...</div>
+                <button id="downloadButton">Download PDF</button>
+            </div>
 
             <div id="status"></div>
-
             <div id="result"></div>
 
-        </div>
-
-        <div id="progressArea">
-            <div id="progressPercentage">0%</div>
-            <div class="progress-track">
-                <div id="progressBar"></div>
-            </div>
-            <div id="progressText">Preparing...</div>
-        </div>
-
-        <button id="downloadButton">Download PDF</button>
-
-        <div id="adWatchPanel">
-            <h3>Watch Ad to Download</h3>
-            <p>Your PDF is ready. Watch the advertisement below. After the ad is completed, your PDF will download automatically.</p>
-
-            <div class="ad-watch-box" id="adContainer">
-                Advertisement
+            <div id="adWatchPanel">
+                <h3>Watch Ad to Download</h3>
+                <p>Your PDF is ready. Watch the advertisement below. After the ad is completed, your PDF will download automatically.</p>
+                <div class="ad-watch-box" id="adContainer">Advertisement</div>
+                <button id="watchAdButton">Watch Ad</button>
             </div>
 
-            <button id="watchAdButton">Watch Ad</button>
         </div>
 
         <a href="../index.html" class="back-button">
@@ -446,7 +439,7 @@
             document.getElementById("result");
 
         const progressArea =
-            document.getElementById("progressArea");
+            document.getElementById("processingArea");
 
         const progressBar =
             document.getElementById("progressBar");
@@ -557,6 +550,8 @@
                 }
 
                 progressArea.style.display = "block";
+                status.textContent = "";
+                result.textContent = "";
                 progressBar.style.width = "0%";
                 progressPercentage.textContent = "0%";
                 progressText.textContent = "Preparing compression...";
@@ -662,7 +657,12 @@
                     progressPercentage.textContent = "100%";
                     progressText.textContent = "PDF is ready to download.";
 
-                    downloadButton.style.display = "inline-block";
+                    setTimeout(() => {
+                        progressPercentage.style.display = "none";
+                        document.querySelector("#processingArea .progress-track").style.display = "none";
+                        progressText.style.display = "none";
+                        downloadButton.style.display = "inline-block";
+                    }, 250);
 
 
                     if (compressedSize < file.size) {
@@ -705,6 +705,10 @@
                     clearInterval(progressTimer);
 
                     progressArea.style.display = "none";
+                    progressPercentage.style.display = "";
+                    document.querySelector("#processingArea .progress-track").style.display = "";
+                    progressText.style.display = "";
+                    downloadButton.style.display = "none";
 
                     console.error(
                         "Compression error:",
