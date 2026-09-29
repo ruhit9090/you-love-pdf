@@ -1,4 +1,4 @@
-```python
+
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 import io
@@ -806,4 +806,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port
     )
-```
+
