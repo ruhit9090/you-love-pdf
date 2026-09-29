@@ -737,6 +737,67 @@
             }
         );
 
+        // Download button -> open the ad-watch panel.
+        downloadButton.addEventListener("click", function () {
+            if (!readyDownloadUrl) {
+                alert("Your PDF is not ready yet.");
+                return;
+            }
+
+            downloadButton.style.display = "none";
+            adWatchPanel.style.display = "block";
+
+            adWatchPanel.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        });
+
+        // Called after the advertisement has actually finished.
+        function completeAdAndDownload() {
+            if (!readyDownloadUrl) {
+                alert("Your PDF is not ready yet.");
+                return;
+            }
+
+            const downloadLink = document.createElement("a");
+            downloadLink.href = readyDownloadUrl;
+            downloadLink.download = readyDownloadName || "compressed.pdf";
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            setTimeout(function () {
+                URL.revokeObjectURL(readyDownloadUrl);
+                readyDownloadUrl = null;
+            }, 1000);
+        }
+
+        // Temporary demo ad flow.
+        // Replace this timer with the real rewarded-ad provider callback later.
+        watchAdButton.addEventListener("click", function () {
+            watchAdButton.disabled = true;
+
+            let seconds = 5;
+            watchAdButton.textContent = "Ad playing... " + seconds + "s";
+
+            const adTimer = setInterval(function () {
+                seconds--;
+
+                if (seconds > 0) {
+                    watchAdButton.textContent =
+                        "Ad playing... " + seconds + "s";
+                } else {
+                    clearInterval(adTimer);
+
+                    watchAdButton.textContent = "Ad completed";
+
+                    completeAdAndDownload();
+                }
+            }, 1000);
+        });
+
     </script>
 
 </body>
