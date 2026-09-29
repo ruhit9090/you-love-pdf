@@ -22,9 +22,6 @@ ILOVEPDF_SECRET_KEY = os.environ.get("ILOVEPDF_SECRET_KEY")
 
 API_BASE = "https://api.ilovepdf.com/v1"
 
-# India region
-API_REGION = "in"
-
 TOKEN_EXPIRE_SECONDS = 3600
 TIME_DELAY_SECONDS = 5400
 
@@ -84,42 +81,35 @@ def create_token():
 
 
 # =========================================================
-# COMMON API HELPERS
+# COMMON API FUNCTIONS
 # =========================================================
 
-def get_headers():
-    token = create_token()
-
+def api_headers():
     return {
-        "Authorization": f"Bearer {token}",
+        "Authorization": f"Bearer {create_token()}",
         "Accept": "application/json"
     }
 
 
 def start_task(tool):
-    """
-    Start an iLoveAPI task.
-    """
-
-    headers = get_headers()
+    headers = api_headers()
 
     response = requests.get(
-        f"{API_BASE}/start/{tool}/{API_REGION}",
+        f"{API_BASE}/start/{tool}/in",
         headers=headers,
         timeout=60
     )
 
     if not response.ok:
         raise Exception(
-            f"iLoveAPI start failed ({response.status_code}): "
-            f"{response.text}"
+            f"iLoveAPI start failed: {response.text}"
         )
 
     data = response.json()
 
     if "server" not in data or "task" not in data:
         raise Exception(
-            f"Invalid start response: {data}"
+            f"Invalid iLoveAPI start response: {data}"
         )
 
     return data["server"], data["task"], headers
@@ -131,21 +121,9 @@ def upload_file(
     headers,
     filename,
     file_data,
-    mimetype=None
+    mimetype
 ):
-    """
-    Upload one file to an existing iLoveAPI task.
-    """
-
     upload_url = f"https://{server}/v1/upload"
-
-    files = {
-        "file": (
-            filename,
-            file_data,
-            mimetype or "application/octet-stream"
-        )
-    }
 
     response = requests.post(
         upload_url,
@@ -153,21 +131,26 @@ def upload_file(
         data={
             "task": task_id
         },
-        files=files,
+        files={
+            "file": (
+                filename,
+                file_data,
+                mimetype
+            )
+        },
         timeout=300
     )
 
     if not response.ok:
         raise Exception(
-            f"iLoveAPI upload failed ({response.status_code}): "
-            f"{response.text}"
+            f"iLoveAPI upload failed: {response.text}"
         )
 
     data = response.json()
 
     if "server_filename" not in data:
         raise Exception(
-            f"Invalid upload response: {data}"
+            f"Invalid iLoveAPI upload response: {data}"
         )
 
     return data["server_filename"]
@@ -178,25 +161,21 @@ def process_task(
     task_id,
     headers,
     tool,
-    uploaded_files,
-    extra_payload=None
+    files,
+    extra=None
 ):
-    """
-    Process an iLoveAPI task.
-    """
-
     process_url = f"https://{server}/v1/process"
 
     payload = {
         "task": task_id,
         "tool": tool,
-        "files": uploaded_files
+        "files": files
     }
 
-    if extra_payload:
-        payload.update(extra_payload)
+    if extra:
+        payload.update(extra)
 
-    process_response = requests.post(
+    response = requests.post(
         process_url,
         headers={
             **headers,
@@ -206,25 +185,15 @@ def process_task(
         timeout=600
     )
 
-    if not process_response.ok:
+    if not response.ok:
         raise Exception(
-            f"iLoveAPI {tool} process failed "
-            f"({process_response.status_code}): "
-            f"{process_response.text}"
+            f"iLoveAPI process failed: {response.text}"
         )
 
-    return process_response.json()
+    return response.json()
 
 
-def download_result(
-    server,
-    task_id,
-    headers
-):
-    """
-    Download processed result.
-    """
-
+def download_result(server, task_id, headers):
     download_url = f"https://{server}/v1/download/{task_id}"
 
     response = requests.get(
@@ -235,15 +204,64 @@ def download_result(
 
     if not response.ok:
         raise Exception(
-            f"iLoveAPI download failed "
-            f"({response.status_code}): "
-            f"{response.text}"
+            f"iLoveAPI download failed: {response.text}"
         )
 
-    return response.content, response.headers.get(
-        "Content-Type",
-        "application/octet-stream"
+    return (
+        response.content,
+        response.headers.get(
+            "Content-Type",
+            "application/octet-stream"
+        )
     )
+
+
+def convert_pages_to_ranges(pages):
+    numbers = []
+
+    for page in pages:
+        try:
+            number = int(page)
+        except Exception:
+            continue
+
+        if number > 0 and number not in numbers:
+            numbers.append(number)
+
+    numbers.sort()
+
+    if not numbers:
+        return None
+
+    ranges = []
+
+    start = numbers[0]
+    previous = numbers[0]
+
+    for number in numbers[1:]:
+
+        if number == previous + 1:
+            previous = number
+            continue
+
+        if start == previous:
+            ranges.append(str(start))
+        else:
+            ranges.append(
+                f"{start}-{previous}"
+            )
+
+        start = number
+        previous = number
+
+    if start == previous:
+        ranges.append(str(start))
+    else:
+        ranges.append(
+            f"{start}-{previous}"
+        )
+
+    return ",".join(ranges)
 
 
 # =========================================================
@@ -299,12 +317,10 @@ def compress_pdf():
             task_id,
             headers,
             "compress",
-            [
-                {
-                    "server_filename": server_filename,
-                    "filename": file.filename
-                }
-            ],
+            [{
+                "server_filename": server_filename,
+                "filename": file.filename
+            }],
             {
                 "compression_level": "recommended"
             }
@@ -316,7 +332,6 @@ def compress_pdf():
             headers
         )
 
-        # Keep original if API result is larger
         if len(compressed_data) >= len(original_data):
             return send_file(
                 io.BytesIO(original_data),
@@ -366,13 +381,11 @@ def merge_pdf():
         for file in files:
 
             if not file.filename:
-                raise Exception(
-                    "A selected file has no filename."
-                )
+                continue
 
             if not file.filename.lower().endswith(".pdf"):
                 raise Exception(
-                    f"Invalid file type: {file.filename}"
+                    f"Invalid PDF file: {file.filename}"
                 )
 
             file_data = file.read()
@@ -395,6 +408,12 @@ def merge_pdf():
                 "server_filename": server_filename,
                 "filename": file.filename
             })
+
+        if len(uploaded_files) < 2:
+            return jsonify({
+                "status": "error",
+                "message": "Please upload at least 2 valid PDF files."
+            }), 400
 
         process_task(
             server,
@@ -463,85 +482,28 @@ def split_pdf():
         }), 400
 
     try:
-
         pages = json.loads(pages_text)
-
     except Exception:
-
         return jsonify({
             "status": "error",
             "message": "Invalid page selection."
         }), 400
 
-    if not isinstance(pages, list) or not pages:
-
+    if not isinstance(pages, list):
         return jsonify({
             "status": "error",
             "message": "Invalid page selection."
+        }), 400
+
+    ranges = convert_pages_to_ranges(pages)
+
+    if not ranges:
+        return jsonify({
+            "status": "error",
+            "message": "No valid pages selected."
         }), 400
 
     try:
-
-        # Convert frontend page list:
-        #
-        # [1, 2, 3, 5, 7, 8]
-        #
-        # into:
-        #
-        # "1-3,5,7-8"
-        #
-        # This is the format accepted by iLoveAPI.
-
-        page_numbers = []
-
-        for page in pages:
-
-            try:
-                number = int(page)
-            except Exception:
-                continue
-
-            if number > 0 and number not in page_numbers:
-                page_numbers.append(number)
-
-        page_numbers.sort()
-
-        if not page_numbers:
-
-            return jsonify({
-                "status": "error",
-                "message": "No valid pages selected."
-            }), 400
-
-        ranges = []
-
-        start = page_numbers[0]
-        previous = page_numbers[0]
-
-        for number in page_numbers[1:]:
-
-            if number == previous + 1:
-                previous = number
-                continue
-
-            if start == previous:
-                ranges.append(str(start))
-            else:
-                ranges.append(
-                    f"{start}-{previous}"
-                )
-
-            start = number
-            previous = number
-
-        if start == previous:
-            ranges.append(str(start))
-        else:
-            ranges.append(
-                f"{start}-{previous}"
-            )
-
-        ranges_string = ",".join(ranges)
 
         file_data = file.read()
 
@@ -567,14 +529,12 @@ def split_pdf():
             task_id,
             headers,
             "split",
-            [
-                {
-                    "server_filename": server_filename,
-                    "filename": file.filename
-                }
-            ],
+            [{
+                "server_filename": server_filename,
+                "filename": file.filename
+            }],
             {
-                "ranges": ranges_string,
+                "ranges": ranges,
                 "merge_after": True
             }
         )
@@ -585,13 +545,13 @@ def split_pdf():
             headers
         )
 
-        # iLoveAPI normally returns a ZIP when multiple
-        # split files are generated.
         return send_file(
             io.BytesIO(split_data),
-            mimetype=content_type or "application/zip",
+            mimetype=content_type,
             as_attachment=True,
-            download_name="split.zip"
+            download_name="split.pdf"
+            if "pdf" in content_type.lower()
+            else "split.zip"
         )
 
     except Exception as error:
@@ -625,44 +585,39 @@ def jpg_to_pdf():
 
         uploaded_files = []
 
-        allowed_extensions = (
-            ".jpg",
-            ".jpeg",
-            ".png",
-            ".tif",
-            ".tiff"
-        )
-
         for file in files:
 
             if not file.filename:
                 continue
 
-            filename_lower = file.filename.lower()
+            filename = file.filename.lower()
 
-            if not filename_lower.endswith(
-                allowed_extensions
-            ):
+            allowed = (
+                filename.endswith(".jpg")
+                or filename.endswith(".jpeg")
+                or filename.endswith(".png")
+                or filename.endswith(".tif")
+                or filename.endswith(".tiff")
+            )
+
+            if not allowed:
                 raise Exception(
                     f"Unsupported image type: {file.filename}"
                 )
 
-            file_data = file.read()
+            image_data = file.read()
 
-            if not file_data:
+            if not image_data:
                 raise Exception(
                     f"Empty image file: {file.filename}"
                 )
 
-            # Let iLoveAPI handle the actual image decoding.
-            # This avoids the previous PyMuPDF Pixmap error.
-
-            if filename_lower.endswith(
+            if filename.endswith(
                 (".jpg", ".jpeg")
             ):
                 mimetype = "image/jpeg"
 
-            elif filename_lower.endswith(".png"):
+            elif filename.endswith(".png"):
                 mimetype = "image/png"
 
             else:
@@ -673,7 +628,7 @@ def jpg_to_pdf():
                 task_id,
                 headers,
                 file.filename,
-                file_data,
+                image_data,
                 mimetype
             )
 
@@ -683,7 +638,6 @@ def jpg_to_pdf():
             })
 
         if not uploaded_files:
-
             return jsonify({
                 "status": "error",
                 "message": "No valid images found."
@@ -756,76 +710,28 @@ def pdf_to_jpg():
         }), 400
 
     try:
-
         pages = json.loads(pages_text)
-
     except Exception:
-
         return jsonify({
             "status": "error",
             "message": "Invalid page selection."
         }), 400
 
-    if not isinstance(pages, list) or not pages:
-
+    if not isinstance(pages, list):
         return jsonify({
             "status": "error",
             "message": "Invalid page selection."
+        }), 400
+
+    ranges = convert_pages_to_ranges(pages)
+
+    if not ranges:
+        return jsonify({
+            "status": "error",
+            "message": "No valid pages selected."
         }), 400
 
     try:
-
-        # Convert selected page list to ranges.
-        page_numbers = []
-
-        for page in pages:
-
-            try:
-                number = int(page)
-            except Exception:
-                continue
-
-            if number > 0 and number not in page_numbers:
-                page_numbers.append(number)
-
-        page_numbers.sort()
-
-        if not page_numbers:
-
-            return jsonify({
-                "status": "error",
-                "message": "No valid pages selected."
-            }), 400
-
-        ranges = []
-
-        start = page_numbers[0]
-        previous = page_numbers[0]
-
-        for number in page_numbers[1:]:
-
-            if number == previous + 1:
-                previous = number
-                continue
-
-            if start == previous:
-                ranges.append(str(start))
-            else:
-                ranges.append(
-                    f"{start}-{previous}"
-                )
-
-            start = number
-            previous = number
-
-        if start == previous:
-            ranges.append(str(start))
-        else:
-            ranges.append(
-                f"{start}-{previous}"
-            )
-
-        ranges_string = ",".join(ranges)
 
         file_data = file.read()
 
@@ -851,14 +757,12 @@ def pdf_to_jpg():
             task_id,
             headers,
             "pdfjpg",
-            [
-                {
-                    "server_filename": server_filename,
-                    "filename": file.filename
-                }
-            ],
+            [{
+                "server_filename": server_filename,
+                "filename": file.filename
+            }],
             {
-                "pages": ranges_string
+                "pages": ranges
             }
         )
 
@@ -870,7 +774,7 @@ def pdf_to_jpg():
 
         return send_file(
             io.BytesIO(jpg_data),
-            mimetype=content_type or "application/zip",
+            mimetype=content_type,
             as_attachment=True,
             download_name="pdf-to-jpg.zip"
         )
