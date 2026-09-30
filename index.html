@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +9,44 @@
     <title>You Love PDF - Free PDF Tools</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* =========================
+           AD CONTAINER
+        ========================= */
+
+        .page-ad {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            margin: 18px auto;
+            min-height: 60px;
+        }
+
+        .page-ad iframe {
+            display: block !important;
+            margin: 0 auto !important;
+            max-width: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            .page-ad {
+                width: 100%;
+                padding: 0 10px;
+                margin: 15px auto;
+            }
+
+            .page-ad iframe {
+                width: 100% !important;
+                max-width: 468px !important;
+                height: 60px !important;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -27,24 +66,33 @@
 
     </header>
 
-  <div class="ad-container">
-  <script>
-  atOptions = {
-    'key' : '732f22f6c131ad492451f9a21d5b692e',
-    'format' : 'iframe',
-    'height' : 60,
-    'width' : 468,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
-        </div>
-    
+
+    <!-- TOP AD - BELOW HEADER -->
+    <div class="page-ad">
+
+        <script>
+            atOptions = {
+                'key': '732f22f6c131ad492451f9a21d5b692e',
+                'format': 'iframe',
+                'height': 60,
+                'width': 468,
+                'params': {}
+            };
+        </script>
+
+        <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+    </div>
+
+
     <!-- MAIN CONTENT -->
     <main>
 
         <!-- HERO SECTION -->
-        <h1>All Your PDF Tools in One Place</h1>
+
+        <h1>
+            All Your PDF Tools in One Place
+        </h1>
 
         <p class="hero-text">
             Powerful PDF tools to make your work easier.
@@ -57,6 +105,7 @@
 
 
         <!-- TOOLS -->
+
         <h2 class="tools-title">
             Choose a PDF Tool
         </h2>
@@ -66,6 +115,7 @@
 
 
             <!-- COMPRESS PDF -->
+
             <div class="tool-card" onclick="openTool('compress')">
 
                 <div class="tool-icon">
@@ -88,6 +138,7 @@
 
 
             <!-- MERGE PDF -->
+
             <div class="tool-card" onclick="openTool('merge')">
 
                 <div class="tool-icon">
@@ -110,6 +161,7 @@
 
 
             <!-- SPLIT PDF -->
+
             <div class="tool-card" onclick="openTool('split')">
 
                 <div class="tool-icon">
@@ -132,6 +184,7 @@
 
 
             <!-- JPG TO PDF -->
+
             <div class="tool-card" onclick="openTool('jpg-to-pdf')">
 
                 <div class="tool-icon">
@@ -154,6 +207,7 @@
 
 
             <!-- PDF TO JPG -->
+
             <div class="tool-card" onclick="openTool('pdf-to-jpg')">
 
                 <div class="tool-icon">
@@ -178,7 +232,27 @@
         </section>
 
 
+        <!-- BOTTOM AD - ABOVE ABOUT / FOOTER -->
+
+        <div class="page-ad">
+
+            <script>
+                atOptions = {
+                    'key': '732f22f6c131ad492451f9a21d5b692e',
+                    'format': 'iframe',
+                    'height': 60,
+                    'width': 468,
+                    'params': {}
+                };
+            </script>
+
+            <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+        </div>
+
+
         <!-- ABOUT SECTION -->
+
         <section id="about" class="info-section">
 
             <h2>
@@ -199,6 +273,7 @@
 
 
         <!-- CONTACT SECTION -->
+
         <section id="contact" class="info-section">
 
             <h2>
@@ -220,6 +295,7 @@
 
 
     <!-- FOOTER -->
+
     <footer class="footer">
 
         <h2>
@@ -254,8 +330,10 @@
 
 
     <!-- JAVASCRIPT -->
+
     <script src="js/script.js"></script>
 
 </body>
 
 </html>
+```
