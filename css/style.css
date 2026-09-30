@@ -351,3 +351,18 @@ main p {
         height: auto !important;
     }
 }
+
+.ad-container {
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    overflow: hidden;
+}
+
+.ad-container > div,
+.ad-container iframe {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
