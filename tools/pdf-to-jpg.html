@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,319 +11,510 @@
 
 <style>
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fb;
-        color: #222;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    min-height: 70px;
+    background: #e53935;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid #c62828;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: #ffd6d6;
+}
+
+/* =========================
+   TOP AD
+========================= */
+
+.top-ad {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    max-width: 1100px;
+    margin: 45px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.description {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   TOOL AREA
+========================= */
+
+.tool-area {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* =========================
+   LEFT
+========================= */
+
+.preview-section {
+    width: 58%;
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 420px;
+}
+
+.preview-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.preview-help {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+#pageList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.empty-preview {
+    color: #888;
+    text-align: center;
+    padding: 80px 20px;
+    line-height: 1.6;
+    grid-column: 1 / -1;
+}
+
+.page-card {
+    background: #f8f9fc;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+.page-card:hover {
+    border-color: #bbb;
+}
+
+.page-card.selected {
+    border-color: #e53935;
+    box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.12);
+}
+
+.page-card canvas {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+    background: white;
+    border-radius: 6px;
+}
+
+.page-number {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.selected-label {
+    text-align: center;
+    color: #e53935;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* =========================
+   RIGHT
+========================= */
+
+.upload-section {
+    width: 42%;
+    background: white;
+    border-radius: 16px;
+    padding: 45px 30px;
+    text-align: center;
+    border: 2px dashed #d1d5db;
+}
+
+.upload-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.upload-section h2 {
+    margin-bottom: 10px;
+}
+
+.upload-section p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.add-button {
+    display: inline-block;
+    background: #e53935;
+    color: white;
+    padding: 13px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-button:hover {
+    background: #c62828;
+}
+
+#pdfFile {
+    display: none;
+}
+
+.file-name {
+    margin-top: 15px;
+    color: #555;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.selection-info {
+    margin-top: 15px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.control-button {
+    margin-top: 15px;
+    padding: 11px 20px;
+    background: white;
+    color: #444;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.control-button:hover {
+    background: #f5f5f5;
+}
+
+/* =========================
+   CONVERT BUTTON
+========================= */
+
+#convertButton {
+    margin-top: 20px;
+    padding: 13px 30px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#convertButton:hover {
+    background: #c62828;
+}
+
+#convertButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+#status {
+    margin-top: 20px;
+    color: #555;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-wrapper {
+    display: none;
+    margin-top: 22px;
+    width: 100%;
+}
+
+.progress-text {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 10px;
+    background: #eeeeee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #e53935;
+    border-radius: 20px;
+    transition: width 0.25s ease;
+}
+
+.progress-percent {
+    margin-top: 7px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* =========================
+   DOWNLOAD AREA
+========================= */
+
+.download-area {
+    display: none;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.download-area p {
+    color: #2e7d32;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+#downloadButton {
+    padding: 13px 30px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#downloadButton:hover {
+    background: #256628;
+}
+
+/* =========================
+   BACK
+========================= */
+
+.back-button {
+    display: block;
+    width: fit-content;
+    margin: 35px auto 0;
+    text-decoration: none;
+    color: #555;
+}
+
+.back-button:hover {
+    color: #e53935;
+}
+
+/* =========================
+   AD MODAL
+========================= */
+
+.ad-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: rgba(0,0,0,0.72);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ad-modal-content {
+    width: min(520px, 95vw);
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+
+.ad-modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.ad-modal-content p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.ad-box {
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#adTimer {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+#finalDownloadButton {
+    display: none;
+    padding: 13px 28px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#finalDownloadButton:hover {
+    background: #c62828;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
 
     .header {
-        width: 100%;
-        min-height: 70px;
-        background: #e53935;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 7%;
-        border-bottom: 1px solid #c62828;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .logo {
-        font-size: 24px;
-        font-weight: bold;
-        color: #ffffff;
-    }
-
-    .navbar {
-        display: flex;
-        gap: 30px;
-    }
-
-    .navbar a {
-        text-decoration: none;
-        color: #ffffff;
-        font-size: 15px;
-        transition: color 0.2s ease;
-    }
-
-    .navbar a:hover {
-        color: #ffd6d6;
-    }
-
-    .container {
-        max-width: 1100px;
-        margin: 60px auto;
+        min-height: auto;
         padding: 20px;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 42px;
-        margin-bottom: 15px;
-    }
-
-    .description {
-        text-align: center;
-        color: #666;
-        font-size: 18px;
-        margin-bottom: 40px;
-    }
-
-    .tool-area {
-        display: flex;
-        gap: 30px;
-        align-items: flex-start;
-    }
-
-    /* LEFT SIDE */
-
-    .preview-section {
-        width: 58%;
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
-        min-height: 420px;
-    }
-
-    .preview-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    .preview-help {
-        color: #888;
-        font-size: 13px;
-        margin-bottom: 18px;
-    }
-
-    #pageList {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        flex-direction: column;
         gap: 15px;
     }
 
-    .empty-preview {
-        color: #888;
-        text-align: center;
-        padding: 80px 20px;
-        line-height: 1.6;
-        grid-column: 1 / -1;
+    .navbar {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .page-card {
-        background: #f8f9fc;
-        border: 2px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 10px;
-        cursor: pointer;
-        transition: 0.2s;
-        position: relative;
+    .container {
+        margin: 35px auto;
     }
 
-    .page-card:hover {
-        border-color: #bbb;
+    h1 {
+        font-size: 32px;
     }
 
-    .page-card.selected {
-        border-color: #e53935;
+    .tool-area {
+        flex-direction: column;
+    }
+
+    .preview-section,
+    .upload-section {
+        width: 100%;
+    }
+
+    .preview-section {
+        order: 1;
+    }
+
+    .upload-section {
+        order: 2;
+    }
+
+    #convertButton,
+    #downloadButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #pageList {
+        grid-template-columns: 1fr;
     }
 
     .page-card canvas {
-        width: 100%;
-        height: 220px;
-        object-fit: contain;
-        display: block;
-        background: white;
-        border-radius: 6px;
+        height: 300px;
     }
 
-    .page-number {
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
-        margin-top: 8px;
+    .ad-modal-content {
+        padding: 20px 15px;
     }
 
-    .selected-label {
-        text-align: center;
-        color: #e53935;
-        font-size: 12px;
-        font-weight: bold;
-        margin-top: 4px;
-    }
-
-    /* RIGHT SIDE */
-
-    .upload-section {
-        width: 42%;
-        background: white;
-        border-radius: 16px;
-        padding: 45px 30px;
-        text-align: center;
-        border: 2px dashed #d1d5db;
-    }
-
-    .upload-icon {
-        font-size: 55px;
-        margin-bottom: 15px;
-    }
-
-    .upload-section h2 {
-        margin-bottom: 10px;
-    }
-
-    .upload-section p {
-        color: #777;
-        margin-bottom: 25px;
-    }
-
-    .add-button {
-        display: inline-block;
-        background: #e53935;
-        color: white;
-        padding: 13px 30px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .add-button:hover {
-        background: #c62828;
-    }
-
-    #pdfFile {
-        display: none;
-    }
-
-    .file-name {
-        margin-top: 15px;
-        color: #555;
-        font-size: 14px;
-        word-break: break-word;
-    }
-
-    .selection-info {
-        margin-top: 15px;
-        color: #666;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .control-button {
-        margin-top: 15px;
-        padding: 11px 20px;
-        background: white;
-        color: #444;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .control-button:hover {
-        background: #f5f5f5;
-    }
-
-    #convertButton {
-        margin-top: 20px;
-        padding: 13px 30px;
-        background: #e53935;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    #convertButton:hover {
-        background: #c62828;
-    }
-
-    #convertButton:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-    }
-
-    #status {
-        margin-top: 20px;
-        color: #555;
-        font-weight: bold;
-        line-height: 1.5;
-    }
-
-    .back-button {
-        display: block;
-        width: fit-content;
-        margin: 35px auto 0;
-        text-decoration: none;
-        color: #555;
-    }
-
-    .back-button:hover {
-        color: #e53935;
-    }
-
-    @media (max-width: 800px) {
-
-        .header {
-            min-height: auto;
-            padding: 20px;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .navbar {
-            gap: 18px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .container {
-            margin: 40px auto;
-        }
-
-        h1 {
-            font-size: 32px;
-        }
-
-        .tool-area {
-            flex-direction: column;
-        }
-
-        .preview-section,
-        .upload-section {
-            width: 100%;
-        }
-
-        .preview-section {
-            order: 1;
-        }
-
-        .upload-section {
-            order: 2;
-        }
-    }
-
-    @media (max-width: 500px) {
-
-        #pageList {
-            grid-template-columns: 1fr;
-        }
-
-        .page-card canvas {
-            height: 300px;
-        }
-    }
+}
 
 </style>
 
@@ -353,6 +546,27 @@
     </nav>
 
 </header>
+
+
+<!-- =========================
+     TOP AD
+========================= -->
+
+<div class="top-ad">
+
+<script>
+  atOptions = {
+    'key' : '732f22f6c131ad492451f9a21d5b692e',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+
+<script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+</div>
 
 
 <main class="container">
@@ -467,12 +681,62 @@
             <button
                 id="convertButton">
 
-                Download JPG
+                Convert to JPG
 
             </button>
 
 
+            <!-- PROGRESS -->
+
+            <div
+                class="progress-wrapper"
+                id="progressWrapper">
+
+                <div class="progress-text" id="progressText">
+                    Preparing...
+                </div>
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+                    </div>
+
+                </div>
+
+                <div
+                    class="progress-percent"
+                    id="progressPercent">
+
+                    0%
+
+                </div>
+
+            </div>
+
+
             <div id="status"></div>
+
+
+            <!-- DOWNLOAD -->
+
+            <div
+                class="download-area"
+                id="downloadArea">
+
+                <p>
+                    JPG files are ready.
+                </p>
+
+                <button
+                    id="downloadButton">
+
+                    Download JPG
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -487,8 +751,60 @@
 
     </a>
 
-
 </main>
+
+
+<!-- =========================
+     AD / DOWNLOAD MODAL
+========================= -->
+
+<div
+    class="ad-modal"
+    id="adModal">
+
+    <div class="ad-modal-content">
+
+        <h2>
+            Your JPG is Ready
+        </h2>
+
+        <p>
+            Please wait a few seconds before downloading your file.
+        </p>
+
+
+        <div class="ad-box">
+
+<script>
+  atOptions = {
+    'key' : '732f22f6c131ad492451f9a21d5b692e',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+
+<script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+        </div>
+
+
+        <div id="adTimer">
+            Preparing download... 5
+        </div>
+
+
+        <button
+            id="finalDownloadButton">
+
+            Download JPG
+
+        </button>
+
+    </div>
+
+</div>
 
 
 <script type="module">
@@ -521,41 +837,60 @@ const BACKEND_URL =
 const pdfFile =
 document.getElementById("pdfFile");
 
-
 const pageList =
 document.getElementById("pageList");
-
 
 const fileName =
 document.getElementById("fileName");
 
-
 const selectionInfo =
 document.getElementById("selectionInfo");
-
 
 const selectAllButton =
 document.getElementById("selectAllButton");
 
-
 const clearAllButton =
 document.getElementById("clearAllButton");
-
 
 const convertButton =
 document.getElementById("convertButton");
 
-
 const status =
 document.getElementById("status");
 
+const progressWrapper =
+document.getElementById("progressWrapper");
 
-let pdfDocument =
-null;
+const progressBar =
+document.getElementById("progressBar");
+
+const progressPercent =
+document.getElementById("progressPercent");
+
+const progressText =
+document.getElementById("progressText");
+
+const downloadArea =
+document.getElementById("downloadArea");
+
+const downloadButton =
+document.getElementById("downloadButton");
+
+const adModal =
+document.getElementById("adModal");
+
+const adTimer =
+document.getElementById("adTimer");
+
+const finalDownloadButton =
+document.getElementById("finalDownloadButton");
 
 
-let selectedPages =
-new Set();
+let pdfDocument = null;
+
+let selectedPages = new Set();
+
+let pdfZipBlob = null;
 
 
 /* =========================
@@ -571,6 +906,33 @@ function updateSelectionInfo() {
             ? " page selected"
             : " pages selected"
         );
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function setProgress(percent, text) {
+
+    const safePercent =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                percent
+            )
+        );
+
+    progressBar.style.width =
+        safePercent + "%";
+
+    progressPercent.textContent =
+        Math.round(safePercent) + "%";
+
+    progressText.textContent =
+        text;
 
 }
 
@@ -615,7 +977,7 @@ pdfFile.addEventListener(
 
 
         fileName.textContent =
-            file.name;
+            "Selected: " + file.name;
 
 
         status.style.color =
@@ -631,6 +993,13 @@ pdfFile.addEventListener(
 
 
         selectedPages.clear();
+
+
+        pdfZipBlob = null;
+
+
+        downloadArea.style.display =
+            "none";
 
 
         updateSelectionInfo();
@@ -662,7 +1031,7 @@ pdfFile.addEventListener(
 
 
             status.textContent =
-                "PDF loaded successfully.";
+                "PDF loaded successfully. Select pages to convert.";
 
 
         } catch (error) {
@@ -844,7 +1213,7 @@ async function renderPages() {
 
 
 /* =========================
-   SELECT / DESELECT PAGE
+   SELECT / DESELECT
 ========================= */
 
 function togglePage(
@@ -930,7 +1299,6 @@ selectAllButton.addEventListener(
 
         updatePageStyles();
 
-
         updateSelectionInfo();
 
     }
@@ -947,9 +1315,7 @@ clearAllButton.addEventListener(
 
         selectedPages.clear();
 
-
         updatePageStyles();
-
 
         updateSelectionInfo();
 
@@ -1017,7 +1383,7 @@ function updatePageStyles() {
 
 
 /* =========================
-   DOWNLOAD JPG
+   CONVERT PDF TO JPG
 ========================= */
 
 convertButton.addEventListener(
@@ -1067,8 +1433,16 @@ convertButton.addEventListener(
             true;
 
 
+        selectAllButton.disabled =
+            true;
+
+
+        clearAllButton.disabled =
+            true;
+
+
         convertButton.textContent =
-            "Creating JPG...";
+            "Converting...";
 
 
         status.style.color =
@@ -1076,14 +1450,27 @@ convertButton.addEventListener(
 
 
         status.textContent =
-            "Preparing selected pages...";
+            "Uploading selected pages...";
+
+
+        progressWrapper.style.display =
+            "block";
+
+
+        downloadArea.style.display =
+            "none";
+
+
+        setProgress(
+            10,
+            "Uploading PDF..."
+        );
 
 
         try {
 
-
             /* =========================
-               SORT SELECTED PAGES
+               SORT PAGES
             ========================= */
 
             const pages =
@@ -1097,7 +1484,7 @@ convertButton.addEventListener(
 
 
             /* =========================
-               CREATE FORM DATA
+               FORM DATA
             ========================= */
 
             const formData =
@@ -1116,13 +1503,15 @@ convertButton.addEventListener(
             );
 
 
+            setProgress(
+                25,
+                "Sending PDF to server..."
+            );
+
+
             /* =========================
-               SEND TO BACKEND
+               BACKEND REQUEST
             ========================= */
-
-            status.textContent =
-                "Converting PDF pages to JPG...";
-
 
             const response =
                 await fetch(
@@ -1133,6 +1522,12 @@ convertButton.addEventListener(
                         body: formData
                     }
                 );
+
+
+            setProgress(
+                65,
+                "Converting PDF pages..."
+            );
 
 
             /* =========================
@@ -1174,70 +1569,40 @@ convertButton.addEventListener(
             }
 
 
+            setProgress(
+                85,
+                "Preparing JPG files..."
+            );
+
+
             /* =========================
-               GET ZIP FILE
+               GET ZIP
             ========================= */
 
-            status.textContent =
-                "Preparing ZIP download...";
-
-
-            const zipBlob =
+            pdfZipBlob =
                 await response.blob();
 
 
-            /* =========================
-               DOWNLOAD ZIP
-            ========================= */
-
-            const downloadUrl =
-                URL.createObjectURL(
-                    zipBlob
-                );
-
-
-            const downloadLink =
-                document.createElement(
-                    "a"
-                );
-
-
-            downloadLink.href =
-                downloadUrl;
-
-
-            downloadLink.download =
-                "pdf-to-jpg.zip";
-
-
-            document.body.appendChild(
-                downloadLink
+            setProgress(
+                100,
+                "Conversion complete!"
             );
 
-
-            downloadLink.click();
-
-
-            document.body.removeChild(
-                downloadLink
-            );
-
-
-            URL.revokeObjectURL(
-                downloadUrl
-            );
-
-
-            /* =========================
-               SUCCESS
-            ========================= */
 
             status.style.color =
                 "#2e7d32";
 
 
             status.textContent =
-                "JPG images created successfully! ZIP downloaded.";
+                "JPG files created successfully. Ready to download.";
+
+
+            /* =========================
+               SHOW DOWNLOAD BUTTON
+            ========================= */
+
+            downloadArea.style.display =
+                "block";
 
 
         } catch (error) {
@@ -1256,6 +1621,14 @@ convertButton.addEventListener(
                 "";
 
 
+            progressWrapper.style.display =
+                "none";
+
+
+            pdfZipBlob =
+                null;
+
+
             alert(
                 error.message ||
                 "Sorry, JPG images could not be created."
@@ -1268,8 +1641,188 @@ convertButton.addEventListener(
             false;
 
 
+        selectAllButton.disabled =
+            false;
+
+
+        clearAllButton.disabled =
+            false;
+
+
         convertButton.textContent =
-            "Download JPG";
+            "Convert to JPG";
+
+    }
+);
+
+
+/* =========================
+   DOWNLOAD BUTTON
+   OPENS AD MODAL
+========================= */
+
+downloadButton.addEventListener(
+    "click",
+    function() {
+
+        if (!pdfZipBlob) {
+
+            alert(
+                "Please convert the PDF first."
+            );
+
+            return;
+
+        }
+
+
+        adModal.style.display =
+            "flex";
+
+
+        finalDownloadButton.style.display =
+            "none";
+
+
+        let seconds =
+            5;
+
+
+        adTimer.textContent =
+            "Preparing download... " +
+            seconds;
+
+
+        const timer =
+            setInterval(
+                function() {
+
+                    seconds--;
+
+
+                    if (
+                        seconds > 0
+                    ) {
+
+                        adTimer.textContent =
+                            "Preparing download... " +
+                            seconds;
+
+                    } else {
+
+                        clearInterval(
+                            timer
+                        );
+
+
+                        adTimer.textContent =
+                            "Your download is ready.";
+
+
+                        finalDownloadButton.style.display =
+                            "inline-block";
+
+                    }
+
+                },
+                1000
+            );
+
+    }
+);
+
+
+/* =========================
+   FINAL USER DOWNLOAD
+========================= */
+
+finalDownloadButton.addEventListener(
+    "click",
+    function() {
+
+        if (!pdfZipBlob) {
+
+            return;
+
+        }
+
+
+        const downloadUrl =
+            URL.createObjectURL(
+                pdfZipBlob
+            );
+
+
+        const downloadLink =
+            document.createElement(
+                "a"
+            );
+
+
+        downloadLink.href =
+            downloadUrl;
+
+
+        downloadLink.download =
+            "pdf-to-jpg.zip";
+
+
+        document.body.appendChild(
+            downloadLink
+        );
+
+
+        downloadLink.click();
+
+
+        document.body.removeChild(
+            downloadLink
+        );
+
+
+        setTimeout(
+            function() {
+
+                URL.revokeObjectURL(
+                    downloadUrl
+                );
+
+            },
+            1000
+        );
+
+
+        adModal.style.display =
+            "none";
+
+
+        status.style.color =
+            "#2e7d32";
+
+
+        status.textContent =
+            "JPG ZIP downloaded successfully.";
+
+    }
+);
+
+
+/* =========================
+   CLOSE MODAL ON OUTSIDE CLICK
+========================= */
+
+adModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === adModal
+        ) {
+
+            adModal.style.display =
+                "none";
+
+        }
 
     }
 );
@@ -1281,8 +1834,8 @@ convertButton.addEventListener(
 
 updateSelectionInfo();
 
-
 </script>
 
 </body>
 </html>
+
