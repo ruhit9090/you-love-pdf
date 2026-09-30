@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,7 +32,6 @@ body {
     justify-content: space-between;
     padding: 0 7%;
     border-bottom: 1px solid #c62828;
-
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -41,7 +40,7 @@ body {
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #ffffff;
+    color: #fff;
 }
 
 .navbar {
@@ -51,9 +50,8 @@ body {
 
 .navbar a {
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
     font-size: 15px;
-    transition: color 0.2s ease;
 }
 
 .navbar a:hover {
@@ -76,8 +74,26 @@ h1 {
     text-align: center;
     color: #666;
     font-size: 18px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
+
+/* =========================
+   AD
+========================= */
+
+.ad-container {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 30px;
+    overflow: hidden;
+}
+
+/* =========================
+   TOOL AREA
+========================= */
 
 .tool-area {
     display: flex;
@@ -127,15 +143,14 @@ h1 {
     gap: 12px;
     align-items: center;
     cursor: grab;
-    transition: 0.2s;
-}
-
-.image-item:hover {
-    border-color: #bbb;
 }
 
 .image-item.dragging {
     opacity: 0.45;
+}
+
+.image-item:hover {
+    border-color: #bbb;
 }
 
 .image-thumbnail {
@@ -194,6 +209,10 @@ h1 {
     background: #e53935;
     color: white;
 }
+
+/* =========================
+   UPLOAD
+========================= */
 
 .upload-section {
     width: 58%;
@@ -256,6 +275,12 @@ h1 {
     cursor: not-allowed;
 }
 
+.file-count {
+    margin-top: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
 #status {
     margin-top: 20px;
     color: #555;
@@ -263,11 +288,61 @@ h1 {
     line-height: 1.5;
 }
 
-.file-count {
-    margin-top: 15px;
-    color: #666;
-    font-size: 14px;
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-container {
+    display: none;
+    margin-top: 25px;
+    width: 100%;
 }
+
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #e53935;
+    border-radius: 20px;
+    transition: width 0.25s ease;
+}
+
+.progress-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* =========================
+   DOWNLOAD BUTTON
+========================= */
+
+#downloadButton {
+    display: none;
+    margin: 25px auto 0;
+    padding: 13px 30px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#downloadButton:hover {
+    background: #256628;
+}
+
+/* =========================
+   BACK
+========================= */
 
 .back-button {
     display: block;
@@ -280,6 +355,73 @@ h1 {
 .back-button:hover {
     color: #e53935;
 }
+
+/* =========================
+   AD MODAL
+========================= */
+
+.ad-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ad-modal-content {
+    width: min(520px, 95vw);
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+}
+
+.ad-modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.ad-modal-content p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.ad-box {
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#adTimer {
+    font-size: 15px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+#finalDownloadButton {
+    display: none;
+    padding: 13px 28px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#finalDownloadButton:hover {
+    background: #c62828;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 800px) {
 
@@ -320,6 +462,20 @@ h1 {
     .upload-section {
         order: 2;
     }
+
+    .image-item {
+        padding: 10px;
+    }
+
+    .image-thumbnail {
+        width: 65px;
+        height: 82px;
+    }
+
+    #convertButton,
+    #downloadButton {
+        width: 100%;
+    }
 }
 
 </style>
@@ -330,146 +486,241 @@ h1 {
 
 <header class="header">
 
+    <div class="logo">
+        You Love PDF
+    </div>
 
-<div class="logo">
-    You Love PDF
-</div>
+    <nav class="navbar">
 
-<nav class="navbar">
+        <a href="https://ruhit9090.github.io/you-love-pdf/">
+            Home
+        </a>
 
-    <a href="https://ruhit9090.github.io/you-love-pdf/">
-        Home
-    </a>
+        <a href="https://ruhit9090.github.io/you-love-pdf/#about">
+            About
+        </a>
 
-    <a href="https://ruhit9090.github.io/you-love-pdf/#about">
-        About
-    </a>
+        <a href="https://ruhit9090.github.io/you-love-pdf/#contact">
+            Contact
+        </a>
 
-    <a href="https://ruhit9090.github.io/you-love-pdf/#contact">
-        Contact
-    </a>
-
-</nav>
-
+    </nav>
 
 </header>
 
+
 <main class="container">
 
+    <h1>JPG to PDF</h1>
 
-<h1>
-    JPG to PDF
-</h1>
-
-
-<p class="description">
-    Convert multiple JPG images into one PDF quickly and easily.
-</p>
+    <p class="description">
+        Convert multiple JPG images into one PDF quickly and easily.
+    </p>
 
 
-<div class="tool-area">
+    <!-- TOP AD -->
+
+    <div class="ad-container">
+
+        <script>
+            atOptions = {
+                'key' : '732f22f6c131ad492451f9a21d5b692e',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+
+        <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+    </div>
 
 
-    <!-- LEFT SIDE -->
-
-    <div class="preview-section">
-
-        <div class="preview-title">
-            Added JPGs
-        </div>
-
-        <div class="preview-help">
-            Drag JPGs to change their PDF order.
-        </div>
+    <div class="tool-area">
 
 
-        <div id="imageList">
+        <!-- LEFT -->
 
-            <div class="empty-preview">
+        <div class="preview-section">
 
-                No JPG added yet.<br>
+            <div class="preview-title">
+                Added JPGs
+            </div>
 
-                Click "Add JPG" to begin.
+            <div class="preview-help">
+                Drag JPGs to change their PDF order.
+            </div>
+
+            <div id="imageList">
+
+                <div class="empty-preview">
+
+                    No JPG added yet.<br>
+
+                    Click "Add JPG" to begin.
+
+                </div>
 
             </div>
 
         </div>
 
+
+        <!-- RIGHT -->
+
+        <div class="upload-section">
+
+            <div class="upload-icon">
+                🖼️
+            </div>
+
+            <h2>
+                Add JPG files
+            </h2>
+
+            <p>
+                Add JPG images one by one to create a PDF.
+            </p>
+
+            <label
+                for="imageFile"
+                class="add-button">
+
+                + Add JPG
+
+            </label>
+
+            <input
+                type="file"
+                id="imageFile"
+                accept=".jpg,.jpeg,image/jpeg"
+            >
+
+            <div
+                class="file-count"
+                id="fileCount">
+
+                0 JPG files added
+
+            </div>
+
+            <button
+                id="convertButton">
+
+                Convert to PDF
+
+            </button>
+
+
+            <!-- PROGRESS -->
+
+            <div
+                class="progress-container"
+                id="progressContainer">
+
+                <div class="progress-bar-bg">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+                    </div>
+
+                </div>
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+
+                    Preparing...
+
+                </div>
+
+            </div>
+
+
+            <div id="status"></div>
+
+
+            <!-- DOWNLOAD -->
+
+            <button
+                id="downloadButton">
+
+                Download PDF
+
+            </button>
+
+        </div>
+
     </div>
 
 
-    <!-- RIGHT SIDE -->
+    <a
+        href="https://ruhit9090.github.io/you-love-pdf/"
+        class="back-button">
 
-    <div class="upload-section">
+        ← Back to PDF Tools
 
-        <div class="upload-icon">
-            🖼️
-        </div>
+    </a>
 
+</main>
+
+
+<!-- =========================
+     WATCH AD MODAL
+========================= -->
+
+<div
+    class="ad-modal"
+    id="adModal">
+
+    <div class="ad-modal-content">
 
         <h2>
-            Add JPG files
+            Your PDF is ready!
         </h2>
 
-
         <p>
-            Add JPG images one by one to create a PDF.
+            Please wait while your download is prepared.
         </p>
 
 
-        <label
-            for="imageFile"
-            class="add-button">
+        <div class="ad-box">
 
-            + Add JPG
+            <script>
+                atOptions = {
+                    'key' : '732f22f6c131ad492451f9a21d5b692e',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
 
-        </label>
+            <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+        </div>
 
 
-        <input
-            type="file"
-            id="imageFile"
-            accept=".jpg,.jpeg,image/jpeg"
-        >
-
-
-        <div
-            class="file-count"
-            id="fileCount">
-
-            0 JPG files added
-
+        <div id="adTimer">
+            Please wait 5 seconds...
         </div>
 
 
         <button
-            id="convertButton">
+            id="finalDownloadButton">
 
-            Convert to PDF
+            Download PDF
 
         </button>
-
-
-        <div id="status"></div>
 
     </div>
 
 </div>
 
 
-<a
-    href="https://ruhit9090.github.io/you-love-pdf/"
-    class="back-button">
-
-    ← Back to PDF Tools
-
-</a>
-
-
-</main>
-
 <script>
-
 
 /* =========================
    BACKEND
@@ -492,49 +743,65 @@ const imageList =
 const convertButton =
     document.getElementById("convertButton");
 
+const downloadButton =
+    document.getElementById("downloadButton");
+
+const finalDownloadButton =
+    document.getElementById("finalDownloadButton");
+
 const status =
     document.getElementById("status");
 
 const fileCount =
     document.getElementById("fileCount");
 
+const progressContainer =
+    document.getElementById("progressContainer");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressText =
+    document.getElementById("progressText");
+
+const adModal =
+    document.getElementById("adModal");
+
+const adTimer =
+    document.getElementById("adTimer");
+
 
 let selectedImages = [];
 
 let draggedIndex = null;
 
+let generatedPdfUrl = null;
+
 
 /* =========================
-   FORMAT FILE SIZE
+   FORMAT SIZE
 ========================= */
 
 function formatSize(bytes) {
 
     if (bytes < 1024) {
-
         return bytes.toFixed(0) + " B";
-
     }
 
-
     if (bytes < 1024 * 1024) {
-
         return (
             bytes / 1024
         ).toFixed(2) + " KB";
-
     }
-
 
     return (
         bytes / (1024 * 1024)
     ).toFixed(2) + " MB";
-
 }
 
 
 /* =========================
-   UPDATE FILE COUNT
+   FILE COUNT
 ========================= */
 
 function updateFileCount() {
@@ -543,8 +810,8 @@ function updateFileCount() {
         selectedImages.length +
         (
             selectedImages.length === 1
-            ? " JPG file added"
-            : " JPG files added"
+                ? " JPG file added"
+                : " JPG files added"
         );
 
 }
@@ -576,7 +843,6 @@ function renderImages() {
         updateFileCount();
 
         return;
-
     }
 
 
@@ -587,15 +853,11 @@ function renderImages() {
             const item =
                 document.createElement("div");
 
-
             item.className =
                 "image-item";
 
-
             item.draggable = true;
 
-
-            /* DRAG START */
 
             item.addEventListener(
                 "dragstart",
@@ -611,8 +873,6 @@ function renderImages() {
             );
 
 
-            /* DRAG END */
-
             item.addEventListener(
                 "dragend",
                 function() {
@@ -627,8 +887,6 @@ function renderImages() {
             );
 
 
-            /* DRAG OVER */
-
             item.addEventListener(
                 "dragover",
                 function(event) {
@@ -639,17 +897,13 @@ function renderImages() {
             );
 
 
-            /* DROP */
-
             item.addEventListener(
                 "drop",
                 function(event) {
 
                     event.preventDefault();
 
-
-                    const targetIndex =
-                        index;
+                    const targetIndex = index;
 
 
                     if (
@@ -692,7 +946,6 @@ function renderImages() {
             const thumbnail =
                 document.createElement("div");
 
-
             thumbnail.className =
                 "image-thumbnail";
 
@@ -727,7 +980,6 @@ function renderImages() {
             const info =
                 document.createElement("div");
 
-
             info.className =
                 "image-info";
 
@@ -735,10 +987,8 @@ function renderImages() {
             const number =
                 document.createElement("div");
 
-
             number.className =
                 "image-number";
-
 
             number.textContent =
                 "JPG " +
@@ -748,10 +998,8 @@ function renderImages() {
             const name =
                 document.createElement("div");
 
-
             name.className =
                 "image-name";
-
 
             name.textContent =
                 file.name;
@@ -760,31 +1008,25 @@ function renderImages() {
             const size =
                 document.createElement("div");
 
-
             size.className =
                 "image-size";
-
 
             size.textContent =
                 formatSize(file.size);
 
 
             info.appendChild(number);
-
             info.appendChild(name);
-
             info.appendChild(size);
 
 
-            /* REMOVE BUTTON */
+            /* REMOVE */
 
             const removeButton =
                 document.createElement("button");
 
-
             removeButton.className =
                 "remove-button";
-
 
             removeButton.textContent =
                 "Remove";
@@ -811,22 +1053,11 @@ function renderImages() {
             );
 
 
-            item.appendChild(
-                thumbnail
-            );
+            item.appendChild(thumbnail);
+            item.appendChild(info);
+            item.appendChild(removeButton);
 
-            item.appendChild(
-                info
-            );
-
-            item.appendChild(
-                removeButton
-            );
-
-
-            imageList.appendChild(
-                item
-            );
+            imageList.appendChild(item);
 
         }
     );
@@ -845,7 +1076,6 @@ imageFile.addEventListener(
     "change",
     function() {
 
-
         if (
             imageFile.files.length === 0
         ) {
@@ -859,20 +1089,19 @@ imageFile.addEventListener(
             imageFile.files[0];
 
 
+        const fileName =
+            file.name.toLowerCase();
+
+
         if (
             file.type !== "image/jpeg" &&
-            !file.name
-                .toLowerCase()
-                .endsWith(".jpg") &&
-            !file.name
-                .toLowerCase()
-                .endsWith(".jpeg")
+            !fileName.endsWith(".jpg") &&
+            !fileName.endsWith(".jpeg")
         ) {
 
             alert(
                 "Please select a JPG or JPEG image."
             );
-
 
             imageFile.value = "";
 
@@ -881,24 +1110,62 @@ imageFile.addEventListener(
         }
 
 
-        selectedImages.push(
-            file
-        );
-
+        selectedImages.push(file);
 
         status.textContent = "";
 
-        status.style.color =
-            "#555";
-
-
         renderImages();
-
 
         imageFile.value = "";
 
     }
 );
+
+
+/* =========================
+   PROGRESS ANIMATION
+========================= */
+
+function startProgress() {
+
+    progressContainer.style.display =
+        "block";
+
+    progressBar.style.width =
+        "0%";
+
+
+    let progress = 0;
+
+
+    const interval =
+        setInterval(
+            function() {
+
+                if (progress < 90) {
+
+                    progress +=
+                        Math.floor(
+                            Math.random() * 8
+                        ) + 2;
+
+                    if (progress > 90) {
+                        progress = 90;
+                    }
+
+                    progressBar.style.width =
+                        progress + "%";
+
+                }
+
+            },
+            300
+        );
+
+
+    return interval;
+
+}
 
 
 /* =========================
@@ -926,17 +1193,34 @@ convertButton.addEventListener(
         convertButton.disabled =
             true;
 
-
         convertButton.textContent =
             "Creating PDF...";
+
+
+        downloadButton.style.display =
+            "none";
+
+
+        if (generatedPdfUrl) {
+
+            URL.revokeObjectURL(
+                generatedPdfUrl
+            );
+
+            generatedPdfUrl = null;
+
+        }
 
 
         status.style.color =
             "#555";
 
-
         status.textContent =
             "Uploading images...";
+
+
+        const progressInterval =
+            startProgress();
 
 
         try {
@@ -945,13 +1229,6 @@ convertButton.addEventListener(
             const formData =
                 new FormData();
 
-
-            /*
-             * IMPORTANT:
-             * selectedImages ka order
-             * drag/drop ke baad jo hai,
-             * wahi backend ko milega.
-             */
 
             selectedImages.forEach(
                 function(file) {
@@ -989,7 +1266,6 @@ convertButton.addEventListener(
 
                 try {
 
-
                     const errorData =
                         await response.json();
 
@@ -1003,10 +1279,9 @@ convertButton.addEventListener(
 
                     }
 
-
                 } catch (e) {
 
-                    // Ignore JSON parsing error
+                    console.error(e);
 
                 }
 
@@ -1019,60 +1294,55 @@ convertButton.addEventListener(
 
 
             status.textContent =
-                "Preparing download...";
+                "Preparing PDF...";
 
 
             const pdfBlob =
                 await response.blob();
 
 
-            const downloadUrl =
+            clearInterval(
+                progressInterval
+            );
+
+
+            progressBar.style.width =
+                "100%";
+
+
+            progressText.textContent =
+                "PDF ready!";
+
+
+            generatedPdfUrl =
                 URL.createObjectURL(
                     pdfBlob
                 );
 
 
-            const downloadLink =
-                document.createElement(
-                    "a"
-                );
-
-
-            downloadLink.href =
-                downloadUrl;
-
-
-            downloadLink.download =
-                "jpg-to-pdf.pdf";
-
-
-            document.body.appendChild(
-                downloadLink
-            );
-
-
-            downloadLink.click();
-
-
-            document.body.removeChild(
-                downloadLink
-            );
-
-
-            URL.revokeObjectURL(
-                downloadUrl
-            );
-
-
             status.style.color =
                 "#2e7d32";
-
 
             status.textContent =
                 "PDF created successfully!";
 
 
+            /* SHOW DOWNLOAD BUTTON */
+
+            downloadButton.style.display =
+                "block";
+
+
         } catch (error) {
+
+
+            clearInterval(
+                progressInterval
+            );
+
+
+            progressContainer.style.display =
+                "none";
 
 
             console.error(
@@ -1085,7 +1355,8 @@ convertButton.addEventListener(
                 "#e53935";
 
 
-            status.textContent = "";
+            status.textContent =
+                "";
 
 
             alert(
@@ -1099,7 +1370,6 @@ convertButton.addEventListener(
         convertButton.disabled =
             false;
 
-
         convertButton.textContent =
             "Convert to PDF";
 
@@ -1108,14 +1378,144 @@ convertButton.addEventListener(
 
 
 /* =========================
-   INITIAL COUNT
+   DOWNLOAD BUTTON
+========================= */
+
+downloadButton.addEventListener(
+    "click",
+    function() {
+
+
+        if (!generatedPdfUrl) {
+
+            alert(
+                "PDF is not ready yet."
+            );
+
+            return;
+
+        }
+
+
+        adModal.style.display =
+            "flex";
+
+
+        finalDownloadButton.style.display =
+            "none";
+
+
+        let seconds = 5;
+
+
+        adTimer.textContent =
+            "Please wait " +
+            seconds +
+            " seconds...";
+
+
+        const timer =
+            setInterval(
+                function() {
+
+                    seconds--;
+
+
+                    if (seconds > 0) {
+
+                        adTimer.textContent =
+                            "Please wait " +
+                            seconds +
+                            " seconds...";
+
+                    } else {
+
+                        clearInterval(timer);
+
+
+                        adTimer.textContent =
+                            "Your download is ready.";
+
+
+                        finalDownloadButton.style.display =
+                            "inline-block";
+
+                    }
+
+                },
+                1000
+            );
+
+    }
+);
+
+
+/* =========================
+   FINAL DOWNLOAD
+========================= */
+
+finalDownloadButton.addEventListener(
+    "click",
+    function() {
+
+
+        if (!generatedPdfUrl) {
+
+            return;
+
+        }
+
+
+        const downloadLink =
+            document.createElement("a");
+
+
+        downloadLink.href =
+            generatedPdfUrl;
+
+
+        downloadLink.download =
+            "jpg-to-pdf.pdf";
+
+
+        document.body.appendChild(
+            downloadLink
+        );
+
+
+        downloadLink.click();
+
+
+        document.body.removeChild(
+            downloadLink
+        );
+
+
+        /* CLOSE MODAL */
+
+        adModal.style.display =
+            "none";
+
+
+        finalDownloadButton.style.display =
+            "none";
+
+
+        adTimer.textContent =
+            "Please wait 5 seconds...";
+
+    }
+);
+
+
+/* =========================
+   INITIAL
 ========================= */
 
 updateFileCount();
 
-
 </script>
 
 </body>
-
 </html>
+
