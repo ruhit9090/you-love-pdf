@@ -1,6 +1,10 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Compress PDF - You Love PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress PDF - You Love PDF</title>
 
 <style>
     * {
@@ -74,6 +78,21 @@
         font-size: 10px;
         color: #aaa;
         text-transform: uppercase;
+        z-index: 2;
+    }
+
+    .ad-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .ad-container iframe {
+        display: block !important;
+        margin: 0 auto !important;
     }
 
     .container {
@@ -199,6 +218,36 @@
         font-size: 14px;
     }
 
+    /* Please wait area */
+
+    #pleaseWaitArea {
+        display: none;
+        margin-top: 18px;
+    }
+
+    #pleaseWaitText {
+        color: #666;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .processing-ad {
+        width: 100%;
+        min-height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 8px;
+    }
+
+    .processing-ad iframe {
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
     #status {
         margin-top: 20px;
         color: #555;
@@ -224,83 +273,6 @@
 
     #downloadButton:hover {
         background: #c62828;
-    }
-
-    /* Modal overlay */
-    #adWatchPanel {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.55);
-        z-index: 5000;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .ad-modal {
-        width: min(500px, 100%);
-        background: #ffffff;
-        border-radius: 14px;
-        padding: 25px;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    }
-
-    .ad-modal h3 {
-        margin-bottom: 10px;
-        font-size: 22px;
-    }
-
-    .ad-modal p {
-        color: #666;
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 18px;
-    }
-
-    .ad-watch-box {
-        min-height: 180px;
-        background: #f8f8f8;
-        border: 1px dashed #cfd3d8;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #999;
-        margin-bottom: 18px;
-    }
-
-    #watchAdButton,
-    #finalDownloadButton {
-        padding: 12px 25px;
-        border: none;
-        border-radius: 8px;
-        background: #e53935;
-        color: #fff;
-        cursor: pointer;
-        font-size: 15px;
-    }
-
-    #watchAdButton:hover,
-    #finalDownloadButton:hover {
-        background: #c62828;
-    }
-
-    #watchAdButton:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-    }
-
-    #finalDownloadButton {
-        display: none;
-    }
-
-    .ad-complete-message {
-        display: none;
-        color: #16803c;
-        font-weight: bold;
-        margin-bottom: 15px;
     }
 
     .back-button {
@@ -340,155 +312,175 @@
         .upload-box {
             padding: 40px 15px;
         }
+
+        .ad-container iframe {
+            max-width: 100% !important;
+        }
+
+        .processing-ad iframe {
+            max-width: 100% !important;
+        }
     }
 </style>
 
-</head><body><header class="header">
+</head>
 
-    <div class="logo">
-        You Love PDF
-    </div>
+<body>
 
-    <nav class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#contact">Contact</a>
-    </nav>
+<header class="header">
+
+```
+<div class="logo">
+    You Love PDF
+</div>
+
+<nav class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+</nav>
+```
 
 </header>
 
-
 <!-- Top Advertisement -->
-    
+
 <div class="top-ad">
-    <span class="top-ad-label">Advertisement</span>
 
-    <div class="ad-container">
-        <script>
-            atOptions = {
-                'key' : 'cf214cc4beeef86b4675d612a4bde530',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 500,
-                'params' : {}
-            };
-        </script>
+```
+<span class="top-ad-label">
+    Advertisement
+</span>
 
-        <script src="https://www.highrevenueformat.com/cf214cc4beeef86b4675d612a4bde530/invoke.js"></script>
-    </div>
+<div class="ad-container">
+
+    <script>
+        atOptions = {
+            'key' : '732f22f6c131ad492451f9a21d5b692e',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+        };
+    </script>
+
+    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
 </div>
+```
 
-
+</div>
 
 <main class="container">
 
-    <h1>Compress PDF</h1>
+```
+<h1>
+    Compress PDF
+</h1>
 
-    <p class="description">
-        Reduce the size of your PDF file quickly and easily.
+<p class="description">
+    Reduce the size of your PDF file quickly and easily.
+</p>
+
+
+<div class="upload-box">
+
+    <div class="upload-icon">
+        📦
+    </div>
+
+    <h2>
+        Select a PDF file
+    </h2>
+
+    <p>
+        Choose a PDF from your computer to compress.
     </p>
 
 
-    <div class="upload-box">
+    <label for="pdfFile" class="upload-button">
+        Select PDF
+    </label>
 
-        <div class="upload-icon">📦</div>
-
-        <h2>Select a PDF file</h2>
-
-        <p>
-            Choose a PDF from your computer to compress.
-        </p>
-
-
-        <label for="pdfFile" class="upload-button">
-            Select PDF
-        </label>
-
-        <input
-            type="file"
-            id="pdfFile"
-            accept=".pdf,application/pdf"
-        >
+    <input
+        type="file"
+        id="pdfFile"
+        accept=".pdf,application/pdf"
+    >
 
 
-        <div id="fileName"></div>
+    <div id="fileName"></div>
 
-        <div id="fileSize"></div>
-
-
-        <button id="compressButton">
-            Compress PDF
-        </button>
+    <div id="fileSize"></div>
 
 
-        <div id="processingArea">
+    <button id="compressButton">
+        Compress PDF
+    </button>
 
-            <div id="progressPercentage">
-                0%
+
+    <div id="processingArea">
+
+        <div id="progressPercentage">
+            0%
+        </div>
+
+        <div class="progress-track">
+            <div id="progressBar"></div>
+        </div>
+
+        <div id="progressText">
+            Preparing...
+        </div>
+
+
+        <!-- Please Wait + Ad -->
+
+        <div id="pleaseWaitArea">
+
+            <div id="pleaseWaitText">
+                Please wait while your PDF is being processed...
             </div>
 
-            <div class="progress-track">
-                <div id="progressBar"></div>
-            </div>
+            <div class="processing-ad">
 
-            <div id="progressText">
-                Preparing...
-            </div>
+                <script>
+                    atOptions = {
+                        'key' : '732f22f6c131ad492451f9a21d5b692e',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                </script>
 
-            <button id="downloadButton">
-                Download PDF
-            </button>
+                <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+            </div>
 
         </div>
 
 
-        <div id="status"></div>
-
-        <div id="result"></div>
-
-    </div>
-
-
-    <a href="../index.html" class="back-button">
-        ← Back to PDF Tools
-    </a>
-
-</main>
-
-
-<!-- Watch Ad Modal -->
-<div id="adWatchPanel">
-
-    <div class="ad-modal">
-
-        <h3>
-            Watch Ad to Download
-        </h3>
-
-        <p>
-            Your PDF is ready. Watch the advertisement to unlock your download.
-        </p>
-
-        <div class="ad-watch-box" id="adContainer">
-            Advertisement
-        </div>
-
-        <div class="ad-complete-message" id="adCompleteMessage">
-            Ad completed. Your PDF is ready to download.
-        </div>
-
-        <button id="watchAdButton">
-            Watch Ad
-        </button>
-
-        <button id="finalDownloadButton">
+        <button id="downloadButton">
             Download PDF
         </button>
 
     </div>
 
+
+    <div id="status"></div>
+
+    <div id="result"></div>
+
 </div>
 
+
+<a href="../index.html" class="back-button">
+    ← Back to PDF Tools
+</a>
+```
+
+</main>
 
 <script>
 
@@ -526,20 +518,11 @@
     const progressText =
         document.getElementById("progressText");
 
+    const pleaseWaitArea =
+        document.getElementById("pleaseWaitArea");
+
     const downloadButton =
         document.getElementById("downloadButton");
-
-    const adWatchPanel =
-        document.getElementById("adWatchPanel");
-
-    const watchAdButton =
-        document.getElementById("watchAdButton");
-
-    const finalDownloadButton =
-        document.getElementById("finalDownloadButton");
-
-    const adCompleteMessage =
-        document.getElementById("adCompleteMessage");
 
 
     let readyDownloadUrl = null;
@@ -561,48 +544,53 @@
     }
 
 
-    pdfFile.addEventListener("change", function () {
+    pdfFile.addEventListener(
+        "change",
+        function () {
 
-        if (pdfFile.files.length === 0) {
-            return;
+            if (pdfFile.files.length === 0) {
+                return;
+            }
+
+
+            const file =
+                pdfFile.files[0];
+
+
+            if (
+                file.type !== "application/pdf" &&
+                !file.name.toLowerCase().endsWith(".pdf")
+            ) {
+
+                alert(
+                    "Please select a PDF file."
+                );
+
+                pdfFile.value = "";
+
+                return;
+            }
+
+
+            fileName.textContent =
+                "Selected: " + file.name;
+
+
+            fileSize.textContent =
+                "Original size: " +
+                formatSize(file.size);
+
+
+            compressButton.style.display =
+                "inline-block";
+
+
+            status.textContent = "";
+
+            result.textContent = "";
+
         }
-
-
-        const file =
-            pdfFile.files[0];
-
-
-        if (
-            file.type !== "application/pdf" &&
-            !file.name.toLowerCase().endsWith(".pdf")
-        ) {
-
-            alert("Please select a PDF file.");
-
-            pdfFile.value = "";
-
-            return;
-        }
-
-
-        fileName.textContent =
-            "Selected: " + file.name;
-
-
-        fileSize.textContent =
-            "Original size: " +
-            formatSize(file.size);
-
-
-        compressButton.style.display =
-            "inline-block";
-
-
-        status.textContent = "";
-
-        result.textContent = "";
-
-    });
+    );
 
 
     compressButton.addEventListener(
@@ -626,6 +614,7 @@
             compressButton.disabled =
                 true;
 
+
             downloadButton.style.display =
                 "none";
 
@@ -644,18 +633,26 @@
                 "block";
 
 
+            pleaseWaitArea.style.display =
+                "block";
+
+
             status.textContent = "";
 
             result.textContent = "";
 
+
             progressBar.style.width =
                 "0%";
+
 
             progressPercentage.textContent =
                 "0%";
 
+
             progressPercentage.style.display =
                 "";
+
 
             document
                 .querySelector(
@@ -666,6 +663,7 @@
 
             progressText.textContent =
                 "Preparing compression...";
+
 
             progressText.style.display =
                 "";
@@ -685,43 +683,47 @@
             progressBar.style.width =
                 progress + "%";
 
+
             progressPercentage.textContent =
                 progress + "%";
 
 
             const progressTimer =
-                setInterval(function () {
+                setInterval(
+                    function () {
 
-                    if (progress < 90) {
+                        if (progress < 90) {
 
-                        progress += Math.max(
-                            1,
-                            Math.round(
-                                (90 - progress) / 12
-                            )
-                        );
+                            progress += Math.max(
+                                1,
+                                Math.round(
+                                    (90 - progress) / 12
+                                )
+                            );
 
 
-                        if (progress > 90) {
-                            progress = 90;
+                            if (progress > 90) {
+                                progress = 90;
+                            }
+
+
+                            progressBar.style.width =
+                                progress + "%";
+
+
+                            progressPercentage.textContent =
+                                progress + "%";
+
+
+                            progressText.textContent =
+                                progress < 35
+                                    ? "Uploading PDF..."
+                                    : "Compressing PDF...";
                         }
 
-
-                        progressBar.style.width =
-                            progress + "%";
-
-
-                        progressPercentage.textContent =
-                            progress + "%";
-
-
-                        progressText.textContent =
-                            progress < 35
-                                ? "Uploading PDF..."
-                                : "Compressing PDF...";
-                    }
-
-                }, 350);
+                    },
+                    350
+                );
 
 
             try {
@@ -854,28 +856,35 @@
                 }
 
 
-                setTimeout(function () {
+                setTimeout(
+                    function () {
 
-                    progressPercentage.style.display =
-                        "none";
-
-
-                    document
-                        .querySelector(
-                            "#processingArea .progress-track"
-                        )
-                        .style.display =
-                        "none";
+                        progressPercentage.style.display =
+                            "none";
 
 
-                    progressText.style.display =
-                        "none";
+                        document
+                            .querySelector(
+                                "#processingArea .progress-track"
+                            )
+                            .style.display =
+                            "none";
 
 
-                    downloadButton.style.display =
-                        "inline-block";
+                        progressText.style.display =
+                            "none";
 
-                }, 250);
+
+                        pleaseWaitArea.style.display =
+                            "none";
+
+
+                        downloadButton.style.display =
+                            "inline-block";
+
+                    },
+                    250
+                );
 
 
             } catch (error) {
@@ -886,6 +895,10 @@
 
 
                 progressArea.style.display =
+                    "none";
+
+
+                pleaseWaitArea.style.display =
                     "none";
 
 
@@ -939,134 +952,10 @@
 
 
     /*
-     * STEP 1:
-     * User clicks Download PDF.
-     * Open the Watch Ad popup.
+     * Direct PDF download
      */
 
     downloadButton.addEventListener(
-        "click",
-        function () {
-
-            if (!readyDownloadUrl) {
-
-                alert(
-                    "Your PDF is not ready yet."
-                );
-
-                return;
-            }
-
-
-            adWatchPanel.style.display =
-                "flex";
-
-
-            watchAdButton.disabled =
-                false;
-
-
-            watchAdButton.textContent =
-                "Watch Ad";
-
-
-            finalDownloadButton.style.display =
-                "none";
-
-
-            adCompleteMessage.style.display =
-                "none";
-
-        }
-    );
-
-
-    /*
-     * STEP 2:
-     * Demo advertisement.
-     *
-     * IMPORTANT:
-     * This is only a temporary demo timer.
-     * Later the real ad provider callback
-     * can be connected here.
-     */
-
-    watchAdButton.addEventListener(
-        "click",
-        function () {
-
-            watchAdButton.disabled =
-                true;
-
-
-            let seconds = 5;
-
-
-            watchAdButton.textContent =
-                "Ad playing... " +
-                seconds +
-                "s";
-
-
-            const adTimer =
-                setInterval(
-                    function () {
-
-                        seconds--;
-
-
-                        if (seconds > 0) {
-
-                            watchAdButton.textContent =
-                                "Ad playing... " +
-                                seconds +
-                                "s";
-
-                        } else {
-
-                            clearInterval(
-                                adTimer
-                            );
-
-
-                            watchAdButton.style.display =
-                                "none";
-
-
-                            adCompleteMessage.style.display =
-                                "block";
-
-
-                            /*
-                             * Do NOT automatically
-                             * download here.
-                             *
-                             * The user must click the
-                             * final download button.
-                             */
-
-                            finalDownloadButton.style.display =
-                                "inline-block";
-
-                        }
-
-                    },
-                    1000
-                );
-
-        }
-    );
-
-
-    /*
-     * STEP 3:
-     * Actual PDF download.
-     *
-     * This happens from a real user click,
-     * so browser download blocking is avoided.
-     */
-
-    finalDownloadButton.addEventListener(
         "click",
         function () {
 
@@ -1104,79 +993,27 @@
             downloadLink.remove();
 
 
-            /*
-             * Close popup after download.
-             */
+            setTimeout(
+                function () {
 
-            setTimeout(function () {
+                    if (readyDownloadUrl) {
 
-                adWatchPanel.style.display =
-                    "none";
+                        URL.revokeObjectURL(
+                            readyDownloadUrl
+                        );
 
+                        readyDownloadUrl =
+                            null;
+                    }
 
-                finalDownloadButton.style.display =
-                    "none";
-
-
-                adCompleteMessage.style.display =
-                    "none";
-
-
-                watchAdButton.style.display =
-                    "inline-block";
-
-
-                watchAdButton.disabled =
-                    false;
-
-
-                watchAdButton.textContent =
-                    "Watch Ad";
-
-
-            }, 500);
-
-
-            /*
-             * Release the temporary
-             * browser memory after download.
-             */
-
-            setTimeout(function () {
-
-                if (readyDownloadUrl) {
-
-                    URL.revokeObjectURL(
-                        readyDownloadUrl
-                    );
-
-                    readyDownloadUrl = null;
-                }
-
-            }, 1500);
-
-        }
-    );
-
-
-    /*
-     * Close popup if user clicks
-     * outside the modal.
-     */
-
-    adWatchPanel.addEventListener(
-        "click",
-        function (event) {
-
-            if (event.target === adWatchPanel) {
-
-                adWatchPanel.style.display =
-                    "none";
-            }
+                },
+                1500
+            );
 
         }
     );
 
 </script>
 
-</body></html>
+</body>
+</html>
