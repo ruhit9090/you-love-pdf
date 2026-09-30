@@ -1,73 +1,721 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>You Love PDF - Free PDF Tools</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<title>You Love PDF - Free PDF Tools</title>
 
-    <style>
-        /* =========================
-           AD CONTAINER
-        ========================= */
+<style>
+
+    /* =========================
+       RESET
+    ========================= */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+        overflow-x: hidden;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+        width: 100%;
+        min-height: 70px;
+        background: #e53935;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        border-bottom: 1px solid #c62828;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        white-space: nowrap;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 15px;
+        transition: color 0.2s ease;
+    }
+
+    .navbar a:hover {
+        color: #ffd6d6;
+    }
+
+
+    /* =========================
+       AD CONTAINER
+    ========================= */
+
+    .page-ad {
+        width: 100%;
+        min-height: 60px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        overflow: hidden;
+
+        margin: 18px auto;
+        padding: 0 10px;
+    }
+
+    .page-ad iframe {
+        display: block !important;
+        width: 468px !important;
+        height: 60px !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+
+    /* =========================
+       MAIN / HERO
+    ========================= */
+
+    main {
+        text-align: center;
+        padding: 70px 20px 40px;
+    }
+
+    main h1 {
+        font-size: 48px;
+        max-width: 750px;
+        margin: 0 auto;
+        line-height: 1.15;
+    }
+
+    main p {
+        margin-top: 20px;
+        font-size: 19px;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .hero-text {
+        margin-top: 20px;
+    }
+
+
+    /* =========================
+       TOOLS TITLE
+    ========================= */
+
+    .tools-title {
+        text-align: center;
+        font-size: 30px;
+        margin: 55px 0 30px;
+    }
+
+
+    /* =========================
+       TOOL CARDS
+    ========================= */
+
+    .tools-section {
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto 80px;
+
+        padding: 0 10px;
+
+        display: grid;
+
+        /* 5 cards in one row */
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        gap: 20px;
+
+        align-items: stretch;
+    }
+
+    .tool-card {
+        background: #ffffff;
+
+        padding: 30px 18px;
+
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        min-width: 0;
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+    .tool-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .tool-icon {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .tool-card h2 {
+        font-size: 20px;
+        margin-top: 12px;
+        margin-bottom: 10px;
+    }
+
+    .tool-card p {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.5;
+
+        margin: 0 0 20px;
+
+        min-height: 45px;
+    }
+
+
+    /* =========================
+       TOOL BUTTON
+    ========================= */
+
+    .tool-card button {
+        border: none;
+
+        background: #e53935;
+        color: #ffffff;
+
+        padding: 11px 22px;
+
+        border-radius: 8px;
+
+        font-size: 14px;
+        cursor: pointer;
+
+        margin-top: auto;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+
+    .tool-card button:hover {
+        background: #c62828;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+
+    /* =========================
+       ABOUT / CONTACT
+    ========================= */
+
+    .info-section {
+        width: 100%;
+        max-width: 900px;
+
+        margin: 80px auto 40px;
+
+        padding: 45px 35px;
+
+        background: #ffffff;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 18px;
+
+        text-align: center;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .info-section h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .info-section p {
+        font-size: 17px;
+        line-height: 1.7;
+
+        margin-bottom: 10px;
+
+        color: #666;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+        margin-top: 80px;
+
+        padding: 40px 20px 25px;
+
+        background: #111827;
+        color: #ffffff;
+
+        text-align: center;
+    }
+
+    .footer h2 {
+        margin-bottom: 10px;
+        font-size: 26px;
+    }
+
+    .footer p {
+        margin: 8px 0;
+        font-size: 15px;
+        color: #ffffff;
+    }
+
+    .footer-links {
+        margin: 20px 0;
+    }
+
+    .footer-links a {
+        color: #ffffff;
+
+        text-decoration: none;
+
+        margin: 0 12px;
+
+        font-size: 15px;
+
+        transition: opacity 0.2s ease;
+    }
+
+    .footer-links a:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+    }
+
+    .footer .copyright {
+        margin-top: 25px;
+        font-size: 14px;
+        opacity: 0.7;
+    }
+
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media (max-width: 1100px) {
+
+        .tools-section {
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 900px;
+        }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 768px) {
+
+        .header {
+            min-height: 70px;
+
+            padding: 18px 20px;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 23px;
+        }
+
+        .navbar {
+            gap: 18px;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+        }
+
+        .navbar a {
+            font-size: 14px;
+        }
+
 
         .page-ad {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            margin: 18px auto;
+
             min-height: 60px;
+
+            margin: 15px auto;
+
+            padding: 0 10px;
+
+            overflow: hidden;
         }
 
         .page-ad iframe {
-            display: block !important;
-            margin: 0 auto !important;
-            max-width: 100% !important;
+            width: 100% !important;
+            max-width: 468px !important;
+            height: 60px !important;
         }
 
-        @media (max-width: 768px) {
-            .page-ad {
-                width: 100%;
-                padding: 0 10px;
-                margin: 15px auto;
-            }
 
-            .page-ad iframe {
-                width: 100% !important;
-                max-width: 468px !important;
-                height: 60px !important;
-            }
+        main {
+            padding: 55px 15px 35px;
         }
-    </style>
+
+        main h1 {
+            font-size: 34px;
+        }
+
+        main p {
+            font-size: 17px;
+        }
+
+
+        .tools-title {
+            font-size: 27px;
+
+            margin-top: 45px;
+        }
+
+
+        /* Mobile cards = one per row */
+
+        .tools-section {
+            grid-template-columns: 1fr;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            gap: 20px;
+
+            padding: 0 5px;
+        }
+
+        .tool-card {
+            width: 100%;
+
+            padding: 28px 22px;
+        }
+
+
+        .info-section {
+            margin: 60px 5px 30px;
+
+            padding: 35px 22px;
+        }
+
+        .info-section h2 {
+            font-size: 27px;
+        }
+
+        .info-section p {
+            font-size: 16px;
+        }
+
+
+        .footer {
+            margin-top: 60px;
+
+            padding: 35px 20px 25px;
+        }
+
+        .footer-links a {
+            margin: 0 7px;
+        }
+
+    }
+
+</style>
+
 
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
 
-        <div class="logo">
-            You Love PDF
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        You Love PDF
+    </div>
+
+    <nav class="navbar">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     TOP AD
+     BELOW HEADER
+========================= -->
+
+<div class="page-ad">
+
+    <script>
+        atOptions = {
+            'key': '732f22f6c131ad492451f9a21d5b692e',
+            'format': 'iframe',
+            'height': 60,
+            'width': 468,
+            'params': {}
+        };
+    </script>
+
+    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main>
+
+
+    <!-- HERO -->
+
+    <h1>
+        All Your PDF Tools in One Place
+    </h1>
+
+    <p class="hero-text">
+        Powerful PDF tools to make your work easier.
+    </p>
+
+    <p>
+        Simple, fast and free PDF tools for everyone.
+        Compress, merge, split and convert your PDF files with ease.
+    </p>
+
+
+    <!-- =========================
+         TOOLS
+    ========================= -->
+
+    <h2 class="tools-title">
+        Choose a PDF Tool
+    </h2>
+
+
+    <section class="tools-section">
+
+
+        <!-- COMPRESS PDF -->
+
+        <div
+            class="tool-card"
+            onclick="openTool('compress')"
+        >
+
+            <div class="tool-icon">
+                📦
+            </div>
+
+            <h2>
+                Compress PDF
+            </h2>
+
+            <p>
+                Reduce PDF file size quickly.
+            </p>
+
+            <button
+                onclick="event.stopPropagation(); openTool('compress')"
+            >
+                Use Tool
+            </button>
+
         </div>
 
-        <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
 
-    </header>
+        <!-- MERGE PDF -->
+
+        <div
+            class="tool-card"
+            onclick="openTool('merge')"
+        >
+
+            <div class="tool-icon">
+                📄
+            </div>
+
+            <h2>
+                Merge PDF
+            </h2>
+
+            <p>
+                Combine multiple PDF files into one.
+            </p>
+
+            <button
+                onclick="event.stopPropagation(); openTool('merge')"
+            >
+                Use Tool
+            </button>
+
+        </div>
 
 
-    <!-- TOP AD - BELOW HEADER -->
+        <!-- SPLIT PDF -->
+
+        <div
+            class="tool-card"
+            onclick="openTool('split')"
+        >
+
+            <div class="tool-icon">
+                ✂️
+            </div>
+
+            <h2>
+                Split PDF
+            </h2>
+
+            <p>
+                Extract pages from your PDF file.
+            </p>
+
+            <button
+                onclick="event.stopPropagation(); openTool('split')"
+            >
+                Use Tool
+            </button>
+
+        </div>
+
+
+        <!-- JPG TO PDF -->
+
+        <div
+            class="tool-card"
+            onclick="openTool('jpg-to-pdf')"
+        >
+
+            <div class="tool-icon">
+                🖼️
+            </div>
+
+            <h2>
+                JPG to PDF
+            </h2>
+
+            <p>
+                Convert JPG images into PDF files.
+            </p>
+
+            <button
+                onclick="event.stopPropagation(); openTool('jpg-to-pdf')"
+            >
+                Use Tool
+            </button>
+
+        </div>
+
+
+        <!-- PDF TO JPG -->
+
+        <div
+            class="tool-card"
+            onclick="openTool('pdf-to-jpg')"
+        >
+
+            <div class="tool-icon">
+                📑
+            </div>
+
+            <h2>
+                PDF to JPG
+            </h2>
+
+            <p>
+                Convert PDF pages into JPG images.
+            </p>
+
+            <button
+                onclick="event.stopPropagation(); openTool('pdf-to-jpg')"
+            >
+                Use Tool
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         BOTTOM AD
+         ABOVE ABOUT
+    ========================= -->
+
     <div class="page-ad">
 
         <script>
@@ -85,255 +733,132 @@
     </div>
 
 
-    <!-- MAIN CONTENT -->
-    <main>
-
-        <!-- HERO SECTION -->
-
-        <h1>
-            All Your PDF Tools in One Place
-        </h1>
-
-        <p class="hero-text">
-            Powerful PDF tools to make your work easier.
-        </p>
-
-        <p>
-            Simple, fast and free PDF tools for everyone.
-            Compress, merge, split and convert your PDF files with ease.
-        </p>
-
-
-        <!-- TOOLS -->
-
-        <h2 class="tools-title">
-            Choose a PDF Tool
-        </h2>
-
-
-        <section class="tools-section">
-
-
-            <!-- COMPRESS PDF -->
-
-            <div class="tool-card" onclick="openTool('compress')">
-
-                <div class="tool-icon">
-                    📦
-                </div>
-
-                <h2>
-                    Compress PDF
-                </h2>
-
-                <p>
-                    Reduce PDF file size quickly.
-                </p>
-
-                <button onclick="event.stopPropagation(); openTool('compress')">
-                    Use Tool
-                </button>
-
-            </div>
-
-
-            <!-- MERGE PDF -->
-
-            <div class="tool-card" onclick="openTool('merge')">
-
-                <div class="tool-icon">
-                    📄
-                </div>
-
-                <h2>
-                    Merge PDF
-                </h2>
-
-                <p>
-                    Combine multiple PDF files into one.
-                </p>
-
-                <button onclick="event.stopPropagation(); openTool('merge')">
-                    Use Tool
-                </button>
-
-            </div>
-
-
-            <!-- SPLIT PDF -->
-
-            <div class="tool-card" onclick="openTool('split')">
-
-                <div class="tool-icon">
-                    ✂️
-                </div>
-
-                <h2>
-                    Split PDF
-                </h2>
-
-                <p>
-                    Extract pages from your PDF file.
-                </p>
-
-                <button onclick="event.stopPropagation(); openTool('split')">
-                    Use Tool
-                </button>
-
-            </div>
-
-
-            <!-- JPG TO PDF -->
-
-            <div class="tool-card" onclick="openTool('jpg-to-pdf')">
-
-                <div class="tool-icon">
-                    🖼️
-                </div>
-
-                <h2>
-                    JPG to PDF
-                </h2>
-
-                <p>
-                    Convert JPG images into PDF files.
-                </p>
-
-                <button onclick="event.stopPropagation(); openTool('jpg-to-pdf')">
-                    Use Tool
-                </button>
-
-            </div>
-
-
-            <!-- PDF TO JPG -->
-
-            <div class="tool-card" onclick="openTool('pdf-to-jpg')">
-
-                <div class="tool-icon">
-                    📑
-                </div>
-
-                <h2>
-                    PDF to JPG
-                </h2>
-
-                <p>
-                    Convert PDF pages into JPG images.
-                </p>
-
-                <button onclick="event.stopPropagation(); openTool('pdf-to-jpg')">
-                    Use Tool
-                </button>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- BOTTOM AD - ABOVE ABOUT / FOOTER -->
-
-        <div class="page-ad">
-
-            <script>
-                atOptions = {
-                    'key': '732f22f6c131ad492451f9a21d5b692e',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-
-            <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
-
-        </div>
-
-
-        <!-- ABOUT SECTION -->
-
-        <section id="about" class="info-section">
-
-            <h2>
-                About You Love PDF
-            </h2>
-
-            <p>
-                You Love PDF is a simple and free online platform
-                that provides useful PDF tools for everyday work.
-            </p>
-
-            <p>
-                Compress, merge, split and convert PDF files quickly
-                and easily.
-            </p>
-
-        </section>
-
-
-        <!-- CONTACT SECTION -->
-
-        <section id="contact" class="info-section">
-
-            <h2>
-                Contact Us
-            </h2>
-
-            <p>
-                Have a question, suggestion or feedback?
-                We would love to hear from you.
-            </p>
-
-            <p>
-                Email: support@youlovepdf.com
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section
+        id="about"
+        class="info-section"
+    >
 
         <h2>
-            You Love PDF
+            About You Love PDF
         </h2>
 
         <p>
-            Simple, fast and free PDF tools for everyone.
+            You Love PDF is a simple and free online platform
+            that provides useful PDF tools for everyday work.
         </p>
 
-        <div class="footer-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a href="#contact">
-                Contact
-            </a>
-
-        </div>
-
-        <p class="copyright">
-            © 2026 You Love PDF. All rights reserved.
+        <p>
+            Compress, merge, split and convert PDF files quickly
+            and easily.
         </p>
 
-    </footer>
+    </section>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- =========================
+         CONTACT
+    ========================= -->
 
-    <script src="js/script.js"></script>
+    <section
+        id="contact"
+        class="info-section"
+    >
+
+        <h2>
+            Contact Us
+        </h2>
+
+        <p>
+            Have a question, suggestion or feedback?
+            We would love to hear from you.
+        </p>
+
+        <p>
+            Email: support@youlovepdf.com
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <h2>
+        You Love PDF
+    </h2>
+
+    <p>
+        Simple, fast and free PDF tools for everyone.
+    </p>
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+    </div>
+
+    <p class="copyright">
+        © 2026 You Love PDF. All rights reserved.
+    </p>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    function openTool(tool) {
+
+        const toolPages = {
+
+            "compress": "tools/compress.html",
+
+            "merge": "tools/merge.html",
+
+            "split": "tools/split.html",
+
+            "jpg-to-pdf": "tools/jpg-to-pdf.html",
+
+            "pdf-to-jpg": "tools/pdf-to-jpg.html"
+
+        };
+
+
+        if (toolPages[tool]) {
+
+            window.location.href =
+                toolPages[tool];
+
+        }
+
+    }
+
+</script>
+
 
 </body>
 
 </html>
-```
