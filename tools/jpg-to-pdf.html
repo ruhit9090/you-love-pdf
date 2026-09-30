@@ -86,7 +86,7 @@ h1 {
 }
 
 /* =========================
-   AD
+   TOP AD
 ========================= */
 
 .ad-container {
@@ -97,6 +97,11 @@ h1 {
     align-items: center;
     margin: 15px 0 30px;
     overflow: hidden;
+}
+
+.ad-container iframe {
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 /* =========================
@@ -289,6 +294,10 @@ h1 {
     font-size: 14px;
 }
 
+/* =========================
+   STATUS
+========================= */
+
 #status {
     margin-top: 20px;
     color: #555;
@@ -296,36 +305,80 @@ h1 {
     line-height: 1.5;
 }
 
-/* =========================
-   PROGRESS
-========================= */
-
-.progress-container {
-    display: none;
-    margin-top: 25px;
-    width: 100%;
+#result {
+    margin-top: 8px;
+    color: #555;
 }
 
-.progress-bar-bg {
+/* =========================
+   PROCESSING AREA
+   SAME STYLE AS COMPRESS PDF
+========================= */
+
+#processingArea {
+    display: none;
+    margin: 28px auto 0;
+    max-width: 520px;
+}
+
+#progressPercentage {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.progress-track {
     width: 100%;
-    height: 10px;
+    height: 12px;
     background: #e5e7eb;
-    border-radius: 20px;
+    border-radius: 999px;
     overflow: hidden;
 }
 
-.progress-bar {
+#progressBar {
     width: 0%;
     height: 100%;
     background: #e53935;
-    border-radius: 20px;
+    border-radius: 999px;
     transition: width 0.25s ease;
 }
 
-.progress-text {
+#progressText {
     margin-top: 10px;
-    font-size: 14px;
     color: #666;
+    font-size: 14px;
+}
+
+/* =========================
+   PLEASE WAIT + AD
+========================= */
+
+#pleaseWaitArea {
+    display: none;
+    margin-top: 18px;
+}
+
+#pleaseWaitText {
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.processing-ad {
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.processing-ad iframe {
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 /* =========================
@@ -334,8 +387,8 @@ h1 {
 
 #downloadButton {
     display: none;
-    margin: 25px auto 0;
-    padding: 13px 30px;
+    margin: 24px auto 0;
+    padding: 13px 28px;
     background: #e53935;
     color: white;
     border: none;
@@ -362,84 +415,6 @@ h1 {
 
 .back-button:hover {
     color: #e53935;
-}
-
-/* =========================
-   WATCH AD MODAL
-========================= */
-
-.ad-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 5000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.ad-modal-content {
-    width: min(520px, 95vw);
-    background: white;
-    border-radius: 16px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-}
-
-.ad-modal-content h2 {
-    margin-bottom: 10px;
-}
-
-.ad-modal-content p {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-/* =========================
-   AD BOX
-========================= */
-
-.ad-box {
-    width: 100%;
-    min-height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-/* =========================
-   AD STATUS
-========================= */
-
-#adStatus {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 18px;
-    line-height: 1.5;
-}
-
-/* =========================
-   FINAL DOWNLOAD
-========================= */
-
-#finalDownloadButton {
-    display: none;
-    padding: 13px 28px;
-    background: #e53935;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#finalDownloadButton:hover {
-    background: #c62828;
 }
 
 /* =========================
@@ -496,9 +471,13 @@ h1 {
     }
 
     #convertButton,
-    #downloadButton,
-    #finalDownloadButton {
+    #downloadButton {
         width: 100%;
+    }
+
+    .ad-container iframe,
+    .processing-ad iframe {
+        max-width: 100% !important;
     }
 }
 
@@ -637,43 +616,75 @@ h1 {
             </button>
 
 
-            <!-- PROGRESS -->
+            <!-- =========================
+                 PROCESSING AREA
+            ========================= -->
 
-            <div
-                class="progress-container"
-                id="progressContainer">
+            <div id="processingArea">
 
-                <div class="progress-bar-bg">
+                <!-- PERCENTAGE ABOVE BAR -->
 
-                    <div
-                        class="progress-bar"
-                        id="progressBar">
+                <div id="progressPercentage">
+                    0%
+                </div>
+
+
+                <!-- LOADING BAR -->
+
+                <div class="progress-track">
+
+                    <div id="progressBar"></div>
+
+                </div>
+
+
+                <!-- PROGRESS TEXT -->
+
+                <div id="progressText">
+                    Preparing...
+                </div>
+
+
+                <!-- PLEASE WAIT + AD -->
+
+                <div id="pleaseWaitArea">
+
+                    <div id="pleaseWaitText">
+                        Please wait while your PDF is being created...
+                    </div>
+
+
+                    <div class="processing-ad">
+
+                        <script>
+                            atOptions = {
+                                'key' : '732f22f6c131ad492451f9a21d5b692e',
+                                'format' : 'iframe',
+                                'height' : 60,
+                                'width' : 468,
+                                'params' : {}
+                            };
+                        </script>
+
+                        <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
                     </div>
 
                 </div>
 
-                <div
-                    class="progress-text"
-                    id="progressText">
 
-                    Preparing...
+                <!-- DOWNLOAD BUTTON -->
 
-                </div>
+                <button id="downloadButton">
+                    Download PDF
+                </button>
 
             </div>
 
 
             <div id="status"></div>
 
-
-            <!-- DOWNLOAD -->
-
-            <button
-                id="downloadButton">
-
-                Download PDF
-
-            </button>
+            <div id="result"></div>
 
         </div>
 
@@ -689,59 +700,6 @@ h1 {
     </a>
 
 </main>
-
-
-<!-- =========================
-     WATCH AD MODAL
-========================= -->
-
-<div
-    class="ad-modal"
-    id="adModal">
-
-    <div class="ad-modal-content">
-
-        <h2>
-            Watch Ad to Download
-        </h2>
-
-        <p>
-            Your PDF is ready. Watch the advertisement to unlock your download.
-        </p>
-
-
-        <div class="ad-box">
-
-            <script>
-                atOptions = {
-                    'key' : '732f22f6c131ad492451f9a21d5b692e',
-                    'format' : 'iframe',
-                    'height' : 60,
-                    'width' : 468,
-                    'params' : {}
-                };
-            </script>
-
-            <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
-
-        </div>
-
-
-        <div id="adStatus">
-            Please complete the advertisement to unlock your download.
-        </div>
-
-
-        <button
-            id="finalDownloadButton">
-
-            Download PDF
-
-        </button>
-
-    </div>
-
-</div>
 
 
 <script>
@@ -770,29 +728,29 @@ const convertButton =
 const downloadButton =
     document.getElementById("downloadButton");
 
-const finalDownloadButton =
-    document.getElementById("finalDownloadButton");
-
 const status =
     document.getElementById("status");
+
+const result =
+    document.getElementById("result");
 
 const fileCount =
     document.getElementById("fileCount");
 
-const progressContainer =
-    document.getElementById("progressContainer");
+const processingArea =
+    document.getElementById("processingArea");
 
 const progressBar =
     document.getElementById("progressBar");
 
+const progressPercentage =
+    document.getElementById("progressPercentage");
+
 const progressText =
     document.getElementById("progressText");
 
-const adModal =
-    document.getElementById("adModal");
-
-const adStatus =
-    document.getElementById("adStatus");
+const pleaseWaitArea =
+    document.getElementById("pleaseWaitArea");
 
 
 /* =========================
@@ -805,6 +763,8 @@ let draggedIndex = null;
 
 let generatedPdfBlob = null;
 
+let readyDownloadUrl = null;
+
 
 /* =========================
    FORMAT SIZE
@@ -813,18 +773,23 @@ let generatedPdfBlob = null;
 function formatSize(bytes) {
 
     if (bytes < 1024) {
+
         return bytes.toFixed(0) + " B";
+
     }
 
     if (bytes < 1024 * 1024) {
+
         return (
             bytes / 1024
         ).toFixed(2) + " KB";
+
     }
 
     return (
         bytes / (1024 * 1024)
     ).toFixed(2) + " MB";
+
 }
 
 
@@ -870,6 +835,7 @@ function renderImages() {
         updateFileCount();
 
         return;
+
     }
 
 
@@ -1042,7 +1008,9 @@ function renderImages() {
 
 
             info.appendChild(number);
+
             info.appendChild(name);
+
             info.appendChild(size);
 
 
@@ -1073,6 +1041,14 @@ function renderImages() {
 
                     status.textContent = "";
 
+                    result.textContent = "";
+
+                    generatedPdfBlob = null;
+
+                    downloadButton.style.display =
+                        "none";
+
+
                     renderImages();
 
                 }
@@ -1080,8 +1056,11 @@ function renderImages() {
 
 
             item.appendChild(thumbnail);
+
             item.appendChild(info);
+
             item.appendChild(removeButton);
+
 
             imageList.appendChild(item);
 
@@ -1129,6 +1108,7 @@ imageFile.addEventListener(
                 "Please select a JPG or JPEG image."
             );
 
+
             imageFile.value = "";
 
             return;
@@ -1138,14 +1118,20 @@ imageFile.addEventListener(
 
         selectedImages.push(file);
 
+
         status.textContent = "";
 
+        result.textContent = "";
+
         generatedPdfBlob = null;
+
 
         downloadButton.style.display =
             "none";
 
+
         renderImages();
+
 
         imageFile.value = "";
 
@@ -1155,21 +1141,40 @@ imageFile.addEventListener(
 
 /* =========================
    PROGRESS
+   SAME FLOW AS COMPRESS PDF
 ========================= */
 
 function startProgress() {
 
-    progressContainer.style.display =
+    processingArea.style.display =
         "block";
+
+
+    pleaseWaitArea.style.display =
+        "block";
+
 
     progressBar.style.width =
         "0%";
 
+
+    progressPercentage.textContent =
+        "0%";
+
+
     progressText.textContent =
-        "Uploading images...";
+        "Preparing PDF...";
 
 
-    let progress = 0;
+    let progress = 5;
+
+
+    progressBar.style.width =
+        progress + "%";
+
+
+    progressPercentage.textContent =
+        progress + "%";
 
 
     const interval =
@@ -1178,18 +1183,26 @@ function startProgress() {
 
                 if (progress < 90) {
 
-                    progress +=
-                        Math.floor(
-                            Math.random() * 8
-                        ) + 2;
+                    progress += Math.max(
+                        1,
+                        Math.round(
+                            (90 - progress) / 12
+                        )
+                    );
 
 
                     if (progress > 90) {
+
                         progress = 90;
+
                     }
 
 
                     progressBar.style.width =
+                        progress + "%";
+
+
+                    progressPercentage.textContent =
                         progress + "%";
 
 
@@ -1198,7 +1211,7 @@ function startProgress() {
                         progressText.textContent =
                             "Uploading images...";
 
-                    } else if (progress < 70) {
+                    } else if (progress < 75) {
 
                         progressText.textContent =
                             "Creating PDF...";
@@ -1213,7 +1226,7 @@ function startProgress() {
                 }
 
             },
-            300
+            350
         );
 
 
@@ -1247,6 +1260,7 @@ convertButton.addEventListener(
         convertButton.disabled =
             true;
 
+
         convertButton.textContent =
             "Creating PDF...";
 
@@ -1259,11 +1273,27 @@ convertButton.addEventListener(
             null;
 
 
+        if (readyDownloadUrl) {
+
+            URL.revokeObjectURL(
+                readyDownloadUrl
+            );
+
+            readyDownloadUrl = null;
+
+        }
+
+
         status.style.color =
             "#555";
 
+
         status.textContent =
             "Uploading images...";
+
+
+        result.textContent =
+            "";
 
 
         const progressInterval =
@@ -1339,7 +1369,7 @@ convertButton.addEventListener(
 
 
             status.textContent =
-                "Preparing PDF...";
+                "Preparing download...";
 
 
             const pdfBlob =
@@ -1351,16 +1381,35 @@ convertButton.addEventListener(
             );
 
 
+            generatedPdfBlob =
+                pdfBlob;
+
+
+            /*
+             * CREATE DOWNLOAD URL
+             * BEFORE SHOWING DOWNLOAD BUTTON
+             */
+
+            readyDownloadUrl =
+                URL.createObjectURL(
+                    generatedPdfBlob
+                );
+
+
+            /*
+             * COMPLETE PROGRESS
+             */
+
             progressBar.style.width =
                 "100%";
 
 
+            progressPercentage.textContent =
+                "100%";
+
+
             progressText.textContent =
-                "PDF ready!";
-
-
-            generatedPdfBlob =
-                pdfBlob;
+                "PDF is ready to download.";
 
 
             status.style.color =
@@ -1372,11 +1421,43 @@ convertButton.addEventListener(
 
 
             /*
-             * SHOW DOWNLOAD BUTTON
+             * HIDE PROCESSING UI
+             * AFTER PDF IS READY
              */
 
-            downloadButton.style.display =
-                "block";
+            setTimeout(
+                function() {
+
+                    progressPercentage.style.display =
+                        "none";
+
+
+                    document
+                        .querySelector(
+                            "#processingArea .progress-track"
+                        )
+                        .style.display =
+                        "none";
+
+
+                    progressText.style.display =
+                        "none";
+
+
+                    pleaseWaitArea.style.display =
+                        "none";
+
+
+                    /*
+                     * SHOW DOWNLOAD BUTTON
+                     */
+
+                    downloadButton.style.display =
+                        "block";
+
+                },
+                250
+            );
 
 
         } catch (error) {
@@ -1387,7 +1468,11 @@ convertButton.addEventListener(
             );
 
 
-            progressContainer.style.display =
+            processingArea.style.display =
+                "none";
+
+
+            pleaseWaitArea.style.display =
                 "none";
 
 
@@ -1409,6 +1494,17 @@ convertButton.addEventListener(
                 null;
 
 
+            if (readyDownloadUrl) {
+
+                URL.revokeObjectURL(
+                    readyDownloadUrl
+                );
+
+                readyDownloadUrl = null;
+
+            }
+
+
             alert(
                 error.message ||
                 "Sorry, the PDF could not be created."
@@ -1420,6 +1516,7 @@ convertButton.addEventListener(
         convertButton.disabled =
             false;
 
+
         convertButton.textContent =
             "Convert to PDF";
 
@@ -1428,8 +1525,9 @@ convertButton.addEventListener(
 
 
 /* =========================
-   DOWNLOAD BUTTON
-   OPEN WATCH AD MODAL
+   DOWNLOAD PDF
+   SAME BUTTON FLOW AS
+   COMPRESS PDF
 ========================= */
 
 downloadButton.addEventListener(
@@ -1437,86 +1535,15 @@ downloadButton.addEventListener(
     function() {
 
 
-        if (!generatedPdfBlob) {
+        if (!readyDownloadUrl) {
 
             alert(
-                "PDF is not ready yet."
+                "Your PDF is not ready yet."
             );
 
             return;
 
         }
-
-
-        adModal.style.display =
-            "flex";
-
-
-        /*
-         * Final button stays hidden
-         * until the ad is considered complete.
-         */
-
-        finalDownloadButton.style.display =
-            "none";
-
-
-        adStatus.textContent =
-            "Please complete the advertisement to unlock your download.";
-
-
-        /*
-         * DEMO AD UNLOCK
-         *
-         * This is only a temporary unlock.
-         * No automatic download happens.
-         */
-
-        setTimeout(
-            function() {
-
-                if (
-                    adModal.style.display ===
-                    "flex"
-                ) {
-
-                    adStatus.textContent =
-                        "Ad completed. Your PDF is ready to download.";
-
-
-                    finalDownloadButton.style.display =
-                        "inline-block";
-
-                }
-
-            },
-            3000
-        );
-
-    }
-);
-
-
-/* =========================
-   FINAL USER DOWNLOAD
-========================= */
-
-finalDownloadButton.addEventListener(
-    "click",
-    function() {
-
-
-        if (!generatedPdfBlob) {
-
-            return;
-
-        }
-
-
-        const downloadUrl =
-            URL.createObjectURL(
-                generatedPdfBlob
-            );
 
 
         const downloadLink =
@@ -1524,7 +1551,7 @@ finalDownloadButton.addEventListener(
 
 
         downloadLink.href =
-            downloadUrl;
+            readyDownloadUrl;
 
 
         downloadLink.download =
@@ -1537,46 +1564,37 @@ finalDownloadButton.addEventListener(
 
 
         /*
-         * IMPORTANT:
-         * This download only happens
-         * because the user clicked the
-         * final Download PDF button.
+         * DOWNLOAD ONLY AFTER
+         * REAL USER CLICK
          */
 
         downloadLink.click();
 
 
-        document.body.removeChild(
-            downloadLink
-        );
+        downloadLink.remove();
 
+
+        /*
+         * RELEASE OBJECT URL
+         */
 
         setTimeout(
             function() {
 
-                URL.revokeObjectURL(
-                    downloadUrl
-                );
+                if (readyDownloadUrl) {
+
+                    URL.revokeObjectURL(
+                        readyDownloadUrl
+                    );
+
+                    readyDownloadUrl =
+                        null;
+
+                }
 
             },
-            1000
+            1500
         );
-
-
-        /*
-         * CLOSE MODAL
-         */
-
-        adModal.style.display =
-            "none";
-
-
-        finalDownloadButton.style.display =
-            "none";
-
-
-        adStatus.textContent =
-            "Please complete the advertisement to unlock your download.";
 
 
         status.style.color =
@@ -1585,27 +1603,6 @@ finalDownloadButton.addEventListener(
 
         status.textContent =
             "PDF downloaded successfully.";
-
-    }
-);
-
-
-/* =========================
-   CLOSE MODAL OUTSIDE CLICK
-========================= */
-
-adModal.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target === adModal
-        ) {
-
-            adModal.style.display =
-                "none";
-
-        }
 
     }
 );
