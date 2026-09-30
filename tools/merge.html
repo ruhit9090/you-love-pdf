@@ -4,14 +4,14 @@
 
 <head>
 
-```
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
 <title>Merge PDF - You Love PDF</title>
-```
+
 
 <style>
 
@@ -62,9 +62,70 @@
         color: #ffd6d6;
     }
 
+
+    /* =========================
+       TOP AD
+    ========================= */
+
+    .top-ad {
+        width: min(970px, 92%);
+        min-height: 90px;
+        margin: 18px auto 0;
+
+        background: #ffffff;
+        border: 1px solid #e2e5ea;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+    .top-ad-label {
+        position: absolute;
+        top: 6px;
+        left: 8px;
+
+        font-size: 10px;
+        color: #aaa;
+
+        text-transform: uppercase;
+
+        z-index: 2;
+    }
+
+    .ad-container {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        overflow: hidden;
+    }
+
+    .ad-container iframe {
+        display: block !important;
+        width: 468px !important;
+        height: 60px !important;
+        max-width: 100% !important;
+
+        margin: 0 auto !important;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
     .container {
         max-width: 1100px;
-        margin: 60px auto;
+        margin: 45px auto 70px;
         padding: 20px;
     }
 
@@ -81,11 +142,17 @@
         margin-bottom: 40px;
     }
 
+
+    /* =========================
+       TOOL AREA
+    ========================= */
+
     .tool-area {
         display: flex;
         gap: 30px;
         align-items: flex-start;
     }
+
 
     /* LEFT */
 
@@ -128,10 +195,13 @@
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         padding: 12px;
+
         display: flex;
         gap: 12px;
         align-items: center;
+
         cursor: grab;
+
         transition: 0.2s;
     }
 
@@ -146,14 +216,20 @@
     .pdf-thumbnail {
         width: 75px;
         height: 95px;
+
         background: white;
+
         border: 1px solid #ddd;
         border-radius: 6px;
+
         overflow: hidden;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         flex-shrink: 0;
+
         cursor: pointer;
     }
 
@@ -177,7 +253,9 @@
     .pdf-name {
         font-weight: bold;
         font-size: 14px;
+
         word-break: break-word;
+
         margin-bottom: 6px;
     }
 
@@ -188,11 +266,17 @@
 
     .remove-button {
         background: #fff;
+
         border: 1px solid #ddd;
+
         color: #e53935;
+
         border-radius: 6px;
+
         padding: 7px 9px;
+
         cursor: pointer;
+
         font-size: 12px;
     }
 
@@ -201,14 +285,20 @@
         color: white;
     }
 
+
     /* RIGHT */
 
     .upload-section {
         width: 58%;
+
         background: white;
+
         border-radius: 16px;
+
         padding: 45px 30px;
+
         text-align: center;
+
         border: 2px dashed #d1d5db;
     }
 
@@ -228,11 +318,17 @@
 
     .add-button {
         display: inline-block;
+
         background: #e53935;
+
         color: white;
+
         padding: 13px 30px;
+
         border-radius: 8px;
+
         cursor: pointer;
+
         font-size: 16px;
     }
 
@@ -244,14 +340,26 @@
         display: none;
     }
 
+
+    /* =========================
+       MERGE BUTTON
+    ========================= */
+
     #mergeButton {
         margin-top: 20px;
+
         padding: 13px 30px;
+
         background: #e53935;
+
         color: white;
+
         border: none;
+
         border-radius: 8px;
+
         cursor: pointer;
+
         font-size: 16px;
     }
 
@@ -264,66 +372,168 @@
         cursor: not-allowed;
     }
 
-    /* PROCESSING */
+
+    /* =========================
+       FILE COUNT
+    ========================= */
+
+    .file-count {
+        margin-top: 15px;
+
+        color: #666;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       PROCESSING
+    ========================= */
 
     #processingArea {
         display: none;
-        margin: 30px auto 0;
+
+        margin: 28px auto 0;
+
         max-width: 520px;
     }
 
     #progressPercentage {
         font-size: 22px;
+
         font-weight: bold;
+
         margin-bottom: 10px;
     }
 
     .progress-track {
         width: 100%;
+
         height: 12px;
+
         background: #e5e7eb;
+
         border-radius: 999px;
+
         overflow: hidden;
     }
 
     #progressBar {
         width: 0%;
+
         height: 100%;
+
         background: #e53935;
+
         border-radius: 999px;
+
         transition: width 0.25s ease;
     }
 
     #progressText {
         margin-top: 10px;
+
         color: #666;
+
         font-size: 14px;
     }
 
+
+    /* =========================
+       PLEASE WAIT + AD
+    ========================= */
+
+    #pleaseWaitArea {
+        display: none;
+
+        margin-top: 18px;
+    }
+
+    #pleaseWaitText {
+        color: #666;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+        margin-bottom: 12px;
+    }
+
+    .processing-ad {
+        width: 100%;
+
+        min-height: 60px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        overflow: hidden;
+
+        background: #ffffff;
+
+        border-radius: 8px;
+    }
+
+    .processing-ad iframe {
+        display: block !important;
+
+        width: 468px !important;
+
+        height: 60px !important;
+
+        max-width: 100% !important;
+
+        margin: 0 auto !important;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
     #status {
         margin-top: 20px;
+
         color: #555;
+
         font-weight: bold;
+
         line-height: 1.5;
     }
 
     #result {
         margin-top: 12px;
+
         color: #333;
+
         line-height: 1.5;
     }
 
-    /* DOWNLOAD */
+
+    /* =========================
+       DOWNLOAD
+    ========================= */
 
     #downloadButton {
         display: none;
+
         margin: 24px auto 0;
+
         padding: 13px 28px;
+
         background: #e53935;
+
         color: white;
+
         border: none;
+
         border-radius: 8px;
+
         cursor: pointer;
+
         font-size: 16px;
     }
 
@@ -331,62 +541,99 @@
         background: #c62828;
     }
 
-    /* BACK */
+
+    /* =========================
+       BACK
+    ========================= */
 
     .back-button {
         display: block;
+
         width: fit-content;
+
         margin: 35px auto 0;
+
         text-decoration: none;
+
         color: #555;
     }
 
-    /* MODAL */
+
+    /* =========================
+       PDF MODAL
+    ========================= */
 
     .pdf-modal {
         display: none;
+
         position: fixed;
+
         z-index: 2000;
+
         inset: 0;
+
         background: rgba(0, 0, 0, 0.75);
+
         align-items: center;
+
         justify-content: center;
+
         padding: 20px;
     }
 
     .pdf-modal-content {
         background: white;
+
         width: min(900px, 95vw);
+
         height: min(90vh, 800px);
+
         border-radius: 14px;
+
         display: flex;
+
         flex-direction: column;
+
         overflow: hidden;
     }
 
     .modal-header {
         display: flex;
+
         align-items: center;
+
         justify-content: space-between;
+
         padding: 15px 20px;
+
         border-bottom: 1px solid #e5e7eb;
     }
 
     .modal-title {
         font-weight: bold;
+
         max-width: 80%;
+
         overflow: hidden;
+
         text-overflow: ellipsis;
+
         white-space: nowrap;
     }
 
     .close-modal {
         border: none;
+
         background: #f1f1f1;
+
         width: 34px;
+
         height: 34px;
+
         border-radius: 50%;
+
         cursor: pointer;
+
         font-size: 20px;
     }
 
@@ -396,32 +643,47 @@
 
     .modal-body {
         flex: 1;
+
         overflow: auto;
+
         padding: 20px;
+
         background: #eee;
+
         text-align: center;
     }
 
     #largePreview {
         max-width: 100%;
+
         height: auto;
+
         background: white;
+
         box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
     .preview-controls {
         padding: 12px;
+
         text-align: center;
+
         border-top: 1px solid #e5e7eb;
+
         background: white;
     }
 
     .preview-controls button {
         padding: 7px 14px;
+
         margin: 0 5px;
+
         border: 1px solid #ddd;
+
         background: white;
+
         border-radius: 6px;
+
         cursor: pointer;
     }
 
@@ -431,22 +693,37 @@
 
     #pageInfo {
         margin: 0 10px;
+
         font-size: 14px;
     }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 800px) {
 
         .header {
             min-height: auto;
+
             padding: 20px;
+
             flex-direction: column;
+
             gap: 15px;
         }
 
         .navbar {
             gap: 18px;
+
             flex-wrap: wrap;
+
             justify-content: center;
+        }
+
+        .top-ad {
+            min-height: 70px;
         }
 
         .container {
@@ -478,6 +755,11 @@
             height: 85vh;
         }
 
+        .ad-container iframe,
+        .processing-ad iframe {
+            max-width: 100% !important;
+        }
+
     }
 
 </style>
@@ -486,9 +768,13 @@
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
 
-```
+
 <div class="logo">
     You Love PDF
 </div>
@@ -508,13 +794,47 @@
     </a>
 
 </nav>
-```
+
 
 </header>
 
+<!-- =========================
+     TOP AD
+========================= -->
+
+<div class="top-ad">
+
+
+<span class="top-ad-label">
+    Advertisement
+</span>
+
+<div class="ad-container">
+
+    <script>
+        atOptions = {
+            'key' : '732f22f6c131ad492451f9a21d5b692e',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+        };
+    </script>
+
+    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+</div>
+
+
+</div>
+
+<!-- =========================
+     MAIN
+========================= -->
+
 <main class="container">
 
-```
+
 <h1>
     Merge PDF
 </h1>
@@ -528,7 +848,9 @@
 <div class="tool-area">
 
 
-    <!-- LEFT SIDE -->
+    <!-- =========================
+         LEFT SIDE
+    ========================= -->
 
     <div class="preview-section">
 
@@ -556,7 +878,9 @@
     </div>
 
 
-    <!-- RIGHT SIDE -->
+    <!-- =========================
+         RIGHT SIDE
+    ========================= -->
 
     <div class="upload-section">
 
@@ -605,7 +929,9 @@
         </button>
 
 
-        <!-- PROCESSING AREA -->
+        <!-- =========================
+             PROCESSING AREA
+        ========================= -->
 
         <div id="processingArea">
 
@@ -623,6 +949,34 @@
                 Preparing...
             </div>
 
+
+            <!-- PLEASE WAIT + AD -->
+
+            <div id="pleaseWaitArea">
+
+                <div id="pleaseWaitText">
+                    Please wait while your PDF is being processed...
+                </div>
+
+
+                <div class="processing-ad">
+
+                    <script>
+                        atOptions = {
+                            'key' : '732f22f6c131ad492451f9a21d5b692e',
+                            'format' : 'iframe',
+                            'height' : 60,
+                            'width' : 468,
+                            'params' : {}
+                        };
+                    </script>
+
+                    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -631,7 +985,7 @@
         <div id="result"></div>
 
 
-        <!-- DOWNLOAD BUTTON -->
+        <!-- DOWNLOAD -->
 
         <button id="downloadButton">
             Download PDF
@@ -649,17 +1003,19 @@
     ← Back to PDF Tools
 
 </a>
-```
+
 
 </main>
 
-<!-- PDF PREVIEW MODAL -->
+<!-- =========================
+     PDF PREVIEW MODAL
+========================= -->
 
 <div
     class="pdf-modal"
     id="pdfModal">
 
-```
+
 <div class="pdf-modal-content">
 
 
@@ -709,9 +1065,13 @@
     </div>
 
 </div>
-```
+
 
 </div>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script type="module">
 
@@ -756,6 +1116,9 @@
 
     const progressText =
         document.getElementById("progressText");
+
+    const pleaseWaitArea =
+        document.getElementById("pleaseWaitArea");
 
     const downloadButton =
         document.getElementById("downloadButton");
@@ -815,6 +1178,10 @@
     }
 
 
+    /* =========================
+       PDF THUMBNAIL
+    ========================= */
+
     async function createThumbnail(
         file,
         canvas
@@ -870,6 +1237,10 @@
 
     }
 
+
+    /* =========================
+       OPEN PDF PREVIEW
+    ========================= */
 
     async function openPdfPreview(
         file
@@ -961,6 +1332,10 @@
     }
 
 
+    /* =========================
+       MODAL
+    ========================= */
+
     closeModal.addEventListener(
         "click",
         function () {
@@ -1027,6 +1402,10 @@
     );
 
 
+    /* =========================
+       FILE COUNT
+    ========================= */
+
     function updateFileCount() {
 
         fileCount.textContent =
@@ -1039,6 +1418,10 @@
 
     }
 
+
+    /* =========================
+       RENDER FILES
+    ========================= */
 
     function renderFiles() {
 
@@ -1134,7 +1517,9 @@
                             draggedIndex === null ||
                             draggedIndex === targetIndex
                         ) {
+
                             return;
+
                         }
 
                         const movedFile =
@@ -1168,6 +1553,7 @@
 
                 const canvas =
                     document.createElement("canvas");
+
 
                 thumbnail.appendChild(
                     canvas
@@ -1225,7 +1611,9 @@
 
 
                 info.appendChild(number);
+
                 info.appendChild(name);
+
                 info.appendChild(size);
 
 
@@ -1250,9 +1638,11 @@
                             1
                         );
 
-                        status.textContent = "";
+                        status.textContent =
+                            "";
 
-                        result.textContent = "";
+                        result.textContent =
+                            "";
 
                         renderFiles();
 
@@ -1260,11 +1650,22 @@
                 );
 
 
-                item.appendChild(thumbnail);
-                item.appendChild(info);
-                item.appendChild(removeButton);
+                item.appendChild(
+                    thumbnail
+                );
 
-                fileList.appendChild(item);
+                item.appendChild(
+                    info
+                );
+
+                item.appendChild(
+                    removeButton
+                );
+
+
+                fileList.appendChild(
+                    item
+                );
 
 
                 createThumbnail(
@@ -1281,16 +1682,26 @@
     }
 
 
+    /* =========================
+       ADD PDF
+    ========================= */
+
     pdfFile.addEventListener(
         "change",
         function () {
 
-            if (pdfFile.files.length === 0) {
+            if (
+                pdfFile.files.length === 0
+            ) {
+
                 return;
+
             }
+
 
             const file =
                 pdfFile.files[0];
+
 
             if (
                 file.type !== "application/pdf" &&
@@ -1303,18 +1714,24 @@
                     "Please select a PDF file."
                 );
 
-                pdfFile.value = "";
+                pdfFile.value =
+                    "";
 
                 return;
 
             }
 
 
-            selectedFiles.push(file);
+            selectedFiles.push(
+                file
+            );
 
-            status.textContent = "";
 
-            result.textContent = "";
+            status.textContent =
+                "";
+
+            result.textContent =
+                "";
 
             downloadButton.style.display =
                 "none";
@@ -1326,30 +1743,33 @@
                     readyDownloadUrl
                 );
 
-                readyDownloadUrl = null;
+                readyDownloadUrl =
+                    null;
 
             }
 
 
             renderFiles();
 
-            pdfFile.value = "";
+
+            pdfFile.value =
+                "";
 
         }
     );
 
 
-    /*
-    =========================================
-    MERGE PDF
-    =========================================
-    */
+    /* =========================
+       MERGE PDF
+    ========================= */
 
     mergeButton.addEventListener(
         "click",
         async function () {
 
-            if (selectedFiles.length < 2) {
+            if (
+                selectedFiles.length < 2
+            ) {
 
                 alert(
                     "Please select at least 2 PDF files."
@@ -1377,7 +1797,8 @@
                     readyDownloadUrl
                 );
 
-                readyDownloadUrl = null;
+                readyDownloadUrl =
+                    null;
 
             }
 
@@ -1386,11 +1807,30 @@
                 "block";
 
 
+            pleaseWaitArea.style.display =
+                "block";
+
+
+            progressPercentage.style.display =
+                "";
+
+            document
+                .querySelector(
+                    "#processingArea .progress-track"
+                )
+                .style.display =
+                "";
+
+            progressText.style.display =
+                "";
+
+
             progressBar.style.width =
                 "0%";
 
             progressPercentage.textContent =
                 "0%";
+
 
             progressText.textContent =
                 "Preparing PDF files...";
@@ -1399,10 +1839,12 @@
             status.textContent =
                 "Uploading PDF files...";
 
-            result.textContent = "";
+            result.textContent =
+                "";
 
 
-            let progress = 5;
+            let progress =
+                5;
 
 
             progressBar.style.width =
@@ -1416,7 +1858,9 @@
                 setInterval(
                     function () {
 
-                        if (progress < 90) {
+                        if (
+                            progress < 90
+                        ) {
 
                             progress +=
                                 Math.max(
@@ -1426,29 +1870,29 @@
                                     )
                                 );
 
-                            if (progress > 90) {
-                                progress = 90;
+
+                            if (
+                                progress > 90
+                            ) {
+
+                                progress =
+                                    90;
+
                             }
 
 
                             progressBar.style.width =
                                 progress + "%";
 
+
                             progressPercentage.textContent =
                                 progress + "%";
 
 
-                            if (progress < 35) {
-
-                                progressText.textContent =
-                                    "Uploading PDF files...";
-
-                            } else {
-
-                                progressText.textContent =
-                                    "Merging PDF files...";
-
-                            }
+                            progressText.textContent =
+                                progress < 35
+                                    ? "Uploading PDF files..."
+                                    : "Merging PDF files...";
 
                         }
 
@@ -1481,7 +1925,8 @@
 
                 const response =
                     await fetch(
-                        BACKEND_URL + "/merge",
+                        BACKEND_URL +
+                        "/merge",
                         {
                             method: "POST",
                             body: formData
@@ -1489,7 +1934,9 @@
                     );
 
 
-                if (!response.ok) {
+                if (
+                    !response.ok
+                ) {
 
                     let errorMessage =
                         "PDF merging failed.";
@@ -1499,6 +1946,7 @@
 
                         const errorData =
                             await response.json();
+
 
                         if (
                             errorData.message
@@ -1552,27 +2000,36 @@
                 progressBar.style.width =
                     "100%";
 
+
                 progressPercentage.textContent =
                     "100%";
+
 
                 progressText.textContent =
                     "PDF is ready to download.";
 
 
                 status.textContent =
-                    "PDFs merged successfully!";
+                    "Merge complete!";
 
 
                 result.textContent =
                     selectedFiles.length +
-                    " PDF files have been merged into one PDF.";
+                    " PDF files merged successfully.";
 
+
+                /*
+                 * Same flow as Compress PDF:
+                 * hide progress + ad
+                 * show Download button
+                 */
 
                 setTimeout(
                     function () {
 
                         progressPercentage.style.display =
                             "none";
+
 
                         document
                             .querySelector(
@@ -1581,7 +2038,12 @@
                             .style.display =
                             "none";
 
+
                         progressText.style.display =
+                            "none";
+
+
+                        pleaseWaitArea.style.display =
                             "none";
 
 
@@ -1601,6 +2063,10 @@
 
 
                 processingArea.style.display =
+                    "none";
+
+
+                pleaseWaitArea.style.display =
                     "none";
 
 
@@ -1628,6 +2094,7 @@
             mergeButton.disabled =
                 false;
 
+
             mergeButton.textContent =
                 "Merge PDF";
 
@@ -1635,17 +2102,17 @@
     );
 
 
-    /*
-    =========================================
-    DOWNLOAD BUTTON
-    =========================================
-    */
+    /* =========================
+       DOWNLOAD PDF
+    ========================= */
 
     downloadButton.addEventListener(
         "click",
         function () {
 
-            if (!readyDownloadUrl) {
+            if (
+                !readyDownloadUrl
+            ) {
 
                 alert(
                     "Your merged PDF is not ready yet."
@@ -1683,7 +2150,9 @@
             setTimeout(
                 function () {
 
-                    if (readyDownloadUrl) {
+                    if (
+                        readyDownloadUrl
+                    ) {
 
                         URL.revokeObjectURL(
                             readyDownloadUrl
