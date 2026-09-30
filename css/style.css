@@ -320,13 +320,27 @@ main p {
 }
 .ad-container {
     width: 100%;
-    text-align: center;
+    text-align: right;
     overflow: hidden;
 }
 
 .ad-container iframe {
     display: block !important;
-    margin: 0 auto !important;
+    margin: 0 0 0 auto !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .ad-container {
+        text-align: center;
+    }
+
+    .ad-container iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 auto !important;
+    }
 }
 
 /* Mobile */
