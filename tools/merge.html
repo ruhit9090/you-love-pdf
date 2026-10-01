@@ -1,37 +1,20 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Merge PDF Online Free - You Love PDF</title>
-
 <meta name="description" content="Merge multiple PDF files into one PDF online for free with You Love PDF. Combine PDF files quickly and easily without installing software.">
-
 <meta name="keywords" content="merge PDF, merge PDF online, combine PDF, combine PDF files, free PDF merger, online PDF tools">
-
 <meta name="robots" content="index, follow">
-
 <link rel="canonical" href="https://youlovepdf.online/tools/merge.html">
-
 <link rel="icon" type="image/png" href="../favicon.png">
-
 <meta property="og:title" content="Merge PDF Online Free - You Love PDF">
-
 <meta property="og:description" content="Combine multiple PDF files into one PDF quickly and easily with You Love PDF.">
-
 <meta property="og:type" content="website">
-
 <meta property="og:url" content="https://youlovepdf.online/tools/merge.html">
 
-
-
 <style>
-
     * {
         margin: 0;
         padding: 0;
@@ -79,24 +62,17 @@
         color: #ffd6d6;
     }
 
-
-    /* =========================
-       TOP AD
-    ========================= */
-
+    /* TOP AD */
     .top-ad {
         width: min(970px, 92%);
         min-height: 90px;
         margin: 18px auto 0;
-
         background: #ffffff;
         border: 1px solid #e2e5ea;
         border-radius: 10px;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         position: relative;
         overflow: hidden;
     }
@@ -105,24 +81,18 @@
         position: absolute;
         top: 6px;
         left: 8px;
-
         font-size: 10px;
         color: #aaa;
-
         text-transform: uppercase;
-
         z-index: 2;
     }
 
     .ad-container {
         width: 100%;
-
         display: flex;
         justify-content: center;
         align-items: center;
-
         text-align: center;
-
         overflow: hidden;
     }
 
@@ -131,15 +101,10 @@
         width: 468px !important;
         height: 60px !important;
         max-width: 100% !important;
-
         margin: 0 auto !important;
     }
 
-
-    /* =========================
-       MAIN
-    ========================= */
-
+    /* MAIN CONTAINER */
     .container {
         max-width: 1100px;
         margin: 45px auto 70px;
@@ -159,26 +124,21 @@
         margin-bottom: 40px;
     }
 
-
-    /* =========================
-       TOOL AREA
-    ========================= */
-
+    /* TOOL AREA */
     .tool-area {
         display: flex;
         gap: 30px;
         align-items: flex-start;
     }
 
-
-    /* LEFT */
-
+    /* LEFT SIDE */
     .preview-section {
         width: 42%;
         background: white;
         border-radius: 16px;
         padding: 20px;
         min-height: 420px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .preview-title {
@@ -198,6 +158,9 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: 5px;
     }
 
     .empty-preview {
@@ -212,13 +175,10 @@
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         padding: 12px;
-
         display: flex;
         gap: 12px;
         align-items: center;
-
         cursor: grab;
-
         transition: 0.2s;
     }
 
@@ -233,20 +193,14 @@
     .pdf-thumbnail {
         width: 75px;
         height: 95px;
-
         background: white;
-
         border: 1px solid #ddd;
         border-radius: 6px;
-
         overflow: hidden;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         flex-shrink: 0;
-
         cursor: pointer;
     }
 
@@ -270,9 +224,7 @@
     .pdf-name {
         font-weight: bold;
         font-size: 14px;
-
         word-break: break-word;
-
         margin-bottom: 6px;
     }
 
@@ -283,18 +235,13 @@
 
     .remove-button {
         background: #fff;
-
         border: 1px solid #ddd;
-
         color: #e53935;
-
         border-radius: 6px;
-
         padding: 7px 9px;
-
         cursor: pointer;
-
         font-size: 12px;
+        transition: 0.2s;
     }
 
     .remove-button:hover {
@@ -302,21 +249,15 @@
         color: white;
     }
 
-
-    /* RIGHT */
-
+    /* RIGHT SIDE */
     .upload-section {
         width: 58%;
-
         background: white;
-
         border-radius: 16px;
-
         padding: 45px 30px;
-
         text-align: center;
-
         border: 2px dashed #d1d5db;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .upload-icon {
@@ -335,18 +276,13 @@
 
     .add-button {
         display: inline-block;
-
         background: #e53935;
-
         color: white;
-
         padding: 13px 30px;
-
         border-radius: 8px;
-
         cursor: pointer;
-
         font-size: 16px;
+        transition: background 0.2s;
     }
 
     .add-button:hover {
@@ -357,27 +293,17 @@
         display: none;
     }
 
-
-    /* =========================
-       MERGE BUTTON
-    ========================= */
-
+    /* MERGE BUTTON */
     #mergeButton {
         margin-top: 20px;
-
         padding: 13px 30px;
-
         background: #e53935;
-
         color: white;
-
         border: none;
-
         border-radius: 8px;
-
         cursor: pointer;
-
         font-size: 16px;
+        transition: background 0.2s;
     }
 
     #mergeButton:hover {
@@ -389,268 +315,170 @@
         cursor: not-allowed;
     }
 
-
-    /* =========================
-       FILE COUNT
-    ========================= */
-
+    /* FILE COUNT */
     .file-count {
         margin-top: 15px;
-
         color: #666;
-
         font-size: 14px;
     }
 
-
-    /* =========================
-       PROCESSING
-    ========================= */
-
+    /* PROCESSING */
     #processingArea {
         display: none;
-
         margin: 28px auto 0;
-
         max-width: 520px;
     }
 
     #progressPercentage {
         font-size: 22px;
-
         font-weight: bold;
-
         margin-bottom: 10px;
     }
 
     .progress-track {
         width: 100%;
-
         height: 12px;
-
         background: #e5e7eb;
-
         border-radius: 999px;
-
         overflow: hidden;
     }
 
     #progressBar {
         width: 0%;
-
         height: 100%;
-
         background: #e53935;
-
         border-radius: 999px;
-
         transition: width 0.25s ease;
     }
 
     #progressText {
         margin-top: 10px;
-
         color: #666;
-
         font-size: 14px;
     }
 
-
-    /* =========================
-       PLEASE WAIT + AD
-    ========================= */
-
+    /* PLEASE WAIT + AD */
     #pleaseWaitArea {
         display: none;
-
         margin-top: 18px;
     }
 
     #pleaseWaitText {
         color: #666;
-
         font-size: 14px;
-
         font-weight: bold;
-
         margin-bottom: 12px;
     }
 
     .processing-ad {
         width: 100%;
-
         min-height: 60px;
-
         display: flex;
-
         justify-content: center;
-
         align-items: center;
-
         overflow: hidden;
-
         background: #ffffff;
-
         border-radius: 8px;
     }
 
     .processing-ad iframe {
         display: block !important;
-
         width: 468px !important;
-
         height: 60px !important;
-
         max-width: 100% !important;
-
         margin: 0 auto !important;
     }
 
-
-    /* =========================
-       STATUS
-    ========================= */
-
+    /* STATUS & RESULT */
     #status {
         margin-top: 20px;
-
         color: #555;
-
         font-weight: bold;
-
         line-height: 1.5;
     }
 
     #result {
         margin-top: 12px;
-
         color: #333;
-
         line-height: 1.5;
     }
 
-
-    /* =========================
-       DOWNLOAD
-    ========================= */
-
+    /* DOWNLOAD */
     #downloadButton {
         display: none;
-
         margin: 24px auto 0;
-
         padding: 13px 28px;
-
         background: #e53935;
-
         color: white;
-
         border: none;
-
         border-radius: 8px;
-
         cursor: pointer;
-
         font-size: 16px;
+        transition: background 0.2s;
     }
 
     #downloadButton:hover {
         background: #c62828;
     }
 
-
-    /* =========================
-       BACK
-    ========================= */
-
+    /* BACK */
     .back-button {
         display: block;
-
         width: fit-content;
-
         margin: 35px auto 0;
-
         text-decoration: none;
-
         color: #555;
     }
 
+    .back-button:hover {
+        color: #e53935;
+    }
 
-    /* =========================
-       PDF MODAL
-    ========================= */
-
+    /* PDF MODAL */
     .pdf-modal {
         display: none;
-
         position: fixed;
-
         z-index: 2000;
-
         inset: 0;
-
         background: rgba(0, 0, 0, 0.75);
-
         align-items: center;
-
         justify-content: center;
-
         padding: 20px;
     }
 
     .pdf-modal-content {
         background: white;
-
         width: min(900px, 95vw);
-
         height: min(90vh, 800px);
-
         border-radius: 14px;
-
         display: flex;
-
         flex-direction: column;
-
         overflow: hidden;
     }
 
     .modal-header {
         display: flex;
-
         align-items: center;
-
         justify-content: space-between;
-
         padding: 15px 20px;
-
         border-bottom: 1px solid #e5e7eb;
     }
 
     .modal-title {
         font-weight: bold;
-
         max-width: 80%;
-
         overflow: hidden;
-
         text-overflow: ellipsis;
-
         white-space: nowrap;
     }
 
     .close-modal {
         border: none;
-
         background: #f1f1f1;
-
         width: 34px;
-
         height: 34px;
-
         border-radius: 50%;
-
         cursor: pointer;
-
         font-size: 20px;
     }
 
@@ -660,47 +488,32 @@
 
     .modal-body {
         flex: 1;
-
         overflow: auto;
-
         padding: 20px;
-
         background: #eee;
-
         text-align: center;
     }
 
     #largePreview {
         max-width: 100%;
-
         height: auto;
-
         background: white;
-
         box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
     .preview-controls {
         padding: 12px;
-
         text-align: center;
-
         border-top: 1px solid #e5e7eb;
-
         background: white;
     }
 
     .preview-controls button {
         padding: 7px 14px;
-
         margin: 0 5px;
-
         border: 1px solid #ddd;
-
         background: white;
-
         border-radius: 6px;
-
         cursor: pointer;
     }
 
@@ -710,32 +523,21 @@
 
     #pageInfo {
         margin: 0 10px;
-
         font-size: 14px;
     }
 
-
-    /* =========================
-       MOBILE
-    ========================= */
-
+    /* MOBILE RESPONSIVE */
     @media (max-width: 800px) {
-
         .header {
             min-height: auto;
-
             padding: 20px;
-
             flex-direction: column;
-
             gap: 15px;
         }
 
         .navbar {
             gap: 18px;
-
             flex-wrap: wrap;
-
             justify-content: center;
         }
 
@@ -776,1422 +578,492 @@
         .processing-ad iframe {
             max-width: 100% !important;
         }
-
     }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
+<!-- HEADER -->
 <header class="header">
-
-
-<div class="logo">
-    You Love PDF
-</div>
-
-<nav class="navbar">
-
-    <a href="../index.html">
-        Home
-    </a>
-
-    <a href="../index.html#about">
-        About
-    </a>
-
-    <a href="../index.html#contact">
-        Contact
-    </a>
-
-</nav>
-
-
+    <div class="logo">
+        You Love PDF
+    </div>
+    <nav class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
 </header>
 
-<!-- =========================
-     TOP AD
-========================= -->
-
+<!-- TOP AD -->
 <div class="top-ad">
-
-
-<span class="top-ad-label">
-    Advertisement
-</span>
-
-<div class="ad-container">
-
-    <script>
-        atOptions = {
-            'key' : '732f22f6c131ad492451f9a21d5b692e',
-            'format' : 'iframe',
-            'height' : 60,
-            'width' : 468,
-            'params' : {}
-        };
-    </script>
-
-    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
-
+    <span class="top-ad-label">Advertisement</span>
+    <div class="ad-container">
+        <script>
+            atOptions = {
+                'key' : '732f22f6c131ad492451f9a21d5b692e',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+    </div>
 </div>
 
-
-</div>
-
-<!-- =========================
-     MAIN
-========================= -->
-
+<!-- MAIN -->
 <main class="container">
+    <h1>Merge PDF</h1>
+    <p class="description">Combine multiple PDF files into one PDF quickly and easily[cite: 1].</p>
 
-
-<h1>
-    Merge PDF
-</h1>
-
-
-<p class="description">
-    Combine multiple PDF files into one PDF quickly and easily.
-</p>
-
-
-<div class="tool-area">
-
-
-    <!-- =========================
-         LEFT SIDE
-    ========================= -->
-
-    <div class="preview-section">
-
-        <div class="preview-title">
-            Added PDFs
+    <div class="tool-area">
+        <!-- LEFT SIDE -->
+        <div class="preview-section">
+            <div class="preview-title">Added PDFs</div>
+            <div class="preview-help">
+                Drag PDFs to change their merge order. Click a preview to view the PDF.
+            </div>
+            <div id="fileList">
+                <div class="empty-preview">
+                    No PDF added yet.<br>
+                    Click "Add PDF" to begin.
+                </div>
+            </div>
         </div>
 
-        <div class="preview-help">
-            Drag PDFs to change their merge order.
-            Click a preview to view the PDF.
-        </div>
+        <!-- RIGHT SIDE -->
+        <div class="upload-section">
+            <div class="upload-icon">📄</div>
+            <h2>Add PDF files</h2>
+            <p>Add PDF files one by one to merge them.</p>
 
-        <div id="fileList">
+            <label for="pdfFile" class="add-button">
+                + Add PDF
+            </label>
+            <input type="file" id="pdfFile" accept=".pdf,application/pdf" multiple>
 
-            <div class="empty-preview">
+            <div class="file-count" id="fileCount">0 PDF files added</div>
 
-                No PDF added yet.<br>
+            <button id="mergeButton">Merge PDF</button>
 
-                Click "Add PDF" to begin.
+            <!-- PROCESSING AREA -->
+            <div id="processingArea">
+                <div id="progressPercentage">0%</div>
+                <div class="progress-track">
+                    <div id="progressBar"></div>
+                </div>
+                <div id="progressText">Preparing...</div>
 
+                <!-- PLEASE WAIT + AD -->
+                <div id="pleaseWaitArea">
+                    <div id="pleaseWaitText">Please wait while your PDF is being processed...</div>
+                    <div class="processing-ad">
+                        <script>
+                            atOptions = {
+                                'key' : '732f22f6c131ad492451f9a21d5b692e',
+                                'format' : 'iframe',
+                                'height' : 60,
+                                'width' : 468,
+                                'params' : {}
+                            };
+                        </script>
+                        <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
+                    </div>
+                </div>
             </div>
 
-        </div>
+            <div id="status"></div>
+            <div id="result"></div>
 
+            <!-- DOWNLOAD -->
+            <button id="downloadButton">Download PDF</button>
+        </div>
     </div>
 
-
-    <!-- =========================
-         RIGHT SIDE
-    ========================= -->
-
-    <div class="upload-section">
-
-        <div class="upload-icon">
-            📄
-        </div>
-
-        <h2>
-            Add PDF files
-        </h2>
-
-        <p>
-            Add PDF files one by one to merge them.
-        </p>
-
-
-        <label
-            for="pdfFile"
-            class="add-button">
-
-            + Add PDF
-
-        </label>
-
-
-        <input
-            type="file"
-            id="pdfFile"
-            accept=".pdf,application/pdf">
-
-
-        <div
-            class="file-count"
-            id="fileCount">
-
-            0 PDF files added
-
-        </div>
-
-
-        <button
-            id="mergeButton">
-
-            Merge PDF
-
-        </button>
-
-
-        <!-- =========================
-             PROCESSING AREA
-        ========================= -->
-
-        <div id="processingArea">
-
-            <div id="progressPercentage">
-                0%
-            </div>
-
-            <div class="progress-track">
-
-                <div id="progressBar"></div>
-
-            </div>
-
-            <div id="progressText">
-                Preparing...
-            </div>
-
-
-            <!-- PLEASE WAIT + AD -->
-
-            <div id="pleaseWaitArea">
-
-                <div id="pleaseWaitText">
-                    Please wait while your PDF is being processed...
-                </div>
-
-
-                <div class="processing-ad">
-
-                    <script>
-                        atOptions = {
-                            'key' : '732f22f6c131ad492451f9a21d5b692e',
-                            'format' : 'iframe',
-                            'height' : 60,
-                            'width' : 468,
-                            'params' : {}
-                        };
-                    </script>
-
-                    <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div id="status"></div>
-
-        <div id="result"></div>
-
-
-        <!-- DOWNLOAD -->
-
-        <button id="downloadButton">
-            Download PDF
-        </button>
-
-    </div>
-
-</div>
-
-
-<a
-    href="../index.html"
-    class="back-button">
-
-    ← Back to PDF Tools
-
-</a>
-
-
+    <a href="../index.html" class="back-button">← Back to PDF Tools</a>
 </main>
 
-<!-- =========================
-     PDF PREVIEW MODAL
-========================= -->
-
-<div
-    class="pdf-modal"
-    id="pdfModal">
-
-
-<div class="pdf-modal-content">
-
-
-    <div class="modal-header">
-
-        <div
-            class="modal-title"
-            id="modalTitle">
-
-            PDF Preview
-
+<!-- PDF PREVIEW MODAL -->
+<div class="pdf-modal" id="pdfModal">
+    <div class="pdf-modal-content">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">PDF Preview</div>
+            <button class="close-modal" id="closeModal">×</button>
         </div>
-
-
-        <button
-            class="close-modal"
-            id="closeModal">
-
-            ×
-
-        </button>
-
+        <div class="modal-body">
+            <canvas id="largePreview"></canvas>
+        </div>
+        <div class="preview-controls">
+            <button id="previousPage">← Previous</button>
+            <span id="pageInfo">Page 1</span>
+            <button id="nextPage">Next →</button>
+        </div>
     </div>
-
-
-    <div class="modal-body">
-
-        <canvas id="largePreview"></canvas>
-
-    </div>
-
-
-    <div class="preview-controls">
-
-        <button id="previousPage">
-            ← Previous
-        </button>
-
-        <span id="pageInfo">
-            Page 1
-        </span>
-
-        <button id="nextPage">
-            Next →
-        </button>
-
-    </div>
-
 </div>
 
-
-</div>
-
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
+<!-- JAVASCRIPT -->
 <script type="module">
+    import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
 
-    import * as pdfjsLib from
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
+    const BACKEND_URL = "https://you-love-pdf-backend.onrender.com";
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+    const pdfFile = document.getElementById("pdfFile");
+    const fileList = document.getElementById("fileList");
+    const mergeButton = document.getElementById("mergeButton");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    const fileCount = document.getElementById("fileCount");
+    const processingArea = document.getElementById("processingArea");
+    const progressBar = document.getElementById("progressBar");
+    const progressPercentage = document.getElementById("progressPercentage");
+    const progressText = document.getElementById("progressText");
+    const pleaseWaitArea = document.getElementById("pleaseWaitArea");
+    const downloadButton = document.getElementById("downloadButton");
 
-
-    const BACKEND_URL =
-        "https://you-love-pdf-backend.onrender.com";
-
-
-    const pdfFile =
-        document.getElementById("pdfFile");
-
-    const fileList =
-        document.getElementById("fileList");
-
-    const mergeButton =
-        document.getElementById("mergeButton");
-
-    const status =
-        document.getElementById("status");
-
-    const result =
-        document.getElementById("result");
-
-    const fileCount =
-        document.getElementById("fileCount");
-
-    const processingArea =
-        document.getElementById("processingArea");
-
-    const progressBar =
-        document.getElementById("progressBar");
-
-    const progressPercentage =
-        document.getElementById("progressPercentage");
-
-    const progressText =
-        document.getElementById("progressText");
-
-    const pleaseWaitArea =
-        document.getElementById("pleaseWaitArea");
-
-    const downloadButton =
-        document.getElementById("downloadButton");
-
-
-    const pdfModal =
-        document.getElementById("pdfModal");
-
-    const closeModal =
-        document.getElementById("closeModal");
-
-    const largePreview =
-        document.getElementById("largePreview");
-
-    const modalTitle =
-        document.getElementById("modalTitle");
-
-    const previousPage =
-        document.getElementById("previousPage");
-
-    const nextPage =
-        document.getElementById("nextPage");
-
-    const pageInfo =
-        document.getElementById("pageInfo");
-
+    const pdfModal = document.getElementById("pdfModal");
+    const closeModal = document.getElementById("closeModal");
+    const largePreview = document.getElementById("largePreview");
+    const modalTitle = document.getElementById("modalTitle");
+    const previousPage = document.getElementById("previousPage");
+    const nextPage = document.getElementById("nextPage");
+    const pageInfo = document.getElementById("pageInfo");
 
     let selectedFiles = [];
-
     let draggedIndex = null;
-
     let previewPdf = null;
-
     let previewPageNumber = 1;
-
     let readyDownloadUrl = null;
-
     let readyDownloadName = null;
 
-
     function formatSize(bytes) {
-
-        if (bytes < 1024) {
-            return bytes.toFixed(0) + " B";
-        }
-
-        if (bytes < 1024 * 1024) {
-            return (
-                bytes / 1024
-            ).toFixed(2) + " KB";
-        }
-
-        return (
-            bytes / (1024 * 1024)
-        ).toFixed(2) + " MB";
-
+        if (bytes < 1024) return bytes.toFixed(0) + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + " KB";
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
     }
 
-
-    /* =========================
-       PDF THUMBNAIL
-    ========================= */
-
-    async function createThumbnail(
-        file,
-        canvas
-    ) {
-
+    async function createThumbnail(file, canvas) {
         try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            const page = await pdf.getPage(1);
+            const viewport = page.getViewport({ scale: 0.35 });
 
-            const arrayBuffer =
-                await file.arrayBuffer();
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const context = canvas.getContext("2d");
 
-            const pdf =
-                await pdfjsLib
-                .getDocument({
-                    data: arrayBuffer
-                })
-                .promise;
-
-            const page =
-                await pdf.getPage(1);
-
-            const viewport =
-                page.getViewport({
-                    scale: 0.35
-                });
-
-            canvas.width =
-                viewport.width;
-
-            canvas.height =
-                viewport.height;
-
-            const context =
-                canvas.getContext("2d");
-
-            await page.render({
-
-                canvasContext:
-                    context,
-
-                viewport:
-                    viewport
-
-            }).promise;
-
+            await page.render({ canvasContext: context, viewport: viewport }).promise;
         } catch (error) {
-
-            console.error(
-                "Preview error:",
-                error
-            );
-
+            console.error("Preview error:", error);
         }
-
     }
 
-
-    /* =========================
-       OPEN PDF PREVIEW
-    ========================= */
-
-    async function openPdfPreview(
-        file
-    ) {
-
+    async function openPdfPreview(file) {
         try {
-
-            const arrayBuffer =
-                await file.arrayBuffer();
-
-            previewPdf =
-                await pdfjsLib
-                .getDocument({
-                    data: arrayBuffer
-                })
-                .promise;
-
+            const arrayBuffer = await file.arrayBuffer();
+            previewPdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
             previewPageNumber = 1;
-
-            modalTitle.textContent =
-                file.name;
-
-            pdfModal.style.display =
-                "flex";
-
+            modalTitle.textContent = file.name;
+            pdfModal.style.display = "flex";
             await renderLargePreview();
-
         } catch (error) {
-
             console.error(error);
-
-            alert(
-                "Sorry, this PDF preview could not be opened."
-            );
-
+            alert("Sorry, this PDF preview could not be opened.");
         }
-
     }
-
 
     async function renderLargePreview() {
+        if (!previewPdf) return;
+        const page = await previewPdf.getPage(previewPageNumber);
+        const viewport = page.getViewport({ scale: 1.3 });
 
-        if (!previewPdf) {
-            return;
-        }
+        largePreview.width = viewport.width;
+        largePreview.height = viewport.height;
+        const context = largePreview.getContext("2d");
 
-        const page =
-            await previewPdf.getPage(
-                previewPageNumber
-            );
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
 
-        const viewport =
-            page.getViewport({
-                scale: 1.3
-            });
-
-        largePreview.width =
-            viewport.width;
-
-        largePreview.height =
-            viewport.height;
-
-        const context =
-            largePreview.getContext("2d");
-
-        await page.render({
-
-            canvasContext:
-                context,
-
-            viewport:
-                viewport
-
-        }).promise;
-
-        pageInfo.textContent =
-            "Page " +
-            previewPageNumber +
-            " of " +
-            previewPdf.numPages;
-
-        previousPage.disabled =
-            previewPageNumber === 1;
-
-        nextPage.disabled =
-            previewPageNumber ===
-            previewPdf.numPages;
-
+        pageInfo.textContent = "Page " + previewPageNumber + " of " + previewPdf.numPages;
+        previousPage.disabled = previewPageNumber === 1;
+        nextPage.disabled = previewPageNumber === previewPdf.numPages;
     }
 
+    closeModal.addEventListener("click", () => {
+        pdfModal.style.display = "none";
+        previewPdf = null;
+    });
 
-    /* =========================
-       MODAL
-    ========================= */
-
-    closeModal.addEventListener(
-        "click",
-        function () {
-
-            pdfModal.style.display =
-                "none";
-
+    pdfModal.addEventListener("click", (event) => {
+        if (event.target === pdfModal) {
+            pdfModal.style.display = "none";
             previewPdf = null;
-
         }
-    );
+    });
 
-
-    pdfModal.addEventListener(
-        "click",
-        function (event) {
-
-            if (event.target === pdfModal) {
-
-                pdfModal.style.display =
-                    "none";
-
-                previewPdf = null;
-
-            }
-
+    previousPage.addEventListener("click", async () => {
+        if (previewPageNumber > 1) {
+            previewPageNumber--;
+            await renderLargePreview();
         }
-    );
+    });
 
-
-    previousPage.addEventListener(
-        "click",
-        async function () {
-
-            if (previewPageNumber > 1) {
-
-                previewPageNumber--;
-
-                await renderLargePreview();
-
-            }
-
+    nextPage.addEventListener("click", async () => {
+        if (previewPdf && previewPageNumber < previewPdf.numPages) {
+            previewPageNumber++;
+            await renderLargePreview();
         }
-    );
-
-
-    nextPage.addEventListener(
-        "click",
-        async function () {
-
-            if (
-                previewPdf &&
-                previewPageNumber <
-                previewPdf.numPages
-            ) {
-
-                previewPageNumber++;
-
-                await renderLargePreview();
-
-            }
-
-        }
-    );
-
-
-    /* =========================
-       FILE COUNT
-    ========================= */
+    });
 
     function updateFileCount() {
-
-        fileCount.textContent =
-            selectedFiles.length +
-            (
-                selectedFiles.length === 1
-                    ? " PDF file added"
-                    : " PDF files added"
-            );
-
+        fileCount.textContent = selectedFiles.length + (selectedFiles.length === 1 ? " PDF file added" : " PDF files added");
     }
-
-
-    /* =========================
-       RENDER FILES
-    ========================= */
 
     function renderFiles() {
-
         fileList.innerHTML = "";
-
         if (selectedFiles.length === 0) {
-
             fileList.innerHTML = `
-
                 <div class="empty-preview">
-
                     No PDF added yet.<br>
-
                     Click "Add PDF" to begin.
-
                 </div>
-
             `;
-
             updateFileCount();
-
             return;
-
         }
 
-
-        selectedFiles.forEach(
-            function (file, index) {
-
-                const item =
-                    document.createElement("div");
-
-                item.className =
-                    "pdf-item";
-
-                item.draggable =
-                    true;
-
-                item.dataset.index =
-                    index;
-
-
-                item.addEventListener(
-                    "dragstart",
-                    function () {
-
-                        draggedIndex =
-                            index;
-
-                        item.classList.add(
-                            "dragging"
-                        );
-
-                    }
-                );
-
-
-                item.addEventListener(
-                    "dragend",
-                    function () {
-
-                        item.classList.remove(
-                            "dragging"
-                        );
-
-                        draggedIndex =
-                            null;
-
-                    }
-                );
-
-
-                item.addEventListener(
-                    "dragover",
-                    function (event) {
-
-                        event.preventDefault();
-
-                    }
-                );
-
-
-                item.addEventListener(
-                    "drop",
-                    function (event) {
-
-                        event.preventDefault();
-
-                        const targetIndex =
-                            index;
-
-                        if (
-                            draggedIndex === null ||
-                            draggedIndex === targetIndex
-                        ) {
-
-                            return;
-
-                        }
-
-                        const movedFile =
-                            selectedFiles[
-                                draggedIndex
-                            ];
-
-                        selectedFiles.splice(
-                            draggedIndex,
-                            1
-                        );
-
-                        selectedFiles.splice(
-                            targetIndex,
-                            0,
-                            movedFile
-                        );
-
-                        renderFiles();
-
-                    }
-                );
-
-
-                const thumbnail =
-                    document.createElement("div");
-
-                thumbnail.className =
-                    "pdf-thumbnail";
-
-
-                const canvas =
-                    document.createElement("canvas");
-
-
-                thumbnail.appendChild(
-                    canvas
-                );
-
-
-                thumbnail.addEventListener(
-                    "click",
-                    function (event) {
-
-                        event.stopPropagation();
-
-                        openPdfPreview(file);
-
-                    }
-                );
-
-
-                const info =
-                    document.createElement("div");
-
-                info.className =
-                    "pdf-info";
-
-
-                const number =
-                    document.createElement("div");
-
-                number.className =
-                    "pdf-number";
-
-                number.textContent =
-                    "PDF " +
-                    (index + 1);
-
-
-                const name =
-                    document.createElement("div");
-
-                name.className =
-                    "pdf-name";
-
-                name.textContent =
-                    file.name;
-
-
-                const size =
-                    document.createElement("div");
-
-                size.className =
-                    "pdf-size";
-
-                size.textContent =
-                    formatSize(file.size);
-
-
-                info.appendChild(number);
-
-                info.appendChild(name);
-
-                info.appendChild(size);
-
-
-                const removeButton =
-                    document.createElement("button");
-
-                removeButton.className =
-                    "remove-button";
-
-                removeButton.textContent =
-                    "Remove";
-
-
-                removeButton.addEventListener(
-                    "click",
-                    function (event) {
-
-                        event.stopPropagation();
-
-                        selectedFiles.splice(
-                            index,
-                            1
-                        );
-
-                        status.textContent =
-                            "";
-
-                        result.textContent =
-                            "";
-
-                        renderFiles();
-
-                    }
-                );
-
-
-                item.appendChild(
-                    thumbnail
-                );
-
-                item.appendChild(
-                    info
-                );
-
-                item.appendChild(
-                    removeButton
-                );
-
-
-                fileList.appendChild(
-                    item
-                );
-
-
-                createThumbnail(
-                    file,
-                    canvas
-                );
-
-            }
-        );
-
+        selectedFiles.forEach((file, index) => {
+            const item = document.createElement("div");
+            item.className = "pdf-item";
+            item.draggable = true;
+            item.dataset.index = index;
+
+            item.addEventListener("dragstart", () => {
+                draggedIndex = index;
+                item.classList.add("dragging");
+            });
+
+            item.addEventListener("dragend", () => {
+                item.classList.remove("dragging");
+                draggedIndex = null;
+            });
+
+            item.addEventListener("dragover", (event) => {
+                event.preventDefault();
+            });
+
+            item.addEventListener("drop", (event) => {
+                event.preventDefault();
+                const targetIndex = index;
+                if (draggedIndex === null || draggedIndex === targetIndex) return;
+
+                const movedFile = selectedFiles[draggedIndex];
+                selectedFiles.splice(draggedIndex, 1);
+                selectedFiles.splice(targetIndex, 0, movedFile);
+                renderFiles();
+            });
+
+            const thumbnail = document.createElement("div");
+            thumbnail.className = "pdf-thumbnail";
+            const canvas = document.createElement("canvas");
+            thumbnail.appendChild(canvas);
+
+            thumbnail.addEventListener("click", (event) => {
+                event.stopPropagation();
+                openPdfPreview(file);
+            });
+
+            const info = document.createElement("div");
+            info.className = "pdf-info";
+
+            const number = document.createElement("div");
+            number.className = "pdf-number";
+            number.textContent = "PDF " + (index + 1);
+
+            const name = document.createElement("div");
+            name.className = "pdf-name";
+            name.textContent = file.name;
+
+            const size = document.createElement("div");
+            size.className = "pdf-size";
+            size.textContent = formatSize(file.size);
+
+            info.appendChild(number);
+            info.appendChild(name);
+            info.appendChild(size);
+
+            const removeButton = document.createElement("button");
+            removeButton.className = "remove-button";
+            removeButton.textContent = "Remove";
+
+            removeButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                selectedFiles.splice(index, 1);
+                status.textContent = "";
+                result.textContent = "";
+                renderFiles();
+            });
+
+            item.appendChild(thumbnail);
+            item.appendChild(info);
+            item.appendChild(removeButton);
+            fileList.appendChild(item);
+
+            createThumbnail(file, canvas);
+        });
 
         updateFileCount();
-
     }
 
+    pdfFile.addEventListener("change", () => {
+        if (pdfFile.files.length === 0) return;
 
-    /* =========================
-       ADD PDF
-    ========================= */
-
-    pdfFile.addEventListener(
-        "change",
-        function () {
-
-            if (
-                pdfFile.files.length === 0
-            ) {
-
-                return;
-
+        // Support multiple files selection natively
+        Array.from(pdfFile.files).forEach(file => {
+            if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) {
+                selectedFiles.push(file);
             }
+        });
 
+        status.textContent = "";
+        result.textContent = "";
+        downloadButton.style.display = "none";
 
-            const file =
-                pdfFile.files[0];
-
-
-            if (
-                file.type !== "application/pdf" &&
-                !file.name
-                    .toLowerCase()
-                    .endsWith(".pdf")
-            ) {
-
-                alert(
-                    "Please select a PDF file."
-                );
-
-                pdfFile.value =
-                    "";
-
-                return;
-
-            }
-
-
-            selectedFiles.push(
-                file
-            );
-
-
-            status.textContent =
-                "";
-
-            result.textContent =
-                "";
-
-            downloadButton.style.display =
-                "none";
-
-
-            if (readyDownloadUrl) {
-
-                URL.revokeObjectURL(
-                    readyDownloadUrl
-                );
-
-                readyDownloadUrl =
-                    null;
-
-            }
-
-
-            renderFiles();
-
-
-            pdfFile.value =
-                "";
-
+        if (readyDownloadUrl) {
+            URL.revokeObjectURL(readyDownloadUrl);
+            readyDownloadUrl = null;
         }
-    );
 
+        renderFiles();
+        pdfFile.value = "";
+    });
 
-    /* =========================
-       MERGE PDF
-    ========================= */
+    mergeButton.addEventListener("click", async () => {
+        if (selectedFiles.length < 2) {
+            alert("Please select at least 2 PDF files.");
+            return;
+        }
 
-    mergeButton.addEventListener(
-        "click",
-        async function () {
+        mergeButton.disabled = true;
+        mergeButton.textContent = "Merging...";
+        downloadButton.style.display = "none";
 
-            if (
-                selectedFiles.length < 2
-            ) {
+        if (readyDownloadUrl) {
+            URL.revokeObjectURL(readyDownloadUrl);
+            readyDownloadUrl = null;
+        }
 
-                alert(
-                    "Please select at least 2 PDF files."
-                );
+        processingArea.style.display = "block";
+        pleaseWaitArea.style.display = "block";
+        progressPercentage.style.display = "";
+        document.querySelector("#processingArea .progress-track").style.display = "";
+        progressText.style.display = "";
 
-                return;
+        progressBar.style.width = "0%";
+        progressPercentage.textContent = "0%";
+        progressText.textContent = "Preparing PDF files...";
+        status.textContent = "Uploading PDF files...";
+        result.textContent = "";
 
+        let progress = 5;
+        progressBar.style.width = progress + "%";
+        progressPercentage.textContent = progress + "%";
+
+        const progressTimer = setInterval(() => {
+            if (progress < 90) {
+                progress += Math.max(1, Math.round((90 - progress) / 12));
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + "%";
+                progressPercentage.textContent = progress + "%";
+                progressText.textContent = progress < 35 ? "Uploading PDF files..." : "Merging PDF files...";
             }
-
-
-            mergeButton.disabled =
-                true;
-
-            mergeButton.textContent =
-                "Merging...";
-
-
-            downloadButton.style.display =
-                "none";
-
-
-            if (readyDownloadUrl) {
-
-                URL.revokeObjectURL(
-                    readyDownloadUrl
-                );
-
-                readyDownloadUrl =
-                    null;
-
-            }
-
-
-            processingArea.style.display =
-                "block";
-
-
-            pleaseWaitArea.style.display =
-                "block";
-
-
-            progressPercentage.style.display =
-                "";
-
-            document
-                .querySelector(
-                    "#processingArea .progress-track"
-                )
-                .style.display =
-                "";
-
-            progressText.style.display =
-                "";
-
-
-            progressBar.style.width =
-                "0%";
-
-            progressPercentage.textContent =
-                "0%";
-
-
-            progressText.textContent =
-                "Preparing PDF files...";
-
-
-            status.textContent =
-                "Uploading PDF files...";
-
-            result.textContent =
-                "";
-
-
-            let progress =
-                5;
-
-
-            progressBar.style.width =
-                progress + "%";
-
-            progressPercentage.textContent =
-                progress + "%";
-
-
-            const progressTimer =
-                setInterval(
-                    function () {
-
-                        if (
-                            progress < 90
-                        ) {
-
-                            progress +=
-                                Math.max(
-                                    1,
-                                    Math.round(
-                                        (90 - progress) / 12
-                                    )
-                                );
-
-
-                            if (
-                                progress > 90
-                            ) {
-
-                                progress =
-                                    90;
-
-                            }
-
-
-                            progressBar.style.width =
-                                progress + "%";
-
-
-                            progressPercentage.textContent =
-                                progress + "%";
-
-
-                            progressText.textContent =
-                                progress < 35
-                                    ? "Uploading PDF files..."
-                                    : "Merging PDF files...";
-
-                        }
-
-                    },
-                    350
-                );
-
-
-            try {
-
-                const formData =
-                    new FormData();
-
-
-                selectedFiles.forEach(
-                    function (file) {
-
-                        formData.append(
-                            "files",
-                            file
-                        );
-
-                    }
-                );
-
-
-                status.textContent =
-                    "Merging PDF files...";
-
-
-                const response =
-                    await fetch(
-                        BACKEND_URL +
-                        "/merge",
-                        {
-                            method: "POST",
-                            body: formData
-                        }
-                    );
-
-
-                if (
-                    !response.ok
-                ) {
-
-                    let errorMessage =
-                        "PDF merging failed.";
-
-
-                    try {
-
-                        const errorData =
-                            await response.json();
-
-
-                        if (
-                            errorData.message
-                        ) {
-
-                            errorMessage =
-                                errorData.message;
-
-                        }
-
-                    } catch (error) {
-
-                        console.error(
-                            "Error reading server response:",
-                            error
-                        );
-
-                    }
-
-
-                    throw new Error(
-                        errorMessage
-                    );
-
+        }, 350);
+
+        try {
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append("files", file);
+            });
+
+            status.textContent = "Merging PDF files...";
+
+            const response = await fetch(BACKEND_URL + "/merge", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                let errorMessage = "PDF merging failed.";
+                try {
+                    const errorData = await response.json();
+                    if (errorData.message) errorMessage = errorData.message;
+                } catch (error) {
+                    console.error("Error reading server response:", error);
                 }
-
-
-                status.textContent =
-                    "Preparing download...";
-
-
-                const mergedBlob =
-                    await response.blob();
-
-
-                clearInterval(
-                    progressTimer
-                );
-
-
-                readyDownloadUrl =
-                    URL.createObjectURL(
-                        mergedBlob
-                    );
-
-
-                readyDownloadName =
-                    "merged.pdf";
-
-
-                progressBar.style.width =
-                    "100%";
-
-
-                progressPercentage.textContent =
-                    "100%";
-
-
-                progressText.textContent =
-                    "PDF is ready to download.";
-
-
-                status.textContent =
-                    "Merge complete!";
-
-
-                result.textContent =
-                    selectedFiles.length +
-                    " PDF files merged successfully.";
-
-
-                /*
-                 * Same flow as Compress PDF:
-                 * hide progress + ad
-                 * show Download button
-                 */
-
-                setTimeout(
-                    function () {
-
-                        progressPercentage.style.display =
-                            "none";
-
-
-                        document
-                            .querySelector(
-                                "#processingArea .progress-track"
-                            )
-                            .style.display =
-                            "none";
-
-
-                        progressText.style.display =
-                            "none";
-
-
-                        pleaseWaitArea.style.display =
-                            "none";
-
-
-                        downloadButton.style.display =
-                            "inline-block";
-
-                    },
-                    250
-                );
-
-
-            } catch (error) {
-
-                clearInterval(
-                    progressTimer
-                );
-
-
-                processingArea.style.display =
-                    "none";
-
-
-                pleaseWaitArea.style.display =
-                    "none";
-
-
-                console.error(
-                    "Merge error:",
-                    error
-                );
-
-
-                status.textContent =
-                    "";
-
-                result.textContent =
-                    "";
-
-
-                alert(
-                    error.message ||
-                    "Sorry, the PDF files could not be merged."
-                );
-
+                throw new Error(errorMessage);
             }
 
+            status.textContent = "Preparing download...";
+            const mergedBlob = await response.blob();
+            clearInterval(progressTimer);
 
-            mergeButton.disabled =
-                false;
+            readyDownloadUrl = URL.createObjectURL(mergedBlob);
+            readyDownloadName = "merged.pdf";
 
+            progressBar.style.width = "100%";
+            progressPercentage.textContent = "100%";
+            progressText.textContent = "PDF is ready to download.";
+            status.textContent = "Merge complete!";
+            result.textContent = selectedFiles.length + " PDF files merged successfully.";
 
-            mergeButton.textContent =
-                "Merge PDF";
+            setTimeout(() => {
+                progressPercentage.style.display = "none";
+                document.querySelector("#processingArea .progress-track").style.display = "none";
+                progressText.style.display = "none";
+                pleaseWaitArea.style.display = "none";
+                downloadButton.style.display = "inline-block";
+            }, 250);
 
+        } catch (error) {
+            clearInterval(progressTimer);
+            processingArea.style.display = "none";
+            pleaseWaitArea.style.display = "none";
+            console.log("Merge error:", error);
+            status.textContent = "";
+            result.textContent = "";
+            alert(error.message || "Sorry, the PDF files could not be merged.");
         }
-    );
 
+        mergeButton.disabled = false;
+        mergeButton.textContent = "Merge PDF";
+    });
 
-    /* =========================
-       DOWNLOAD PDF
-    ========================= */
+    downloadButton.addEventListener("click", () => {
+        if (!readyDownloadUrl) {
+            alert("Your merged PDF is not ready yet.");
+            return;
+        }
 
-    downloadButton.addEventListener(
-        "click",
-        function () {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = readyDownloadUrl;
+        downloadLink.download = readyDownloadName || "merged.pdf";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
 
-            if (
-                !readyDownloadUrl
-            ) {
-
-                alert(
-                    "Your merged PDF is not ready yet."
-                );
-
-                return;
-
+        setTimeout(() => {
+            if (readyDownloadUrl) {
+                URL.revokeObjectURL(readyDownloadUrl);
+                readyDownloadUrl = null;
             }
-
-
-            const downloadLink =
-                document.createElement("a");
-
-
-            downloadLink.href =
-                readyDownloadUrl;
-
-
-            downloadLink.download =
-                readyDownloadName ||
-                "merged.pdf";
-
-
-            document.body.appendChild(
-                downloadLink
-            );
-
-
-            downloadLink.click();
-
-
-            downloadLink.remove();
-
-
-            setTimeout(
-                function () {
-
-                    if (
-                        readyDownloadUrl
-                    ) {
-
-                        URL.revokeObjectURL(
-                            readyDownloadUrl
-                        );
-
-                        readyDownloadUrl =
-                            null;
-
-                    }
-
-                },
-                1500
-            );
-
-        }
-    );
-
+        }, 1500);
+    });
 
     updateFileCount();
-
 </script>
 
 </body>
-
 </html>
