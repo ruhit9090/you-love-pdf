@@ -5,58 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Primary Meta Tags -->
-    <title>YouLovePDF - Free Online PDF Tools | Compress, Merge & Split PDF</title>
-    <meta name="title" content="YouLovePDF - Free Online PDF Tools | Compress, Merge & Split PDF">
-    <meta name="description" content="YouLovePDF is a fast & free online PDF editor. Compress PDF size, merge multiple PDFs, split pages & convert files online without installing any software.">
-    <meta name="keywords" content="YouLovePDF, PDF tools, free PDF tools, compress PDF online, merge PDF free, split PDF pages, JPG to PDF, PDF to JPG, online PDF editor">
+    <title>Free Online PDF Tools - Compress PDF to 100kb & Merge Without Watermark | YouLovePDF</title>
+    <meta name="title" content="Free Online PDF Tools - Compress PDF to 100kb & Merge Without Watermark | YouLovePDF">
+    <meta name="description" content="Free online PDF tools. Compress PDF to 100kb, reduce file size below 50kb, merge PDF without watermark, split pages, and convert JPG to PDF with no sign up required.">
+    <meta name="keywords" content="compress pdf to 100kb online free, reduce pdf file size below 50kb, merge pdf online free without watermark, extract specific pages from pdf online, convert jpg to pdf high resolution">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://youlovepdf.online/">
 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="YouLovePDF - Free Online PDF Tools">
-    <meta property="og:description" content="Free online PDF tools to compress, merge, split and convert your PDF files quickly and easily without installation.">
+    <meta property="og:description" content="Compress PDF to 100kb, merge without watermarks, and split pages for free. No installation required.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://youlovepdf.online/">
     <meta property="og:image" content="https://youlovepdf.online/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Google Fonts for Premium Look -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-    <!-- Schema Structured Data for Brand -->
+    <!-- Schema Structured Data (WebSite + FAQPage) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "YouLovePDF",
-      "alternateName": ["You Love PDF", "YouLovePDF Online"],
-      "url": "https://youlovepdf.online/",
-      "description": "Free online PDF tools to compress, merge, split, and convert PDF files.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://youlovepdf.online/?s={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "YouLovePDF",
+          "url": "https://youlovepdf.online/",
+          "description": "Free online PDF tools to compress, merge, split, and convert PDF files.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://youlovepdf.online/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How to compress PDF to 100kb online free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply select our Compress PDF tool, upload your file (like Aadhar or Resume), and our system will automatically reduce the PDF file size below 100kb or 50kb without losing quality."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I merge PDF online free without watermark?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, YouLovePDF allows you to combine multiple PDF files into one single document completely free and without adding any watermarks to your pages."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How to extract specific pages from PDF online?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Use our Split PDF tool to extract specific pages or separate large PDF documents into smaller files instantly without installing any software."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
 
     <style>
-        /* =========================
-           RESET & GLOBAL
-        ========================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        /* Reset & Global */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
-        /* Premium Background with subtle mesh gradient */
         body {
             font-family: 'Outfit', sans-serif;
             background-color: #fafbfc;
@@ -68,353 +91,140 @@
             overflow-x: hidden;
         }
 
-        /* =========================
-           HEADER (UNTOUCHED)
-        ========================= */
+        /* Header */
         .header {
-            width: 100%;
-            min-height: 70px;
-            background: #e53935;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 7%;
-            border-bottom: 1px solid #c62828;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            width: 100%; min-height: 70px; background: #e53935;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 7%; border-bottom: 1px solid #c62828;
+            position: sticky; top: 0; z-index: 1000;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ffffff;
-            white-space: nowrap;
-        }
-        .navbar {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-        .navbar a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 400;
-            transition: color 0.2s ease;
-        }
-        .navbar a:hover {
-            color: #ffd6d6;
-        }
+        .logo { font-size: 24px; font-weight: 800; color: #ffffff; white-space: nowrap; }
+        .navbar { display: flex; align-items: center; gap: 30px; }
+        .navbar a { text-decoration: none; color: #ffffff; font-size: 15px; transition: color 0.2s ease; }
+        .navbar a:hover { color: #ffd6d6; }
 
-        /* =========================
-           AD CONTAINER
-        ========================= */
+        /* Ad Container */
         .page-ad {
-            width: 100%;
-            min-height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            margin: 25px auto;
-            padding: 0 10px;
+            width: 100%; min-height: 60px; display: flex; justify-content: center;
+            align-items: center; text-align: center; overflow: hidden;
+            margin: 25px auto; padding: 0 10px;
         }
         .page-ad iframe {
-            display: block !important;
-            width: 468px !important;
-            height: 60px !important;
-            max-width: 100% !important;
-            margin: 0 auto !important;
-            border-radius: 8px; /* Slight rounding for ads */
+            display: block !important; width: 468px !important; height: 60px !important;
+            max-width: 100% !important; margin: 0 auto !important; border-radius: 8px;
         }
 
-        /* =========================
-           HERO SECTION (Classy Look)
-        ========================= */
-        .hero-section {
-            text-align: center;
-            padding: 60px 20px 30px;
-            position: relative;
-        }
+        /* Hero Section */
+        .hero-section { text-align: center; padding: 60px 20px 30px; position: relative; }
         .premium-badge {
-            display: inline-block;
-            background: rgba(229, 57, 53, 0.1);
-            color: #e53935;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
+            display: inline-block; background: rgba(229, 57, 53, 0.1);
+            color: #e53935; padding: 8px 20px; border-radius: 50px;
+            font-size: 14px; font-weight: 600; margin-bottom: 25px;
             border: 1px solid rgba(229, 57, 53, 0.2);
         }
         .hero-section h1 {
-            font-size: 52px;
-            font-weight: 800;
-            max-width: 850px;
-            margin: 0 auto;
-            line-height: 1.15;
-            /* Premium Gradient Text */
+            font-size: 52px; font-weight: 800; max-width: 850px; margin: 0 auto; line-height: 1.15;
             background: linear-gradient(135deg, #0f172a 0%, #e53935 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: #0f172a; /* Fallback */
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .hero-section p {
-            margin-top: 20px;
-            font-size: 19px;
-            color: #64748b;
-            line-height: 1.6;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
+            margin-top: 20px; font-size: 19px; color: #64748b; line-height: 1.6;
+            max-width: 650px; margin: 0 auto; font-weight: 300;
         }
 
-        /* =========================
-           TOOLS SECTION (Fancy Cards)
-        ========================= */
-        .tools-wrapper {
-            padding: 40px 20px 80px;
-            max-width: 1250px;
-            margin: 0 auto;
-        }
-        .tools-title {
-            text-align: center;
-            font-size: 32px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 50px;
-        }
+        /* Tools Section */
+        .tools-wrapper { padding: 40px 20px 80px; max-width: 1250px; margin: 0 auto; }
+        .tools-title { text-align: center; font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 50px; }
         .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            align-items: stretch;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; align-items: stretch;
         }
 
-        /* Tool Card - SEO Friendly Anchor */
         .tool-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 35px 25px;
-            border: 1px solid rgba(255, 255, 255, 1);
-            border-radius: 24px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
+            padding: 35px 25px; border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 24px; text-align: center; display: flex; flex-direction: column;
+            align-items: center; text-decoration: none; color: inherit;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
         .tool-card:hover {
-            transform: translateY(-12px);
-            background: #ffffff;
-            box-shadow: 0 25px 50px rgba(229, 57, 53, 0.08);
-            border-color: rgba(229, 57, 53, 0.2);
+            transform: translateY(-12px); background: #ffffff;
+            box-shadow: 0 25px 50px rgba(229, 57, 53, 0.08); border-color: rgba(229, 57, 53, 0.2);
         }
         
-        /* Fancy Icon Wrapper */
         .icon-wrapper {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 80px; height: 80px; border-radius: 20px;
             background: linear-gradient(135deg, #fff0f0, #ffe5e5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; margin-bottom: 20px; transition: transform 0.3s ease;
             box-shadow: inset 0 0 0 1px rgba(229, 57, 53, 0.1);
         }
-        .tool-card:hover .icon-wrapper {
-            transform: scale(1.1) rotate(5deg);
-        }
+        .tool-card:hover .icon-wrapper { transform: scale(1.1) rotate(5deg); }
 
-        .tool-card h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-        .tool-card p {
-            font-size: 15px;
-            color: #64748b;
-            line-height: 1.5;
-            flex-grow: 1;
-            font-weight: 300;
-        }
+        .tool-card h2 { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+        .tool-card p { font-size: 15px; color: #64748b; line-height: 1.5; flex-grow: 1; font-weight: 300; }
         
-        /* Premium Gradient Button */
         .tool-btn-style {
-            background: #f1f5f9;
-            color: #475569;
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 15px;
-            margin-top: 25px;
+            background: #f1f5f9; color: #475569; font-weight: 600; padding: 12px 28px;
+            border-radius: 50px; font-size: 15px; margin-top: 25px; width: 100%; border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
-            width: 100%;
-            border: 1px solid #e2e8f0;
         }
         .tool-card:hover .tool-btn-style {
-            background: linear-gradient(135deg, #e53935, #c62828);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
+            background: linear-gradient(135deg, #e53935, #c62828); color: #ffffff;
+            border-color: transparent; box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
         }
 
-        /* =========================
-           SEO FEATURES SECTION 
-        ========================= */
-        .features-section {
-            background: #ffffff;
-            padding: 80px 20px;
-            margin-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(0,0,0,0.03);
+        /* FAQ Section */
+        .faq-section {
+            max-width: 900px; margin: 40px auto 80px; padding: 40px;
+            background: #ffffff; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
         }
-        .features-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-        .feature-box {
-            padding: 20px;
-        }
-        .feature-box .f-icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-        .feature-box h3 {
-            font-size: 20px;
-            color: #0f172a;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-        .feature-box p {
-            font-size: 16px;
-            color: #64748b;
-            line-height: 1.6;
-            font-weight: 300;
-        }
+        .faq-section h2 { text-align: center; font-size: 28px; color: #0f172a; margin-bottom: 30px; font-weight: 800; }
+        .faq-item { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9; }
+        .faq-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .faq-item h3 { font-size: 18px; color: #1e293b; margin-bottom: 10px; font-weight: 600; }
+        .faq-item p { font-size: 15px; color: #64748b; line-height: 1.6; }
 
-        /* =========================
-           ABOUT / CONTACT
-        ========================= */
+        /* Footer & Info Section */
         .info-wrapper {
-            max-width: 1100px;
-            margin: 80px auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            padding: 0 20px;
+            max-width: 1100px; margin: 40px auto; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 40px; padding: 0 20px;
         }
         .info-section {
-            background: #ffffff;
-            padding: 50px 40px;
-            border: 1px solid rgba(0,0,0,0.04);
-            border-radius: 24px;
-            text-align: left;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            background: #ffffff; padding: 40px; border: 1px solid rgba(0,0,0,0.04);
+            border-radius: 24px; text-align: left; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
         }
-        .info-section h2 {
-            font-size: 28px;
-            color: #0f172a;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-        .info-section p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #64748b;
-            margin-bottom: 15px;
-            font-weight: 300;
-        }
+        .info-section h2 { font-size: 24px; color: #0f172a; margin-bottom: 15px; font-weight: 800; }
+        .info-section p { font-size: 15px; line-height: 1.8; color: #64748b; margin-bottom: 15px; }
 
-        /* =========================
-           FOOTER
-        ========================= */
         .footer {
-            margin-top: 40px;
-            padding: 60px 20px 30px;
-            background: #0f172a; /* Dark premium blue-black */
-            color: #ffffff;
-            text-align: center;
+            margin-top: 40px; padding: 60px 20px 30px; background: #0f172a;
+            color: #ffffff; text-align: center;
         }
-        .footer h2 {
-            margin-bottom: 15px;
-            font-size: 28px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-        .footer p {
-            font-size: 16px;
-            color: #94a3b8;
-            max-width: 500px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-        .footer-links {
-            margin: 30px 0;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: #f8fafc;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .footer-links a:hover {
-            color: #e53935;
-        }
-        .footer .copyright {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #475569;
-            border-top: 1px solid #1e293b;
-            padding-top: 25px;
-        }
+        .footer h2 { margin-bottom: 15px; font-size: 28px; font-weight: 800; }
+        .footer p { font-size: 16px; color: #94a3b8; max-width: 500px; margin: 0 auto 30px; line-height: 1.6; }
+        .footer-links { margin: 30px 0; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .footer-links a { color: #f8fafc; text-decoration: none; font-size: 15px; font-weight: 600; transition: color 0.3s; }
+        .footer-links a:hover { color: #e53935; }
+        .footer .copyright { margin-top: 40px; font-size: 14px; color: #475569; border-top: 1px solid #1e293b; padding-top: 25px; }
 
-        /* =========================
-           MOBILE RESPONSIVENESS
-        ========================= */
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                padding: 15px 20px;
-                gap: 12px;
-            }
+            .header { flex-direction: column; padding: 15px 20px; gap: 12px; }
             .navbar { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .hero-section h1 { font-size: 38px; }
             .info-wrapper { grid-template-columns: 1fr; gap: 25px; }
             .tools-grid { grid-template-columns: 1fr; }
-            .info-section { padding: 30px 20px; }
+            .faq-section, .info-section { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- =========================
-         HEADER (UNTOUCHED)
-    ========================= -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="logo">
-            You Love PDF
-        </div>
+        <div class="logo">You Love PDF</div>
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="#about">About</a>
@@ -422,9 +232,7 @@
         </nav>
     </header>
 
-    <!-- =========================
-         TOP AD (UNTOUCHED)
-    ========================= -->
+    <!-- TOP AD -->
     <div class="page-ad">
         <script>
             atOptions = {
@@ -438,28 +246,23 @@
         <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
     </div>
 
-    <!-- =========================
-         HERO SECTION (Fancy)
-    ========================= -->
+    <!-- HERO SECTION -->
     <section class="hero-section">
-        <div class="premium-badge">✨ 100% Free & Secure</div>
+        <div class="premium-badge">✨ 100% Free & No Sign Up</div>
         <h1>All Your PDF Tools in One Powerful Place</h1>
         <p>Simple, fast, and secure PDF utilities. Compress, merge, split, and convert your documents directly in your browser with zero installation.</p>
     </section>
 
-    <!-- =========================
-         TOOLS SECTION (SEO Friendly Links & Float Hover)
-    ========================= -->
+    <!-- TOOLS SECTION -->
     <main class="tools-wrapper">
         <h2 class="tools-title">Choose a Free PDF Tool</h2>
         
         <div class="tools-grid">
-            
             <!-- COMPRESS PDF -->
             <a href="https://youlovepdf.online/tools/compress.html" class="tool-card">
                 <div class="icon-wrapper">📦</div>
                 <h2>Compress PDF</h2>
-                <p>Reduce PDF file size quickly without losing document quality.</p>
+                <p>Reduce PDF file size below 100kb or 50kb quickly for Aadhar card and Resume uploads.</p>
                 <div class="tool-btn-style">Compress Now</div>
             </a>
 
@@ -467,7 +270,7 @@
             <a href="https://youlovepdf.online/tools/merge.html" class="tool-card">
                 <div class="icon-wrapper">📄</div>
                 <h2>Merge PDF</h2>
-                <p>Combine multiple PDF documents into one single file easily.</p>
+                <p>Combine multiple PDF documents into one single file easily without watermarks.</p>
                 <div class="tool-btn-style">Merge Now</div>
             </a>
 
@@ -475,7 +278,7 @@
             <a href="https://youlovepdf.online/tools/split.html" class="tool-card">
                 <div class="icon-wrapper">✂️</div>
                 <h2>Split PDF</h2>
-                <p>Extract specific pages or split large PDF files into smaller ones.</p>
+                <p>Extract specific pages or split large PDF files into multiple smaller documents free.</p>
                 <div class="tool-btn-style">Split Now</div>
             </a>
 
@@ -483,7 +286,7 @@
             <a href="https://youlovepdf.online/tools/jpg-to-pdf.html" class="tool-card">
                 <div class="icon-wrapper">🖼️</div>
                 <h2>JPG to PDF</h2>
-                <p>Convert JPG image files into a single, high-quality PDF document.</p>
+                <p>Convert JPG to PDF in high resolution. Best for scanned documents with no signup.</p>
                 <div class="tool-btn-style">Convert Now</div>
             </a>
 
@@ -491,39 +294,13 @@
             <a href="https://youlovepdf.online/tools/pdf-to-jpg.html" class="tool-card">
                 <div class="icon-wrapper">📑</div>
                 <h2>PDF to JPG</h2>
-                <p>Convert your PDF pages into high-quality JPG images instantly.</p>
+                <p>Turn PDF pages into JPG images with exact size and high quality instantly.</p>
                 <div class="tool-btn-style">Convert Now</div>
             </a>
-
         </div>
     </main>
 
-    <!-- =========================
-         SEO CONTENT BLOCK
-    ========================= -->
-    <section class="features-section">
-        <div class="features-grid">
-            <div class="feature-box">
-                <div class="f-icon">⚡</div>
-                <h3>Lightning Fast</h3>
-                <p>No complicated software to download. Upload your file, click a button, and download your processed PDF in seconds.</p>
-            </div>
-            <div class="feature-box">
-                <div class="f-icon">🔒</div>
-                <h3>Bank-Grade Security</h3>
-                <p>Your privacy is our priority. All files uploaded are processed via encrypted connections and deleted automatically.</p>
-            </div>
-            <div class="feature-box">
-                <div class="f-icon">🌐</div>
-                <h3>Works Everywhere</h3>
-                <p>Whether you are using Windows, Mac, iOS, or Android, our tools work perfectly on all modern web browsers.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================
-         BOTTOM AD (UNTOUCHED)
-    ========================= -->
+    <!-- BOTTOM AD -->
     <div class="page-ad">
         <script>
             atOptions = {
@@ -537,29 +314,43 @@
         <script src="https://www.highrevenueformat.com/732f22f6c131ad492451f9a21d5b692e/invoke.js"></script>
     </div>
 
-    <!-- =========================
-         ABOUT & CONTACT SECTIONS
-    ========================= -->
+    <!-- SEO FAQ SECTION -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <h3>How to compress PDF to 100kb online free?</h3>
+            <p>Simply select our Compress PDF tool, upload your file, and our system will automatically reduce the PDF file size below 100kb or 50kb. This is perfect for government portals requiring specific sizes for Aadhar or PAN cards.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>Can I merge PDF online free without watermark?</h3>
+            <p>Yes! YouLovePDF allows you to combine 2 or more PDF files into one single document completely free. We respect your privacy and never add watermarks to your merged files.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is it possible to extract specific pages from PDF online?</h3>
+            <p>Absolutely. Using our Split PDF tool, you can easily separate PDF pages without software installation. Just upload the file, select the pages you want to keep, and download the new extracted PDF.</p>
+        </div>
+    </section>
+
+    <!-- ABOUT & CONTACT -->
     <div class="info-wrapper">
         <section id="about" class="info-section">
             <h2>About YouLovePDF</h2>
-            <p>YouLovePDF is a modern, fast, and absolutely free online platform built to provide essential PDF tools for students, professionals, and everyday users.</p>
-            <p>Our mission is to make document management effortless by allowing you to compress, merge, split, and convert PDF files entirely in your browser without requiring expensive software subscriptions.</p>
+            <p>YouLovePDF is a modern, fast, and completely free online platform designed to provide essential PDF utility tools without requiring any software downloads or paid subscriptions.</p>
         </section>
 
         <section id="contact" class="info-section">
             <h2>Contact Support</h2>
-            <p>Have a question, feature suggestion, or experiencing an issue? We are always looking to improve our tools and would love to hear from you.</p>
-            <p>Drop us an email at: <strong>support@youlovepdf.com</strong></p>
+            <p>Experiencing an issue or have a feature request? Drop us an email at: <strong>support@youlovepdf.com</strong></p>
         </section>
     </div>
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
+    <!-- FOOTER -->
     <footer class="footer">
         <h2>YouLovePDF</h2>
-        <p>Simple, fast, and 100% free online PDF tools for everyone. Work smarter with your documents today.</p>
+        <p>Simple, fast, and 100% free online PDF tools. Work smarter with your documents today.</p>
         
         <div class="footer-links">
             <a href="index.html">Home</a>
