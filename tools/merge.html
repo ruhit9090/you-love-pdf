@@ -3,16 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Merge PDF Online Free - You Love PDF</title>
-<meta name="description" content="Merge multiple PDF files into one PDF online for free with You Love PDF. Combine PDF files quickly and easily without installing software.">
+<title>Merge PDF Online Free - YouLovePDF</title>
+<meta name="description" content="Merge multiple PDF files into one PDF online for free with YouLovePDF. Combine PDF files quickly and easily without installing software.">
 <meta name="keywords" content="merge PDF, merge PDF online, combine PDF, combine PDF files, free PDF merger, online PDF tools">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://youlovepdf.online/tools/merge.html">
 <link rel="icon" type="image/png" href="../favicon.png">
-<meta property="og:title" content="Merge PDF Online Free - You Love PDF">
-<meta property="og:description" content="Combine multiple PDF files into one PDF quickly and easily with You Love PDF.">
+<meta property="og:title" content="Merge PDF Online Free - YouLovePDF">
+<meta property="og:description" content="Combine multiple PDF files into one PDF quickly and easily with YouLovePDF.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://youlovepdf.online/tools/merge.html">
+
+<!-- Google Fonts for Premium Look -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
     * {
@@ -22,9 +27,14 @@
     }
 
     body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fb;
-        color: #222;
+        font-family: 'Outfit', sans-serif;
+        background-color: #fafbfc;
+        background-image: 
+            radial-gradient(at 0% 0%, hsla(353,100%,73%,0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, hsla(228,100%,74%,0.08) 0px, transparent 50%);
+        background-attachment: fixed;
+        color: #1e293b;
+        overflow-x: hidden;
     }
 
     .header {
@@ -43,7 +53,7 @@
 
     .logo {
         font-size: 24px;
-        font-weight: bold;
+        font-weight: 800;
         color: #ffffff;
     }
 
@@ -56,6 +66,7 @@
         text-decoration: none;
         color: #ffffff;
         font-size: 15px;
+        transition: color 0.2s ease;
     }
 
     .navbar a:hover {
@@ -66,21 +77,24 @@
     .top-ad {
         width: min(970px, 92%);
         min-height: 90px;
-        margin: 18px auto 0;
+        margin: 25px auto 0;
         background: #ffffff;
         border: 1px solid #e2e5ea;
-        border-radius: 10px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #999;
+        font-size: 13px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .top-ad-label {
         position: absolute;
         top: 6px;
-        left: 8px;
+        left: 10px;
         font-size: 10px;
         color: #aaa;
         text-transform: uppercase;
@@ -98,30 +112,31 @@
 
     .ad-container iframe {
         display: block !important;
-        width: 468px !important;
-        height: 60px !important;
-        max-width: 100% !important;
         margin: 0 auto !important;
     }
 
     /* MAIN CONTAINER */
     .container {
-        max-width: 1100px;
+        max-width: 1000px;
         margin: 45px auto 70px;
-        padding: 20px;
+        padding: 0 20px;
+        text-align: center;
     }
 
     h1 {
-        text-align: center;
-        font-size: 42px;
+        font-size: 44px;
+        font-weight: 800;
         margin-bottom: 15px;
+        background: linear-gradient(135deg, #0f172a 0%, #e53935 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .description {
-        text-align: center;
-        color: #666;
+        color: #64748b;
         font-size: 18px;
         margin-bottom: 40px;
+        font-weight: 300;
     }
 
     /* TOOL AREA */
@@ -129,61 +144,69 @@
         display: flex;
         gap: 30px;
         align-items: flex-start;
+        text-align: left;
     }
 
     /* LEFT SIDE */
     .preview-section {
-        width: 42%;
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
+        width: 45%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(229, 57, 53, 0.2);
+        border-radius: 20px;
+        padding: 25px;
         min-height: 420px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
     }
 
     .preview-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #0f172a;
     }
 
     .preview-help {
-        color: #888;
+        color: #64748b;
         font-size: 13px;
         margin-bottom: 18px;
         line-height: 1.5;
+        font-weight: 300;
     }
 
     #fileList {
         display: flex;
         flex-direction: column;
-        gap: 15px;
-        max-height: 500px;
+        gap: 12px;
+        max-height: 450px;
         overflow-y: auto;
         padding-right: 5px;
     }
 
     .empty-preview {
-        color: #888;
+        color: #64748b;
         text-align: center;
-        padding: 80px 20px;
+        padding: 60px 20px;
         line-height: 1.6;
+        font-weight: 300;
+        font-size: 14px;
     }
 
     .pdf-item {
-        background: #f8f9fc;
-        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
-        padding: 12px;
+        padding: 10px;
         display: flex;
         gap: 12px;
         align-items: center;
         cursor: grab;
-        transition: 0.2s;
+        transition: all 0.2s;
     }
 
     .pdf-item:hover {
-        border-color: #bbb;
+        border-color: #e53935;
+        box-shadow: 0 4px 12px rgba(229, 57, 53, 0.06);
     }
 
     .pdf-item.dragging {
@@ -191,11 +214,11 @@
     }
 
     .pdf-thumbnail {
-        width: 75px;
-        height: 95px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 6px;
+        width: 60px;
+        height: 75px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -216,32 +239,36 @@
     }
 
     .pdf-number {
-        font-size: 13px;
-        color: #777;
-        margin-bottom: 5px;
+        font-size: 11px;
+        color: #64748b;
+        margin-bottom: 3px;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 
     .pdf-name {
-        font-weight: bold;
-        font-size: 14px;
+        font-weight: 600;
+        font-size: 13px;
         word-break: break-word;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
+        color: #0f172a;
     }
 
     .pdf-size {
-        color: #777;
+        color: #64748b;
         font-size: 12px;
     }
 
     .remove-button {
         background: #fff;
-        border: 1px solid #ddd;
+        border: 1px solid #fee2e2;
         color: #e53935;
-        border-radius: 6px;
-        padding: 7px 9px;
+        border-radius: 8px;
+        padding: 6px 10px;
         cursor: pointer;
         font-size: 12px;
-        transition: 0.2s;
+        font-weight: 600;
+        transition: all 0.2s;
     }
 
     .remove-button:hover {
@@ -251,42 +278,61 @@
 
     /* RIGHT SIDE */
     .upload-section {
-        width: 58%;
-        background: white;
-        border-radius: 16px;
+        width: 55%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border: 2px dashed rgba(229, 57, 53, 0.3);
+        border-radius: 24px;
         padding: 45px 30px;
         text-align: center;
-        border: 2px dashed #d1d5db;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
+    }
+
+    .upload-section:hover {
+        border-color: #e53935;
+        background: #ffffff;
+        box-shadow: 0 20px 40px rgba(229, 57, 53, 0.08);
     }
 
     .upload-icon {
-        font-size: 55px;
-        margin-bottom: 15px;
+        font-size: 56px;
+        margin-bottom: 20px;
+        display: inline-block;
+        background: linear-gradient(135deg, #fff0f0, #ffe5e5);
+        padding: 18px;
+        border-radius: 50%;
     }
 
     .upload-section h2 {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #0f172a;
     }
 
     .upload-section p {
-        color: #777;
+        color: #64748b;
         margin-bottom: 25px;
+        font-weight: 300;
     }
 
     .add-button {
         display: inline-block;
-        background: #e53935;
+        background: linear-gradient(135deg, #e53935, #c62828);
         color: white;
-        padding: 13px 30px;
-        border-radius: 8px;
+        padding: 14px 32px;
+        border-radius: 50px;
         cursor: pointer;
         font-size: 16px;
-        transition: background 0.2s;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(229, 57, 53, 0.25);
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .add-button:hover {
-        background: #c62828;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(229, 57, 53, 0.35);
     }
 
     #pdfFile {
@@ -295,31 +341,36 @@
 
     /* MERGE BUTTON */
     #mergeButton {
+        display: inline-block;
         margin-top: 20px;
-        padding: 13px 30px;
-        background: #e53935;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #e53935, #c62828);
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 50px;
         cursor: pointer;
         font-size: 16px;
-        transition: background 0.2s;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(229, 57, 53, 0.25);
+        transition: transform 0.2s;
     }
 
     #mergeButton:hover {
-        background: #c62828;
+        transform: translateY(-2px);
     }
 
     #mergeButton:disabled {
         opacity: 0.7;
         cursor: not-allowed;
+        transform: none;
     }
 
     /* FILE COUNT */
     .file-count {
         margin-top: 15px;
-        color: #666;
+        color: #64748b;
         font-size: 14px;
+        font-weight: 300;
     }
 
     /* PROCESSING */
@@ -330,15 +381,16 @@
     }
 
     #progressPercentage {
-        font-size: 22px;
-        font-weight: bold;
+        font-size: 24px;
+        font-weight: 800;
+        color: #0f172a;
         margin-bottom: 10px;
     }
 
     .progress-track {
         width: 100%;
         height: 12px;
-        background: #e5e7eb;
+        background: #e2e8f0;
         border-radius: 999px;
         overflow: hidden;
     }
@@ -346,27 +398,27 @@
     #progressBar {
         width: 0%;
         height: 100%;
-        background: #e53935;
+        background: linear-gradient(135deg, #e53935, #c62828);
         border-radius: 999px;
         transition: width 0.25s ease;
     }
 
     #progressText {
         margin-top: 10px;
-        color: #666;
+        color: #64748b;
         font-size: 14px;
     }
 
     /* PLEASE WAIT + AD */
     #pleaseWaitArea {
         display: none;
-        margin-top: 18px;
+        margin-top: 20px;
     }
 
     #pleaseWaitText {
-        color: #666;
+        color: #475569;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: 12px;
     }
 
@@ -378,56 +430,58 @@
         align-items: center;
         overflow: hidden;
         background: #ffffff;
-        border-radius: 8px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
     }
 
     .processing-ad iframe {
         display: block !important;
-        width: 468px !important;
-        height: 60px !important;
-        max-width: 100% !important;
         margin: 0 auto !important;
     }
 
     /* STATUS & RESULT */
     #status {
         margin-top: 20px;
-        color: #555;
-        font-weight: bold;
-        line-height: 1.5;
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 16px;
     }
 
     #result {
-        margin-top: 12px;
-        color: #333;
-        line-height: 1.5;
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 15px;
     }
 
     /* DOWNLOAD */
     #downloadButton {
         display: none;
         margin: 24px auto 0;
-        padding: 13px 28px;
-        background: #e53935;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #10b981, #059669);
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 50px;
         cursor: pointer;
         font-size: 16px;
-        transition: background 0.2s;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        transition: transform 0.2s;
     }
 
     #downloadButton:hover {
-        background: #c62828;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(16, 185, 129, 0.35);
     }
 
     /* BACK */
     .back-button {
-        display: block;
-        width: fit-content;
-        margin: 35px auto 0;
+        display: inline-block;
+        margin-top: 35px;
         text-decoration: none;
-        color: #555;
+        color: #64748b;
+        font-weight: 600;
+        transition: color 0.2s;
     }
 
     .back-button:hover {
@@ -450,7 +504,7 @@
         background: white;
         width: min(900px, 95vw);
         height: min(90vh, 800px);
-        border-radius: 14px;
+        border-radius: 20px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -461,36 +515,39 @@
         align-items: center;
         justify-content: space-between;
         padding: 15px 20px;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e2e8f0;
     }
 
     .modal-title {
-        font-weight: bold;
+        font-weight: 700;
         max-width: 80%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: #0f172a;
     }
 
     .close-modal {
         border: none;
-        background: #f1f1f1;
+        background: #f1f5f9;
         width: 34px;
         height: 34px;
         border-radius: 50%;
         cursor: pointer;
         font-size: 20px;
+        color: #64748b;
     }
 
     .close-modal:hover {
-        background: #ddd;
+        background: #e2e8f0;
+        color: #0f172a;
     }
 
     .modal-body {
         flex: 1;
         overflow: auto;
         padding: 20px;
-        background: #eee;
+        background: #f8fafc;
         text-align: center;
     }
 
@@ -498,32 +555,38 @@
         max-width: 100%;
         height: auto;
         background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-radius: 8px;
     }
 
     .preview-controls {
         padding: 12px;
         text-align: center;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid #e2e8f0;
         background: white;
     }
 
     .preview-controls button {
-        padding: 7px 14px;
+        padding: 8px 16px;
         margin: 0 5px;
-        border: 1px solid #ddd;
+        border: 1px solid #cbd5e1;
         background: white;
-        border-radius: 6px;
+        border-radius: 50px;
         cursor: pointer;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        color: #475569;
     }
 
     .preview-controls button:hover {
-        background: #f1f1f1;
+        background: #f1f5f9;
+        color: #0f172a;
     }
 
     #pageInfo {
         margin: 0 10px;
         font-size: 14px;
+        color: #64748b;
     }
 
     /* MOBILE RESPONSIVE */
@@ -539,10 +602,6 @@
             gap: 18px;
             flex-wrap: wrap;
             justify-content: center;
-        }
-
-        .top-ad {
-            min-height: 70px;
         }
 
         .container {
@@ -562,21 +621,8 @@
             width: 100%;
         }
 
-        .preview-section {
-            order: 1;
-        }
-
-        .upload-section {
-            order: 2;
-        }
-
         .pdf-modal-content {
             height: 85vh;
-        }
-
-        .ad-container iframe,
-        .processing-ad iframe {
-            max-width: 100% !important;
         }
     }
 </style>
@@ -615,7 +661,7 @@
 
 <!-- MAIN -->
 <main class="container">
-    <h1>Merge PDF</h1>
+    <h1>Merge PDF Online</h1>
     <p class="description">Combine multiple PDF files into one PDF quickly and easily[cite: 1].</p>
 
     <div class="tool-area">
@@ -628,7 +674,7 @@
             <div id="fileList">
                 <div class="empty-preview">
                     No PDF added yet.<br>
-                    Click "Add PDF" to begin.
+                    Click "+ Add PDF" to begin.
                 </div>
             </div>
         </div>
@@ -828,7 +874,7 @@
             fileList.innerHTML = `
                 <div class="empty-preview">
                     No PDF added yet.<br>
-                    Click "Add PDF" to begin.
+                    Click "+ Add PDF" to begin.
                 </div>
             `;
             updateFileCount();
@@ -921,7 +967,6 @@
     pdfFile.addEventListener("change", () => {
         if (pdfFile.files.length === 0) return;
 
-        // Support multiple files selection natively
         Array.from(pdfFile.files).forEach(file => {
             if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) {
                 selectedFiles.push(file);
