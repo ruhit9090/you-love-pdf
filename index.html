@@ -21,7 +21,12 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Schema Structured Data for Brand (Google Entity Signal) -->
+    <!-- Google Fonts for Premium Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Schema Structured Data for Brand -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -50,15 +55,21 @@
         html {
             scroll-behavior: smooth;
         }
+        
+        /* Premium Background with subtle mesh gradient */
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f8f9fa; /* Lighter, cleaner background */
-            color: #333;
+            font-family: 'Outfit', sans-serif;
+            background-color: #fafbfc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(353,100%,73%,0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(228,100%,74%,0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: #1e293b;
             overflow-x: hidden;
         }
 
         /* =========================
-           HEADER (UNTOUCHED AS REQUESTED)
+           HEADER (UNTOUCHED)
         ========================= */
         .header {
             width: 100%;
@@ -75,7 +86,7 @@
         }
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 800;
             color: #ffffff;
             white-space: nowrap;
         }
@@ -88,6 +99,7 @@
             text-decoration: none;
             color: #ffffff;
             font-size: 15px;
+            font-weight: 400;
             transition: color 0.2s ease;
         }
         .navbar a:hover {
@@ -105,7 +117,7 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-            margin: 20px auto;
+            margin: 25px auto;
             padding: 0 10px;
         }
         .page-ad iframe {
@@ -114,173 +126,218 @@
             height: 60px !important;
             max-width: 100% !important;
             margin: 0 auto !important;
+            border-radius: 8px; /* Slight rounding for ads */
         }
 
         /* =========================
-           HERO SECTION (Professional Look)
+           HERO SECTION (Classy Look)
         ========================= */
         .hero-section {
             text-align: center;
-            padding: 60px 20px 40px;
-            background: #ffffff;
-            border-bottom: 1px solid #eaeaea;
+            padding: 60px 20px 30px;
+            position: relative;
+        }
+        .premium-badge {
+            display: inline-block;
+            background: rgba(229, 57, 53, 0.1);
+            color: #e53935;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(229, 57, 53, 0.2);
         }
         .hero-section h1 {
-            font-size: 42px;
+            font-size: 52px;
             font-weight: 800;
-            color: #111827;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
-            line-height: 1.2;
+            line-height: 1.15;
+            /* Premium Gradient Text */
+            background: linear-gradient(135deg, #0f172a 0%, #e53935 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #0f172a; /* Fallback */
         }
         .hero-section p {
-            margin-top: 15px;
-            font-size: 18px;
-            color: #4b5563;
+            margin-top: 20px;
+            font-size: 19px;
+            color: #64748b;
             line-height: 1.6;
-            max-width: 700px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 300;
         }
 
         /* =========================
-           TOOLS SECTION
+           TOOLS SECTION (Fancy Cards)
         ========================= */
         .tools-wrapper {
-            padding: 50px 20px;
-            max-width: 1200px;
+            padding: 40px 20px 80px;
+            max-width: 1250px;
             margin: 0 auto;
         }
         .tools-title {
             text-align: center;
-            font-size: 28px;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 40px;
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 50px;
         }
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
             align-items: stretch;
         }
 
-        /* Tool Card - Now an Anchor Tag for SEO */
+        /* Tool Card - SEO Friendly Anchor */
         .tool-card {
-            background: #ffffff;
-            padding: 35px 20px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 24px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-decoration: none; /* Removes link underline */
+            text-decoration: none;
             color: inherit;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
         .tool-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-color: #e53935;
-        }
-        .tool-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        .tool-card:hover .tool-icon {
-            transform: scale(1.1);
-        }
-        .tool-card h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 10px;
-        }
-        .tool-card p {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.5;
-            flex-grow: 1; /* Pushes button to bottom */
+            transform: translateY(-12px);
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(229, 57, 53, 0.08);
+            border-color: rgba(229, 57, 53, 0.2);
         }
         
-        /* Fake Button for visual appeal inside anchor */
+        /* Fancy Icon Wrapper */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #fff0f0, #ffe5e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: inset 0 0 0 1px rgba(229, 57, 53, 0.1);
+        }
+        .tool-card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .tool-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+        .tool-card p {
+            font-size: 15px;
+            color: #64748b;
+            line-height: 1.5;
+            flex-grow: 1;
+            font-weight: 300;
+        }
+        
+        /* Premium Gradient Button */
         .tool-btn-style {
-            background: #f3f4f6;
-            color: #e53935;
+            background: #f1f5f9;
+            color: #475569;
             font-weight: 600;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-top: 20px;
-            transition: background 0.3s ease, color 0.3s ease;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            margin-top: 25px;
+            transition: all 0.3s ease;
             width: 100%;
+            border: 1px solid #e2e8f0;
         }
         .tool-card:hover .tool-btn-style {
-            background: #e53935;
+            background: linear-gradient(135deg, #e53935, #c62828);
             color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
         }
 
         /* =========================
-           SEO FEATURES SECTION (NEW)
+           SEO FEATURES SECTION 
         ========================= */
         .features-section {
             background: #ffffff;
-            padding: 60px 20px;
+            padding: 80px 20px;
             margin-top: 20px;
-            border-top: 1px solid #eaeaea;
-            border-bottom: 1px solid #eaeaea;
+            border-top: 1px solid rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         .features-grid {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
             text-align: center;
         }
+        .feature-box {
+            padding: 20px;
+        }
+        .feature-box .f-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
         .feature-box h3 {
-            font-size: 18px;
-            color: #111827;
-            margin-bottom: 10px;
+            font-size: 20px;
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
         .feature-box p {
-            font-size: 15px;
-            color: #6b7280;
+            font-size: 16px;
+            color: #64748b;
             line-height: 1.6;
+            font-weight: 300;
         }
 
         /* =========================
            ABOUT / CONTACT
         ========================= */
         .info-wrapper {
-            max-width: 1000px;
-            margin: 60px auto;
+            max-width: 1100px;
+            margin: 80px auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 40px;
             padding: 0 20px;
         }
         .info-section {
             background: #ffffff;
-            padding: 40px 30px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
+            padding: 50px 40px;
+            border: 1px solid rgba(0,0,0,0.04);
+            border-radius: 24px;
             text-align: left;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
         }
         .info-section h2 {
-            font-size: 24px;
-            color: #1f2937;
-            margin-bottom: 15px;
+            font-size: 28px;
+            color: #0f172a;
+            margin-bottom: 20px;
+            font-weight: 800;
         }
         .info-section p {
             font-size: 16px;
-            line-height: 1.7;
-            color: #4b5563;
-            margin-bottom: 10px;
+            line-height: 1.8;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: 300;
         }
 
         /* =========================
@@ -288,41 +345,48 @@
         ========================= */
         .footer {
             margin-top: 40px;
-            padding: 50px 20px 30px;
-            background: #111827;
+            padding: 60px 20px 30px;
+            background: #0f172a; /* Dark premium blue-black */
             color: #ffffff;
             text-align: center;
         }
         .footer h2 {
             margin-bottom: 15px;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
         }
         .footer p {
-            font-size: 15px;
-            color: #9ca3af;
+            font-size: 16px;
+            color: #94a3b8;
             max-width: 500px;
-            margin: 0 auto 20px;
-            line-height: 1.5;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            font-weight: 300;
         }
         .footer-links {
-            margin: 25px 0;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         .footer-links a {
-            color: #ffffff;
+            color: #f8fafc;
             text-decoration: none;
-            margin: 0 15px;
             font-size: 15px;
-            transition: opacity 0.2s ease;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
         .footer-links a:hover {
             color: #e53935;
         }
         .footer .copyright {
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 14px;
-            color: #6b7280;
-            border-top: 1px solid #374151;
-            padding-top: 20px;
+            color: #475569;
+            border-top: 1px solid #1e293b;
+            padding-top: 25px;
         }
 
         /* =========================
@@ -334,9 +398,11 @@
                 padding: 15px 20px;
                 gap: 12px;
             }
-            .hero-section h1 { font-size: 32px; }
-            .info-wrapper { grid-template-columns: 1fr; }
+            .navbar { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .hero-section h1 { font-size: 38px; }
+            .info-wrapper { grid-template-columns: 1fr; gap: 25px; }
             .tools-grid { grid-template-columns: 1fr; }
+            .info-section { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -373,15 +439,16 @@
     </div>
 
     <!-- =========================
-         HERO SECTION (Optimized)
+         HERO SECTION (Fancy)
     ========================= -->
     <section class="hero-section">
-        <h1>Every tool you need to work with PDFs in one place</h1>
-        <p>100% Free online PDF tools. Compress, merge, split, and convert your PDF files directly in your browser without software installation.</p>
+        <div class="premium-badge">✨ 100% Free & Secure</div>
+        <h1>All Your PDF Tools in One Powerful Place</h1>
+        <p>Simple, fast, and secure PDF utilities. Compress, merge, split, and convert your documents directly in your browser with zero installation.</p>
     </section>
 
     <!-- =========================
-         TOOLS SECTION (SEO Friendly Links)
+         TOOLS SECTION (SEO Friendly Links & Float Hover)
     ========================= -->
     <main class="tools-wrapper">
         <h2 class="tools-title">Choose a Free PDF Tool</h2>
@@ -390,7 +457,7 @@
             
             <!-- COMPRESS PDF -->
             <a href="https://youlovepdf.online/tools/compress.html" class="tool-card">
-                <div class="tool-icon">📦</div>
+                <div class="icon-wrapper">📦</div>
                 <h2>Compress PDF</h2>
                 <p>Reduce PDF file size quickly without losing document quality.</p>
                 <div class="tool-btn-style">Compress Now</div>
@@ -398,7 +465,7 @@
 
             <!-- MERGE PDF -->
             <a href="https://youlovepdf.online/tools/merge.html" class="tool-card">
-                <div class="tool-icon">📄</div>
+                <div class="icon-wrapper">📄</div>
                 <h2>Merge PDF</h2>
                 <p>Combine multiple PDF documents into one single file easily.</p>
                 <div class="tool-btn-style">Merge Now</div>
@@ -406,7 +473,7 @@
 
             <!-- SPLIT PDF -->
             <a href="https://youlovepdf.online/tools/split.html" class="tool-card">
-                <div class="tool-icon">✂️</div>
+                <div class="icon-wrapper">✂️</div>
                 <h2>Split PDF</h2>
                 <p>Extract specific pages or split large PDF files into smaller ones.</p>
                 <div class="tool-btn-style">Split Now</div>
@@ -414,7 +481,7 @@
 
             <!-- JPG TO PDF -->
             <a href="https://youlovepdf.online/tools/jpg-to-pdf.html" class="tool-card">
-                <div class="tool-icon">🖼️</div>
+                <div class="icon-wrapper">🖼️</div>
                 <h2>JPG to PDF</h2>
                 <p>Convert JPG image files into a single, high-quality PDF document.</p>
                 <div class="tool-btn-style">Convert Now</div>
@@ -422,7 +489,7 @@
 
             <!-- PDF TO JPG -->
             <a href="https://youlovepdf.online/tools/pdf-to-jpg.html" class="tool-card">
-                <div class="tool-icon">📑</div>
+                <div class="icon-wrapper">📑</div>
                 <h2>PDF to JPG</h2>
                 <p>Convert your PDF pages into high-quality JPG images instantly.</p>
                 <div class="tool-btn-style">Convert Now</div>
@@ -432,21 +499,24 @@
     </main>
 
     <!-- =========================
-         SEO CONTENT BLOCK (Helps in Ranking)
+         SEO CONTENT BLOCK
     ========================= -->
     <section class="features-section">
         <div class="features-grid">
             <div class="feature-box">
-                <h3>Fast & Easy to Use</h3>
-                <p>No complicated software to download. Just upload your file, click a button, and download your processed PDF in seconds.</p>
+                <div class="f-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>No complicated software to download. Upload your file, click a button, and download your processed PDF in seconds.</p>
             </div>
             <div class="feature-box">
-                <h3>100% Secure</h3>
-                <p>Your privacy is our priority. All files uploaded to YouLovePDF are processed securely and deleted automatically from our servers.</p>
+                <div class="f-icon">🔒</div>
+                <h3>Bank-Grade Security</h3>
+                <p>Your privacy is our priority. All files uploaded are processed via encrypted connections and deleted automatically.</p>
             </div>
             <div class="feature-box">
-                <h3>Works on Any Device</h3>
-                <p>Whether you are using Windows, Mac, iOS, or Android, our online PDF tools work perfectly on all modern web browsers.</p>
+                <div class="f-icon">🌐</div>
+                <h3>Works Everywhere</h3>
+                <p>Whether you are using Windows, Mac, iOS, or Android, our tools work perfectly on all modern web browsers.</p>
             </div>
         </div>
     </section>
@@ -473,14 +543,14 @@
     <div class="info-wrapper">
         <section id="about" class="info-section">
             <h2>About YouLovePDF</h2>
-            <p>YouLovePDF is a simple, fast, and free online platform built to provide essential PDF tools for students, professionals, and everyday users.</p>
-            <p>Our mission is to make document management easy by allowing you to compress, merge, split, and convert PDF files entirely in your browser without requiring expensive software.</p>
+            <p>YouLovePDF is a modern, fast, and absolutely free online platform built to provide essential PDF tools for students, professionals, and everyday users.</p>
+            <p>Our mission is to make document management effortless by allowing you to compress, merge, split, and convert PDF files entirely in your browser without requiring expensive software subscriptions.</p>
         </section>
 
         <section id="contact" class="info-section">
-            <h2>Contact Us</h2>
-            <p>Have a question, feature suggestion, or experiencing an issue? We would love to hear from you.</p>
-            <p>Email us directly at: <strong>support@youlovepdf.com</strong></p>
+            <h2>Contact Support</h2>
+            <p>Have a question, feature suggestion, or experiencing an issue? We are always looking to improve our tools and would love to hear from you.</p>
+            <p>Drop us an email at: <strong>support@youlovepdf.com</strong></p>
         </section>
     </div>
 
@@ -501,8 +571,6 @@
             © 2026 YouLovePDF. All rights reserved. Built with ❤️ for document lovers.
         </p>
     </footer>
-
-    <!-- Note: Removed the JavaScript function openTool() because we are now using SEO-friendly anchor <a> tags! -->
 
 </body>
 </html>
