@@ -790,6 +790,90 @@ def pdf_to_jpg():
 
 
 # =========================================================
+# 6. PDF TO WORD
+# =========================================================
+
+@app.route("/pdf-to-word", methods=["POST"])
+def pdf_to_word():
+
+    if "file" not in request.files:
+        return jsonify({
+            "status": "error",
+            "message": "No PDF file received."
+        }), 400
+
+    file = request.files["file"]
+
+    if not file.filename:
+        return jsonify({
+            "status": "error",
+            "message": "No PDF file selected."
+        }), 400
+
+    if not file.filename.lower().endswith(".pdf"):
+        return jsonify({
+            "status": "error",
+            "message": "Please upload a PDF file."
+        }), 400
+
+    try:
+
+        file_data = file.read()
+
+        if not file_data:
+            return jsonify({
+                "status": "error",
+                "message": "The uploaded PDF is empty."
+            }), 400
+
+        server, task_id, headers = start_task("pdfword")
+
+        server_filename = upload_file(
+            server,
+            task_id,
+            headers,
+            file.filename,
+            file_data,
+            "application/pdf"
+        )
+
+        process_task(
+            server,
+            task_id,
+            headers,
+            "pdfword",
+            [{
+                "server_filename": server_filename,
+                "filename": file.filename
+            }]
+        )
+
+        word_data, content_type = download_result(
+            server,
+            task_id,
+            headers
+        )
+
+        return send_file(
+            io.BytesIO(word_data),
+            mimetype=(
+                "application/vnd.openxmlformats-officedocument."
+                "wordprocessingml.document"
+            ),
+            as_attachment=True,
+            download_name="pdf-to-word.docx"
+        )
+
+    except Exception as error:
+
+        print("iLoveAPI PDF to Word error:", error)
+
+        return jsonify({
+            "status": "error",
+            "message": "PDF to Word conversion failed. Please try again."
+        }), 500
+
+# =========================================================
 # RUN SERVER
 # =========================================================
 
